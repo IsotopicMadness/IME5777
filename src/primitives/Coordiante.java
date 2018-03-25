@@ -5,5 +5,8 @@ public class Coordiante {
 	public Coordiante(double x) {
 		this.x = x;
 	}
+	public double getX() {
+		return x;
+	}
 
 }
