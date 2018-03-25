@@ -2,6 +2,7 @@
  * 
  */
 package primitives;
+import java.lang.Math;
 
 /**
  * @author amich
@@ -31,6 +32,14 @@ public class Point3D extends Point2D {
 		return this;
 
 	}
+	
+	public Vector vectorSubstraction(Point3D other) {
+		return new Vector(new Coordinate(getX().subtract(other.getX().getNum())),new Coordinate(getY().subtract(other.getY().getNum())),new Coordinate(z.subtract(other.getZ().getNum())));
+	}
+	
+	public double distance(Point3D other) {
+		return Math.sqrt(Math.pow(getX().subtract(other.getX().getNum()), 2)+Math.pow(getY().subtract(other.getY().getNum()), 2)+Math.pow(z.subtract(other.getZ().getNum()), 2));
+	}
 	public boolean equals(Object obj) {
 		if(obj==null)
 			return false;
@@ -41,5 +50,8 @@ public class Point3D extends Point2D {
 		Point3D other= new Point3D((Point3D)obj);
 		return this.z.equals(other.getZ()) && super.equals(new Point2D(getX(),getY()));
 	};
-
+	@Override
+	public String toString() {
+		return "("+getX().toString()+", "+getY().toString()+", "+z.toString()+")";
+	}
 }

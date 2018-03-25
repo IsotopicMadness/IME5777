@@ -17,16 +17,12 @@ public class Coordinate {
 		x = (getExponent(coord) < ACCURACY) ? 0.0 : coord;
 	}
 	public Coordinate(Coordinate other) {
-		x = other._x();
+		x = other.getNum();
 	}
 	
 	//get/set
-	public double _x() {
+	public double getNum() {
 		return x;
-	}
-	
-	public void _x(double x) {
-		this.x = x;
 	}
 	
 	// double store format: seee eeee eeee (1.)mmmm … mmmm
@@ -36,7 +32,8 @@ public class Coordinate {
 		return (int)((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
 	}
 	
-	private double add(double other) {
+	@SuppressWarnings("unused")
+	private double _add(double other) {
 		int otherExp = getExponent(x);
 		int thisExp = getExponent(x);
 		// if other is too small relatively to our coordinate return the original coordinate
@@ -49,7 +46,7 @@ public class Coordinate {
 		return resultExp - thisExp < ACCURACY ? 0.0 : result;
 		}
 	
-	private double subtract(double other) {
+	private double _subtract(double other) {
 		int otherExp = getExponent(other);
 		int thisExp = getExponent(x);
 		// if other is too small relatively to our coordinate return the original coordinate
@@ -62,6 +59,21 @@ public class Coordinate {
 		return resultExp - thisExp < ACCURACY ? 0.0 : result;
 	}	
 
+	//API
+	private double _mult(double num) {
+		int deltaExp = getExponent(num - 1);
+		return deltaExp < ACCURACY ? x : x * num;
+	}
+	
+	public double add(double other) {
+		return _add(other);
+	}
+	public double subtract(double other) {
+		return _subtract(other);
+	}
+	public double mult(double num) {
+		return _mult(num);
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if(obj==null)
@@ -71,6 +83,11 @@ public class Coordinate {
 		if(this==obj)
 			return true;
 		Coordinate other = new Coordinate((Coordinate)obj);
-		return this.subtract(other._x())==0.0;
+		return this.subtract(other.getNum())==0.0;
+	}
+	@Override
+	public String toString() {
+	
+		return Double.toString(x);
 	}
 }

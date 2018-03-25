@@ -31,4 +31,9 @@ public class Ray extends Vector {
 		Ray other = new Ray((Ray)obj);
 		return this.location.equals(other.getLocation()) && super.equals(getDirection());	
 	}
+	
+	@Override
+	public String toString() {
+		return "Direction: "+super.toString()+"\nLocation: "+location.toString();
+	}
 }
