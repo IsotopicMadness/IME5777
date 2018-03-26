@@ -4,10 +4,8 @@
 package primitives;
 import java.lang.Math;
 
-/**
- * @author amich
- *
- */
+
+
 public class Point3D extends Point2D {
 
 	/**
@@ -24,22 +22,20 @@ public class Point3D extends Point2D {
 		this.z=new Coordinate(z);
 	}
 	
+	//get/set
 	public Coordinate getZ() {
 		return z;
 	}
-	
+	/**
+	 * this functions get used when the Vector is required to return a Point3D
+	 */
 	public Point3D getPoint3D() {
 		return this;
 
 	}
 	
-	public Vector vectorSubstraction(Point3D other) {
-		return new Vector(new Coordinate(getX().subtract(other.getX().getNum())),new Coordinate(getY().subtract(other.getY().getNum())),new Coordinate(z.subtract(other.getZ().getNum())));
-	}
-	
-	public double distance(Point3D other) {
-		return Math.sqrt(Math.pow(getX().subtract(other.getX().getNum()), 2)+Math.pow(getY().subtract(other.getY().getNum()), 2)+Math.pow(z.subtract(other.getZ().getNum()), 2));
-	}
+	//Overrides
+	@Override
 	public boolean equals(Object obj) {
 		if(obj==null)
 			return false;
@@ -53,5 +49,14 @@ public class Point3D extends Point2D {
 	@Override
 	public String toString() {
 		return "("+getX().toString()+", "+getY().toString()+", "+z.toString()+")";
+	}
+	
+	//operators
+	public Vector vectorSubstraction(Point3D other) {
+		return new Vector(new Coordinate(getX().subtract(other.getX().getNum())),new Coordinate(getY().subtract(other.getY().getNum())),new Coordinate(z.subtract(other.getZ().getNum())));
+	}
+	
+	public double distance(Point3D other) {
+		return Math.sqrt(Math.pow(getX().subtract(other.getX().getNum()), 2)+Math.pow(getY().subtract(other.getY().getNum()), 2)+Math.pow(z.subtract(other.getZ().getNum()), 2));
 	}
 }

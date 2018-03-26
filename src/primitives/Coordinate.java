@@ -13,6 +13,8 @@ public class Coordinate {
 	
 	private static final int ACCURACY = -20;
 
+	
+	
 	public Coordinate(double coord) {
 		x = (getExponent(coord) < ACCURACY) ? 0.0 : coord;
 	}
@@ -25,13 +27,35 @@ public class Coordinate {
 		return x;
 	}
 	
-	// double store format: seee eeee eeee (1.)mmmm … mmmm
-	// 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
-		
+	//admin
+	
+	/**
+	 * double store format: seee eeee eeee (1.)mmmm … mmmm 
+	 * 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
+	 */
 	private int getExponent(double num) {
 		return (int)((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
 	}
 	
+	//Override
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==null)
+			return false;
+		if(!(obj instanceof Coordinate))
+			return false;
+		if(this==obj)
+			return true;
+		Coordinate other = new Coordinate((Coordinate)obj);
+		return this.subtract(other.getNum())==0.0;
+	}
+	@Override
+	public String toString() {
+	
+		return Double.toString(x);
+	}
+	
+	//operations
 	private double _add(double other) {
 		int otherExp = getExponent(x);
 		int thisExp = getExponent(x);
@@ -57,13 +81,13 @@ public class Coordinate {
 		// if the result is relatively small - tell that it is zero
 		return resultExp - thisExp < ACCURACY ? 0.0 : result;
 	}	
-
-	//API
+	
 	private double _mult(double num) {
 		int deltaExp = getExponent(num - 1);
 		return deltaExp < ACCURACY ? x : x * num;
 	}
-	
+		
+	//API
 	public double add(double other) {
 		return _add(other);
 	}
@@ -72,21 +96,5 @@ public class Coordinate {
 	}
 	public double mult(double num) {
 		return _mult(num);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if(obj==null)
-			return false;
-		if(!(obj instanceof Coordinate))
-			return false;
-		if(this==obj)
-			return true;
-		Coordinate other = new Coordinate((Coordinate)obj);
-		return this.subtract(other.getNum())==0.0;
-	}
-	@Override
-	public String toString() {
-	
-		return Double.toString(x);
 	}
 }

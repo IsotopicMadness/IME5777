@@ -12,15 +12,15 @@ public class Point2D{
 			x=new Coordinate(other.getX());
 			y=new Coordinate(other.getY());
 		}
+		
+		//get/set
 		public Coordinate getX() {
 			return x;
 		}public Coordinate getY() {
 			return y;
 		}
 		
-		public Point2D substract(Point2D other) {
-			return new Point2D(new Coordinate(this.x.subtract(other.getX().getNum())),new Coordinate(this.y.subtract(other.getY().getNum())));
-		}
+		//Overrides
 		@Override
 		public boolean equals(Object obj) {
 			if(obj==null)
@@ -35,5 +35,13 @@ public class Point2D{
 		@Override
 		public String toString() {
 			return "("+x.toString()+", "+y.toString()+")";
+		}
+		
+		//operations
+		public Point2D substract(Point2D other) {
+			return new Point2D(new Coordinate(this.x.subtract(other.getX().getNum())),new Coordinate(this.y.subtract(other.getY().getNum())));
+		}
+		public Point2D add(Point2D other) {
+			return new Point2D(new Coordinate(this.x.add(other.getX().getNum())),new Coordinate(this.y.add(other.getY().getNum())));
 		}
 }
