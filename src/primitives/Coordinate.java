@@ -32,7 +32,6 @@ public class Coordinate {
 		return (int)((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
 	}
 	
-	@SuppressWarnings("unused")
 	private double _add(double other) {
 		int otherExp = getExponent(x);
 		int thisExp = getExponent(x);
