@@ -55,7 +55,7 @@ public class MainTest {
 		 * The "add", "Subtract" and "mult/scale" seems to be working even with extreme cases
 	  	 *
 		 * 1.0 2.0 -4.0
-		 * 0.0
+		 * 0.5
 		 * (1.0, 2.0)
  		 * (-0.4, 5.0)
 		 * (1.0, 2.0, -4.0)
