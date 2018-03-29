@@ -28,9 +28,10 @@ public abstract class RadialGeometry extends Geometry {
 		return point;
 	}
 
-	//@Override
-	//public String toString() {
-		//return null;}
+	@Override
+	public String toString() {
+		return "Radius: "+_radius+", Point: "+point.toString();
+		}
 	
 	//public void setPoint(Point3D point) {
 		//this.point = point;

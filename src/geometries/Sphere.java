@@ -16,4 +16,8 @@ public class Sphere extends RadialGeometry{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }

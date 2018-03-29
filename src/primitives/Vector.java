@@ -3,7 +3,7 @@ package primitives;
 
 public class Vector extends Point3D {
 
-	double length;
+	private double length;
 	
 	//Constructors
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
@@ -17,6 +17,10 @@ public class Vector extends Point3D {
 		super(other.getX(), other.getY(), other.getZ());
 	}
 	
+	//getters/setters
+	public double getLength() {
+		return length;
+	}
 	//admin
 	private double _length() {
 		return super.distance(this.getPoint3D());
@@ -53,9 +57,18 @@ public class Vector extends Point3D {
 	}
 	//Double check result
 	public Vector crossProduct(Vector other) {
-		return new Vector(new Coordinate(this.getY().mult(other.getZ().getNum())-this.getZ().mult(other.getY().getNum())), new Coordinate(this.getX().mult(other.getZ().getNum())-this.getZ().mult(other.getZ().getNum())), new Coordinate(this.getX().mult(other.getY().getNum())-this.getY().mult(other.getX().getNum())));
+		return new Vector(
+				new Coordinate(
+						this.getY().mult(other.getZ().getNum())
+						-this.getZ().mult(other.getY().getNum())), 
+				new Coordinate(
+						this.getX().mult(other.getZ().getNum())
+						-this.getZ().mult(other.getX().getNum())), 
+				new Coordinate(
+						this.getX().mult(other.getY().getNum())
+						-this.getY().mult(other.getX().getNum())));
 	}
 	public Vector normalize() {
-		return new Vector(this.scalarMuliplication(1/length));
+		return this.scalarMuliplication(1/length);
 	}
 }

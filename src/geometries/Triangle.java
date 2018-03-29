@@ -40,11 +40,10 @@ public class Triangle extends Geometry {
 
 	}	
 
-	/*Override
+	@Override
 	public String toString() {
-		
-	return "";
-	}*/
+		return p1.toString()+", "+p2.toString()+", "+p3.toString();
+		}
 	
 	@Override
 	public Vector getNormal(Point3D p) {

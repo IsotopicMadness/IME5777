@@ -34,7 +34,9 @@ public class Plane extends Geometry {
 	}
 	
 	@Override
-	public String toString() {return "\n";}
+	public String toString() {
+		return "Point: "+point.toString()+", Vector: "+vector.toString();
+		}
 	
 	//Operators
 	@Override
