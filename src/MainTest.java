@@ -24,7 +24,7 @@ public class MainTest {
 		
 		System.out.println(x.toString()+" "+y.toString()+" "+z.toString());
 		
-		System.out.println(x.mult(1/2));
+		System.out.println(x.mult(0.5));
 		
 		Point2D p2 = new Point2D(x,y);
 		Point2D p2_1 = new Point2D (new Coordinate(-0.4), new Coordinate(5.0));
