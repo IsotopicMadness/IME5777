@@ -12,9 +12,11 @@ public class Vector extends Point3D {
 	}
 	public Vector(Point3D point) {
 		super(point);
+		length=_length();
 	}
 	public Vector(Vector other) {
 		super(other.getX(), other.getY(), other.getZ());
+		length=other.getLength();
 	}
 	
 	//getters/setters
@@ -23,7 +25,7 @@ public class Vector extends Point3D {
 	}
 	//admin
 	private double _length() {
-		return super.distance(this.getPoint3D());
+		return super.distance(new Point3D(new Coordinate(0.0), new Coordinate(0.0), new Coordinate(0.0)));
 	}
 	
 	//overrides

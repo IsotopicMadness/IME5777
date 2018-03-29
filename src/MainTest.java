@@ -53,7 +53,7 @@ public class MainTest {
 		/**
 		 * Output from the begging until this point:
 		 * The "add", "Subtract" and "mult/scale" seems to be working even with extreme cases
-		 * An issue was observed with the Coordinate.mult function. The function doesn't bring the right value when given a fracture.  
+	  	 *
 		 * 1.0 2.0 -4.0
 		 * 0.0
 		 * (1.0, 2.0)
@@ -63,7 +63,7 @@ public class MainTest {
 		 * (2.0, 4.0, -6.0)
 		 * (34.0, 14.0, 2.0)
 		 * (368.0, 832.0, -432.0)
-		 * (Infinity, Infinity, -Infinity)
+		 * (0.36540173102745377, 0.8261256527577217, -0.4289498581626631)
 		 * (2.0, 4.0, -6.0)
 		 * Direction: (2.0, 4.0, -6.0)
 		 * Location: (0.0, -8.0, 2.0)
@@ -89,7 +89,7 @@ public class MainTest {
 		 *(1.0, 4.0, -9.0), (-1.0, 2.0, 3.0), (7.0, 0.0, 5.0)
 		 *Point: (1.0, 4.0, -9.0), Vector: (2.0, 4.0, -6.0)
 		 *Radius: 5.0, Point: (7.0, 0.0, 5.0)
-		 *Direction and length: (2.0, 4.0, -6.0), 0.0
+		 *Direction and length: (2.0, 4.0, -6.0), 7.483314773547883
 		 *Radius: 5.0
 		 *Point: (-1.0, 2.0, 3.0)
 		 */
