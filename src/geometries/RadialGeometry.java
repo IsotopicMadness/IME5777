@@ -5,36 +5,37 @@ import primitives.Vector;
 
 public abstract class RadialGeometry extends Geometry {
 	
-private double _radius;
-private Point3D point;
+	private double _radius;
+	private Point3D point;
 //***************** Constructors ********************** // 
 
-public RadialGeometry(double r,Point3D p) {
-	if (r<=0)
-		throw new IllegalArgumentException("radius cannot be negative\n");
-	else
-		_radius = r;
+	public RadialGeometry(double r,Point3D p) {
+		if (r<=0)
+			throw new IllegalArgumentException("radius cannot be negative\n");
+		else
+			_radius = r;
+		
+			point = p;
 	
-		setPoint(p);
+	}
+	public RadialGeometry(RadialGeometry ra) {
+		this.point = new Point3D(ra.point);
+		this._radius = ra._radius;
+}
+//********* Get/Set*******************//
+	public double getRadius() {return _radius;}
 	
-}
-public RadialGeometry(RadialGeometry ra) {
-	this.point=ra.point;
-	this._radius=ra._radius;
-}
-
-public double getRadius() {return _radius;}
-
-
-	@Override
-	public String toString() {
-		return null;}
 	public Point3D getPoint() {
 		return point;
 	}
-	public void setPoint(Point3D point) {
-		this.point = point;
-	}
+
+	//@Override
+	//public String toString() {
+		//return null;}
+	
+	//public void setPoint(Point3D point) {
+		//this.point = point;
+	//}
 
 	// ***************** Operations ******************** //
 
