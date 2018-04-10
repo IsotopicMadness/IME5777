@@ -13,8 +13,10 @@ public class Sphere extends RadialGeometry{
 	//Overrides
 	@Override
 	public Vector getNormal(Point3D p) {
-		// TODO Auto-generated method stub
-		return null;
+		if(p.distance(this.getPoint())!= this.getRadius())
+			return null;
+		else
+			return (new Vector(p.subtract(this.getPoint())).normalize());
 	}
 	@Override
 	public String toString() {

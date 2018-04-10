@@ -1,18 +1,21 @@
 package geometries;
 import primitives.*;
 
-public class Triangle extends Geometry {
+public class Triangle extends Plane {
 	
 	private Point3D p1,p2,p3;
 
 	//***************** Constructors ********************** //
 	//public Triangle() {return;}
 	public Triangle(Point3D p1,Point3D p2,Point3D p3 ) {
+		super(p1,p2,p3);
 		this.p1=new Point3D(p1);
 		this.p2=new Point3D(p2);
 		this.p3=new Point3D(p3);
+		
 	}
 	public Triangle(Triangle other) {
+		super(other.getP1(),other.getP2(),other.getP3());
 		this.p1=new Point3D (other.getP1());
 		this.p2=new Point3D (other.getP2());
 		this.p3=new Point3D (other.getP3());
