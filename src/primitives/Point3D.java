@@ -13,9 +13,14 @@ public class Point3D extends Point2D {
 	 */
 	private Coordinate z;
 	
+	//Constructors
 	public Point3D(Point3D other) {
 		super(other.getX(),other.getY());
 		z=new Coordinate(other.getZ());
+	}
+	public Point3D(double x, double y, double z) {
+		super(new Coordinate(x),new Coordinate(y));
+		this.z = new Coordinate(z);
 	}
 	public Point3D(Coordinate x, Coordinate y, Coordinate z) {
 		super(x, y);
