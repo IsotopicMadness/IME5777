@@ -10,6 +10,10 @@ public class Vector extends Point3D {
 		super(x, y, z);
 		length=_length();
 	}
+	public Vector(double x, double y, double z) {
+		super(x,y,z);
+		length=_length();
+	}
 	public Vector(Point3D point) {
 		super(point);
 		length=_length();
