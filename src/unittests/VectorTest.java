@@ -42,6 +42,32 @@ public class VectorTest {
 	@Test
 	public void testSubtract() {
 		
+		//normal test
+		a = new Vector(1.0,1.0,1.0);
+		b = new Vector(2.0, 2.0, 2.0);
+		
+		assertEquals(new Vector(-1.0,-1.0,-1.0), a.substract(b));
+		
+		a = new Vector(1.0,1.0,1.0);
+		b = new Vector(-2.0,-2.0,-2.0);
+		
+		assertEquals(new Vector(3.0,3.0,3.0),a.subtract(b));
+		
+		//boundry test
+		a = new Vector(1.0,1.0,1.0);
+		b = new Vector(0.0,0.0,0.0);
+		
+		assertEquals(new Vector(1.0,1.0,1.0),a.subtract(b));
+		
+		a = new Vector(1.0,1.0,1.0);
+		b = new Vector(0.0000001,0.0000001,0.00000001);
+		
+		assertEquals(new Vector(1.0,1.0,1.0),a.subtract(b));
+		
+		a = new Vector(1.0,1.0,1.0);
+		b = new Vector(-0.00000001,-0.00000001,-0.000000001);
+		
+		assertEquals(new Vector(1.0,1.0,1.0),a.subtract(b));
 	}
 	@Test
 	public void testScaling() {
