@@ -85,10 +85,25 @@ public class VectorTest {
 	@Test
 	public void testDotProduct() {
 		
+		a = new Vector(1.0,1.0,1.0);
+		b = new Vector(3.0,5.0,6.0);
+		assertEquals((14.0),a.dotProduct(b),0.00000001); //?
+		
+		a = new Vector(1.0,1.0,1.0);
+		b = new Vector(-3.0,-4.0,-5.0);
+		assertEquals((-12.0),a.dotProduct(b),0.00000001);
 	}
 	@Test
 	public void testLength() {
+		a = new Vector(1,1,1);
+		b = new Vector(1,0,0);
+		assertEquals(Math.sqrt(3),a.getLength(),0.0001);
+		assertEquals(1.0,b.getLength(),0.0001);
 		
+		a = new Vector(-1,-1,-1);
+		b = new Vector(0,-1,0);
+		assertEquals(Math.sqrt(3),a.getLength(),0.0001);
+		assertEquals(1.0,b.getLength(),0.0001);
 	}
 	@Test
 	public void testNormalize() {
@@ -98,9 +113,5 @@ public class VectorTest {
 	public void testCrossProduct() {
 		
 	}
-	@Test
-	public void test() {
-
-	}
-
+	
 }
