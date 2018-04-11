@@ -46,7 +46,7 @@ public class VectorTest {
 		a = new Vector(1.0,1.0,1.0);
 		b = new Vector(2.0, 2.0, 2.0);
 		
-		assertEquals(new Vector(-1.0,-1.0,-1.0), a.substract(b));
+		assertEquals(new Vector(-1.0,-1.0,-1.0), a.subtract(b));
 		
 		a = new Vector(1.0,1.0,1.0);
 		b = new Vector(-2.0,-2.0,-2.0);
@@ -71,7 +71,16 @@ public class VectorTest {
 	}
 	@Test
 	public void testScaling() {
+		a = new Vector(1.0,1.0,1.0);
 		
+		double d = 5;
+		assertEquals(new Vector(5.0,5.0,5.0),a.scalarMuliplication(d));
+		
+		d = 0;
+		assertEquals(new Vector(0,0,0), a.scalarMuliplication(d));
+		
+		d = -5;
+		assertEquals(new Vector(-5.0,-5.0,-5.0),a.scalarMuliplication(d));
 	}
 	@Test
 	public void testDotProduct() {
