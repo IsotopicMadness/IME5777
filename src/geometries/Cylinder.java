@@ -25,8 +25,7 @@ public class Cylinder extends RadialGeometry {
 	//Overriders
 	@Override
 	public Vector getNormal(Point3D p) {
-		// TODO Auto-generated method stub
-		return null;
+		return null;	// I have no idea how to do that.
 	}
 	@Override
 	public boolean equals(Object obj) {

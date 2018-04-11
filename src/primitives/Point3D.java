@@ -13,9 +13,14 @@ public class Point3D extends Point2D {
 	 */
 	private Coordinate z;
 	
+	//Constructors
 	public Point3D(Point3D other) {
 		super(other.getX(),other.getY());
 		z=new Coordinate(other.getZ());
+	}
+	public Point3D(double x, double y, double z) {
+		super(new Coordinate(x),new Coordinate(y));
+		this.z = new Coordinate(z);
 	}
 	public Point3D(Coordinate x, Coordinate y, Coordinate z) {
 		super(x, y);
@@ -54,6 +59,9 @@ public class Point3D extends Point2D {
 	//operators
 	public Vector vectorSubstraction(Point3D other) {
 		return new Vector(new Coordinate(getX().subtract(other.getX().getNum())),new Coordinate(getY().subtract(other.getY().getNum())),new Coordinate(z.subtract(other.getZ().getNum())));
+	}
+	public Point3D subtract(Point3D other) {
+		return new Point3D(new Coordinate(this.getX().subtract(other.getX().getNum())),new Coordinate(this.getY().subtract(other.getY().getNum())), new Coordinate(this.z.subtract(other.getZ().getNum())));
 	}
 	
 	public double distance(Point3D other) {
