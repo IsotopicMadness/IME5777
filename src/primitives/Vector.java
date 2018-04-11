@@ -55,11 +55,16 @@ public class Vector extends Point3D {
 		return new Vector(new Coordinate(getX().add(other.getX().getNum())),new Coordinate(getY().add(other.getY().getNum())), new Coordinate(getZ().add(other.getZ().getNum())));
 	}
 	public Vector scalarMuliplication(double lambda) {
-		return new Vector(new Coordinate(this.getX().mult(lambda)),new Coordinate(this.getY().mult(lambda)),new Coordinate(this.getZ().mult(lambda)));
+		return new Vector(
+				new Coordinate(this.getX().mult(lambda)),
+				new Coordinate(this.getY().mult(lambda)),
+				new Coordinate(this.getZ().mult(lambda)));
 	}
 	
 	public double dotProduct(Vector other) {
-		return (getX().mult(other.getX().getNum())+getY().mult(other.getY().getNum())+getZ().mult(other.getZ().getNum()));
+		return (getX().mult(other.getX().getNum())
+				+getY().mult(other.getY().getNum())
+				+getZ().mult(other.getZ().getNum()));
 	}
 	//Double check result
 	public Vector crossProduct(Vector other) {
