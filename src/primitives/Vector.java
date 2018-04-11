@@ -52,7 +52,15 @@ public class Vector extends Point3D {
 	
 	//operations
 	public Vector add(Vector other) {
-		return new Vector(new Coordinate(getX().add(other.getX().getNum())),new Coordinate(getY().add(other.getY().getNum())), new Coordinate(getZ().add(other.getZ().getNum())));
+		return new Vector(new Coordinate(getX().add(other.getX().getNum())),
+						  new Coordinate(getY().add(other.getY().getNum())),
+						  new Coordinate(getZ().add(other.getZ().getNum())));
+	}
+	
+	public Vector subtract(Vector other) {
+		return new Vector(new Coordinate(getX().add(-other.getX().getNum())),
+				  		  new Coordinate(getY().add(-other.getY().getNum())),
+				  		  new Coordinate(getZ().add(-other.getZ().getNum())));
 	}
 	public Vector scalarMuliplication(double lambda) {
 		return new Vector(
