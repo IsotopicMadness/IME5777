@@ -60,6 +60,10 @@ public class Point3D extends Point2D {
 	public Vector vectorSubstraction(Point3D other) {
 		return new Vector(new Coordinate(getX().subtract(other.getX().getNum())),new Coordinate(getY().subtract(other.getY().getNum())),new Coordinate(z.subtract(other.getZ().getNum())));
 	}
+	
+	public Point3D add(Point3D other) {
+		return new Point3D(new Coordinate(this.getX().add(other.getX().getNum())),new Coordinate(this.getY().add(other.getY().getNum())), new Coordinate(this.z.add(other.getZ().getNum())));
+	}
 	public Point3D subtract(Point3D other) {
 		return new Point3D(new Coordinate(this.getX().subtract(other.getX().getNum())),new Coordinate(this.getY().subtract(other.getY().getNum())), new Coordinate(this.z.subtract(other.getZ().getNum())));
 	}
