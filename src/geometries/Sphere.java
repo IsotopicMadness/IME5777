@@ -29,14 +29,14 @@ public class Sphere extends RadialGeometry{
 		ray=new Ray(ray.normalize(),ray.getLocation());
 		double tm = (u.dotProduct(ray.getDirection()));
 		double d = Math.sqrt(
-				Math.pow(u.getLength(), 2)+
+				Math.pow(u.getLength(), 2)-
 				Math.pow(tm, 2));
 
 		if( d > this.getRadius())
 			return null;
 		double th = Math.sqrt(
 				Math.pow(this.getRadius(),2)
-				+Math.pow(d, 2));
+				-Math.pow(d, 2));
 		double t1 = tm+th;
 		double t2 = tm-th;
 		
