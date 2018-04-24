@@ -1,4 +1,6 @@
 package geometries;
+import java.util.ArrayList;
+
 import primitives.*;
 
 public class Sphere extends RadialGeometry{
@@ -18,6 +20,34 @@ public class Sphere extends RadialGeometry{
 		else
 			return (new Vector(p.subtract(this.getPoint())).normalize());
 	}
+	@Override
+	public ArrayList<Point3D> findIntersection(Ray ray) {
+		
+		ArrayList<Point3D> result = new ArrayList<Point3D>();
+		
+		Vector u = new Vector(this.getPoint().subtract(ray.getLocation()));
+		ray=new Ray(ray.normalize(),ray.getLocation());
+		double tm = (u.dotProduct(ray.getDirection()));
+		double d = Math.sqrt(
+				Math.pow(u.getLength(), 2)+
+				Math.pow(tm, 2));
+
+		if( d > this.getRadius())
+			return null;
+		double th = Math.sqrt(
+				Math.pow(this.getRadius(),2)
+				+Math.pow(d, 2));
+		double t1 = tm+th;
+		double t2 = tm-th;
+		
+		if(t1>0)
+			result.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t1))));
+		
+		if(t2>0)
+			result.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t2))));
+		return result;
+	}
+	
 	@Override
 	public String toString() {
 		return super.toString();
