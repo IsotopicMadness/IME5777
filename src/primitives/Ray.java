@@ -18,7 +18,7 @@ public class Ray extends Vector {
 	public Point3D getLocation() {
 		return location;
 	}
-	private Vector getDirection() {
+	public Vector getDirection() {
 		return new Vector(getX(),getY(),getZ());
 	}
 	
