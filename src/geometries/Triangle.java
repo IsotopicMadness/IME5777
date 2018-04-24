@@ -79,6 +79,5 @@ public class Triangle extends Plane {
 			return result;
 		else
 			return null;
-		
 	}
 }
