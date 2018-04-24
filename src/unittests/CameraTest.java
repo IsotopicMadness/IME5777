@@ -29,9 +29,9 @@ public class CameraTest {
 		for (int i = 0; i < HEIGHT; i++){
 			for (int j = 0; j < WIDTH; j++){
 				
-				Ray ray = camera.constructRayThroughPixel(WIDTH, HEIGHT, j, i, 1, 3 * WIDTH, 3 * HEIGHT);
+				Ray ray = camera.constructRayThroughPixel(WIDTH, HEIGHT, i, j, 1, 3 * WIDTH, 3 * HEIGHT);
 				
-				screen[i][j] = ray.getLocation();
+				screen[i][j] = ray.getDirection();
 				
 				System.out.print(screen[i][j]);
 				System.out.println(ray.getDirection());
@@ -41,7 +41,7 @@ public class CameraTest {
 				
 				// Checking all options
 				double x = screen[i][j].getX().getNum();
-				double y = screen[i][j].getX().getNum();
+				double y = screen[i][j].getY().getNum();
 				
 				if (Double.compare(x, 3) == 0 ||
 						Double.compare(x, 0) == 0 ||
