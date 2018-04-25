@@ -29,7 +29,6 @@ public class Coordinate {
 	
 	//admin
 	
-	
 	/**
 	 * double store format: seee eeee eeee (1.)mmmm … mmmm 
 	 * 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
