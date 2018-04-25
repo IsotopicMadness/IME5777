@@ -49,15 +49,14 @@ public class SphereTest {
 				ArrayList<Point3D> rayIntersectionPoints = new ArrayList<>(sphere. findIntersection(rays[i][j]));
 				ArrayList<Point3D> rayIntersectionPoints2 = new ArrayList<>(sphere2.findIntersection(rays[i][j]));
 				
-				//if(!(rayIntersectionPoints.size() == 0))
-					for (Point3D iPoint: rayIntersectionPoints)
-						intersectionPointsSphere.add(iPoint);
-				//if(!(rayIntersectionPoints2.size() == 0))
-					for (Point3D iPoint: rayIntersectionPoints2)
-						intersectionPointsSphere2.add(iPoint);
+				for (Point3D iPoint: rayIntersectionPoints)
+					intersectionPointsSphere.add(iPoint);
+				
+				for (Point3D iPoint: rayIntersectionPoints2)
+					intersectionPointsSphere2.add(iPoint);
 				
 			}
-			assertTrue(intersectionPointsSphere. size() == 2);
+			assertTrue(intersectionPointsSphere.size() == 2);
 			assertTrue(intersectionPointsSphere2.size() == 9);
 			
 			System.out.println("Intersection Points:");

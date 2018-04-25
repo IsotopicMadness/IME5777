@@ -67,8 +67,8 @@ public class Triangle extends Plane {
 		
 		result = super.findIntersection(ray);
 		
-		if(result==null)
-			return null;
+		if(result.size() == 0)
+			return result;
 		Point3D p = new Point3D(result.get(0));
 		
 		boolean t1 = n1.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
@@ -78,6 +78,6 @@ public class Triangle extends Plane {
 		if(t1&&t2&&t3||!t1&&!t2&&!t3)
 			return result;
 		else
-			return null;
+			return new ArrayList<Point3D>();
 	}
 }

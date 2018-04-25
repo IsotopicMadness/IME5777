@@ -33,7 +33,7 @@ public class Sphere extends RadialGeometry{
 				Math.pow(tm, 2));
 
 		if( d > this.getRadius())
-			return null;
+			return result;
 		double th = Math.sqrt(
 				Math.pow(this.getRadius(),2)
 				-Math.pow(d, 2));

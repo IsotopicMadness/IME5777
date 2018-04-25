@@ -62,8 +62,7 @@ public class Plane extends Geometry {
 					/(normal.dotProduct(ray.getDirection()));
 		if(t>0)
 			result.add(ray.getLocation().add(ray.getDirection().scalarMuliplication(t).getPoint3D()));
-		else
-			result = null;
+		
 		return result;
 	}
 	
