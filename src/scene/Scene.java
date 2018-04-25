@@ -19,6 +19,7 @@ public class Scene {
 	private double screenDistance;
 	
 	
+	
 	public Scene() {
 		setSceneName("Edward Elric for president");
 		setBackground(Color.RED);
