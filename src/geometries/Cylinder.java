@@ -25,7 +25,11 @@ public class Cylinder extends RadialGeometry {
 	//Overriders
 	@Override
 	public Vector getNormal(Point3D p) {
-		return null;	// I have no idea how to do that.
+		Vector v =new Vector(p.subtract(getPoint()));
+		double t=directionLength.dotProduct(v);
+		Point3D q= p.add(directionLength.scalarMuliplication(t));
+		Vector normal= new Vector(p.subtract(q));
+		return normal.normalize();
 	}
 	@Override
 	public boolean equals(Object obj) {
