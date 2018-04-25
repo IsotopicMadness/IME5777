@@ -40,10 +40,8 @@ public class Sphere extends RadialGeometry{
 		double t1 = tm+th;
 		double t2 = tm-th;
 		
-		if(t1>0)
+		if(t1!=0)
 			result.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t1))));
-		
-		if(t2>0)
 			result.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t2))));
 		return result;
 	}

@@ -46,8 +46,8 @@ public class SphereTest {
 						
 						WIDTH, HEIGHT, j, i, 1, 3 * WIDTH, 3 * HEIGHT);
 				
-				ArrayList<Point3D> rayIntersectionPoints = new ArrayList<>(sphere. findIntersection(rays[i][j]));
-				ArrayList<Point3D> rayIntersectionPoints2 = new ArrayList<>(sphere2.findIntersection(rays[i][j]));
+				ArrayList<Point3D> rayIntersectionPoints = new ArrayList<Point3D>(sphere. findIntersection(rays[i][j]));
+				ArrayList<Point3D> rayIntersectionPoints2 = new ArrayList<Point3D>(sphere2.findIntersection(rays[i][j]));
 				
 				for (Point3D iPoint: rayIntersectionPoints)
 					intersectionPointsSphere.add(iPoint);
