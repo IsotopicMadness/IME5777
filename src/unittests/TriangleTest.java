@@ -68,7 +68,6 @@ public class TriangleTest {
 		
 		for (Point3D iPoint: intersectionPointsTriangle2)
 			System.out.println(iPoint);
-		
 	}
 
 	/*@Test
