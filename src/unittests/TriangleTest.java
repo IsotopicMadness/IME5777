@@ -43,10 +43,10 @@ public class TriangleTest {
 			for (int j = 0; j < WIDTH; j++)
 			{
 				rays[i][j] = camera.constructRayThroughPixel
-						
 						(WIDTH, HEIGHT, j, i, 1, 3 * WIDTH, 3 * HEIGHT);
 				
-				ArrayList<Point3D> rayIntersectionPoints = triangle. findIntersection(rays[i][j]);
+				ArrayList<Point3D> rayIntersectionPoints; 
+				rayIntersectionPoints = triangle.findIntersection(rays[i][j]);
 				ArrayList<Point3D> rayIntersectionPoints2 = triangle2.findIntersection(rays[i][j]);
 				
 				for (Point3D iPoint: rayIntersectionPoints)
@@ -71,7 +71,7 @@ public class TriangleTest {
 		
 	}
 
-	@Test
+	/*@Test
 	public void testEqualsObject() {
 		fail("Not yet implemented");
 	}
@@ -104,6 +104,6 @@ public class TriangleTest {
 	@Test
 	public void testGetP3() {
 		fail("Not yet implemented");
-	}
+	}*/
 
 }
