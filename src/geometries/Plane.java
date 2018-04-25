@@ -1,7 +1,7 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Vector;
+import primitives.*;
+import java.util.ArrayList;
 
 public class Plane extends Geometry {
 	private Point3D point;
@@ -51,6 +51,20 @@ public class Plane extends Geometry {
 			return true;
 		Plane other = new Plane((Plane)obj);
 		return this.point.equals(other.point) && this.normal.equals(other.normal);
+	}
+	
+	@Override
+	public ArrayList<Point3D> findIntersection(Ray ray) {
+		
+		ArrayList<Point3D> result = new ArrayList<>();
+		ray = new Ray(ray.normalize(),ray.getLocation());
+		double t = (normal.dotProduct(point.vectorSubstraction(ray.getLocation())))
+					/(normal.dotProduct(ray.getDirection()));
+		if(t>0)
+			result.add(ray.getLocation().add(ray.getDirection().scalarMuliplication(t).getPoint3D()));
+		else
+			result = null;
+		return result;
 	}
 	
 	@Override

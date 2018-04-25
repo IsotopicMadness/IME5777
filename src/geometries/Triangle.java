@@ -1,4 +1,6 @@
 package geometries;
+import java.util.ArrayList;
+
 import primitives.*;
 
 public class Triangle extends Plane {
@@ -48,12 +50,34 @@ public class Triangle extends Plane {
 		return p1.toString()+", "+p2.toString()+", "+p3.toString();
 		}
 	
-	@Override
-	public Vector getNormal(Point3D p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	// ***************** Operations ******************** // 
-	
+	@Override
+	public ArrayList<Point3D> findIntersection(Ray ray) {
+		
+		ArrayList<Point3D> result = new ArrayList<>();
+		
+		Vector v1 = new Vector(p1.vectorSubstraction(ray.getLocation()));
+		Vector v2 = new Vector(p2.vectorSubstraction(ray.getLocation()));
+		Vector v3 = new Vector(p3.vectorSubstraction(ray.getLocation()));
+		
+		Vector n1 = v1.crossProduct(v2).normalize();
+		Vector n2 = v2.crossProduct(v3).normalize();
+		Vector n3 = v3.crossProduct(v1).normalize();
+		
+		result = super.findIntersection(ray);
+		
+		if(result==null)
+			return null;
+		Point3D p = new Point3D(result.get(0));
+		
+		boolean t1 = n1.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
+		boolean t2 = n2.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
+		boolean t3 = n3.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
+		
+		if(t1&&t2&&t3||!t1&&!t2&&!t3)
+			return result;
+		else
+			return null;
+	}
 }
