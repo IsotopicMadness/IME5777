@@ -18,6 +18,7 @@ public class Scene {
 	private Camera camera;
 	private double screenDistance;
 	
+	
 	public Scene() {
 		setSceneName("Edward Elric for president");
 		setBackground(Color.RED);
