@@ -1,1 +1,11 @@
-java.awt.Color _color;
+package primitives;
+
+/**
+ * 
+ 
+ *
+ */
+public class Color {
+private java.awt.Color _color;
+
+}
