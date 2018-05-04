@@ -15,7 +15,8 @@ public class MainTest {
 	 */
 	public static void main(String[] args) {
 		/**
-		 * We shall test the primitives package first
+		 * We shall test the primitives package first.
+		 * The tests will revolve around actions done on each class and the extreme cases.
 		 */
 		
 		Coordinate x=new Coordinate(1);
