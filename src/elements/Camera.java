@@ -1,6 +1,11 @@
 package elements;
 import primitives.*;
 
+/**
+ * 
+ *
+ */
+
 public class Camera {
 
 	private Point3D p0;
