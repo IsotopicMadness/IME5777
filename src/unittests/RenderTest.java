@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import geometries.*;
 import primitives.*;
-import renderer.ImageWriter;
-import renderer.Render;
+import render.ImageWriter;
+import render.Renderer;
 import scene.Scene;
 
 public class RenderTest {
