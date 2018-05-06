@@ -4,8 +4,8 @@ import primitives.*;
 import java.util.ArrayList;
 
 public class Plane extends Geometry {
-	private Point3D point;
-	private Vector normal;
+	private Point3D _point;
+	private Vector _normal;
 	
 	/**
 	 * Description	Resource	Path	Location	Type

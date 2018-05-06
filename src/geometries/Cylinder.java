@@ -5,7 +5,7 @@ import primitives.Vector;
 
 public class Cylinder extends RadialGeometry {
 
-	private Vector directionLength;
+	private Vector _directionLength;
 	
 	public Cylinder(double r, Point3D p, Vector directionAndLength) {
 		super(r, p);

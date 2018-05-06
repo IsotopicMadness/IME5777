@@ -10,7 +10,7 @@ import primitives.*;
 
 public class Camera {
 
-	private Point3D p0;
+	private Point3D _p0;
 	Vector vUp;
 	Vector vTo;
 	Vector vRight;	
@@ -41,6 +41,7 @@ public class Camera {
 	 * @param screenHeight
 	 * @return
 	 */
+	
 	public Ray constructRayThroughPixel(int Nx, int Ny, int i, int j, double screenDistance, double screenWidth, double screenHeight) {
 		
 		Point3D pC = new Point3D(

@@ -5,7 +5,7 @@ import primitives.*;
 public abstract class RadialGeometry extends Geometry {
 	
 	private double _radius;
-	private Point3D point;
+	private Point3D _point;
 //***************** Constructors ********************** // 
 
 	public RadialGeometry(double r,Point3D p) {
