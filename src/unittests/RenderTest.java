@@ -15,7 +15,7 @@ public class RenderTest {
 		Scene scene = new Scene("Test scene");
 		scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, -1, 0), new Vector(0, 0, 1)));
 		scene.setScreenDistance(100);
-		scene.setBackground(new Color(0, 0, 0));
+		scene.setBackground( new Color(0, 0, 0));
 		Geometries geometries = new Geometries();
 		scene.setGeomtries(geometries);
 		geometries.addGeometry(new Sphere(50, new Point3D(0, 0, 150)));
