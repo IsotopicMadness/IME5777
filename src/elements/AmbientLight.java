@@ -1,6 +1,7 @@
 package elements;
 
 import primitives.Color;
+import primitives.Point3D;
 
 public class AmbientLight {
 	private Color _color;
@@ -35,4 +36,12 @@ public class AmbientLight {
 	{
 		return _intensity;
 	}
+
+	/************** operations *******/
+	// calc the exact color of the point that we need
+	private Color calcColor(Point3D point) {
+		_color.setColor(_scene.get_ambientLight().getIntensity());
+		return _color;
+	}
+
 }

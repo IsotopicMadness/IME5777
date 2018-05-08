@@ -112,5 +112,5 @@ public class Color {
 		_blue /= exp;
 		return this;
 	}
-
+	
 }
