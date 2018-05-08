@@ -1,7 +1,7 @@
 package elements;
 
 import primitives.Color;
-import primitives.Point3D;
+
 
 public class AmbientLight {
 	private Color _color;
@@ -31,7 +31,7 @@ public class AmbientLight {
 	public void setKa(double ka) {
 		_Ka = ka;
 	}
-	// retuurn final Ambiant light after multiply in Ka 
+	// return final Ambient light after multiply in Ka 
 	public Color getIntensity()
 	{
 		return _intensity;
