@@ -17,8 +17,11 @@ public class Render {
 	/************** operations *******/
 	// calc the exact color of the point that we need
 	private Color calcColor(Point3D point) {
-		_color.setColor(_scene.getAmbientLight().getIntensity());//עמיחי,זה אשמת ניצן שלא עשה גטאמביאנט
+		_color.setColor(_scene.getAmbientLight().getIntensity().getColor().get);
 		return _color;
+	}
+	public ImageWriter getImageWriter() {
+		return _imageWriter;
 	}
 
 		printImage(int interval){}
@@ -55,6 +58,10 @@ public class Render {
 				}
 			}
 			return rePoint;
+		}
+		
+		public void printGrid() {
+			
 		}
 
 }

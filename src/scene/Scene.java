@@ -24,9 +24,15 @@ public class Scene {
 	public Scene() {
 		setSceneName("Edward Elric for president");
 		setBackground(Color.RED);
-		objects = new ArrayList<>();
+		objects = new Geometries();
 		setCamera(new Camera(new Point3D(0,0,0),new Vector(0,0,1), new Vector(1,0,0)));
 		setScreenDistance(1);
+	}
+	
+	public Scene(String name) {
+		sceneName = name;
+		background = new Color(0);
+		
 	}
 	
 	public Scene(String sceneName, Color background,ArrayList<Geometry> objects, Camera camera, double screenDistance) {
@@ -44,8 +50,8 @@ public class Scene {
 	public Scene(Scene other) {
 		this.setSceneName(other.getSceneName());
 		this.setBackground(other.getBackground());
-		this.objects = new ArrayList<>();
-		for(Geometry geo:other.getObjects()) {
+		this.objects = new Geometries();
+		for(Geometry geo:other.getObjects().getGeometries()) {
 			this.objects.add(geo);
 		}
 		this.setCamera(other.getCamera());
@@ -94,21 +100,25 @@ public class Scene {
 	}
 	
 	public void setObjects(ArrayList<Geometry> objects) {
-		this.objects = new ArrayList<>();
+		this.objects = new Geometries();
 		for(Geometry geo:objects)
 			this.objects.add(geo);
 	}
 	
-	public Color getAmbientLight() {
+	public AmbientLight getAmbientLight() {
 		return ambientLight;
 	}
 	
-	public void setAmbientLight(Color ambientLight) {
+	public void setAmbientLight(AmbientLight ambientLight) {
 		this.ambientLight = ambientLight;
 	}
 
 	public Geometries getGeometries() {
 		
 		return objects;
+	}
+
+	public void setGeomtries(Geometries geometries) {
+		objects = new Geometries(geometries);
 	}
 }

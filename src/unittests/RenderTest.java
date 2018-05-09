@@ -18,21 +18,21 @@ public class RenderTest {
 		scene.setBackground( new Color(0, 0, 0).getColor());
 		Geometries geometries = new Geometries();
 		scene.setGeomtries(geometries);
-		geometries.addGeometry(new Sphere(50, new Point3D(0, 0, 150)));
+		geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0));
 		
-		geometries.addGeometry(new Triangle(new Point3D( 100, 0, 149),
+		geometries.add(new Triangle(new Point3D( 100, 0, 149),
 				 							new Point3D(  0, 100, 149),
 				 							new Point3D( 100, 100, 149)));
 		
-		geometries.addGeometry(new Triangle(new Point3D( 100, 0, 149),
+		geometries.add(new Triangle(new Point3D( 100, 0, 149),
 				 			 				new Point3D(  0, -100, 149),
 				 			 				new Point3D( 100,-100, 149)));
 		
-		geometries.addGeometry(new Triangle(new Point3D(-100, 0, 149),
+		geometries.add(new Triangle(new Point3D(-100, 0, 149),
 				 							new Point3D(  0, 100, 149),
 				 							new Point3D(-100, 100, 149)));
 		
-		geometries.addGeometry(new Triangle(new Point3D(-100, 0, 149),
+		geometries.add(new Triangle(new Point3D(-100, 0, 149),
 				 			 				new Point3D(  0,  -100, 149),
 				 			 				new Point3D(-100, -100, 149)));
 		
@@ -41,6 +41,6 @@ public class RenderTest {
 		
 		render.renderImage();
 		render.printGrid(50);
-		render.writeToImage();
+		render.getImageWriter().writeToImage()();
 	}
 }
