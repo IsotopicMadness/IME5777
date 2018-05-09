@@ -19,7 +19,6 @@ public class RenderTest {
 		scene.setScreenDistance(100);
 		scene.setBackground( new Color(0, 0, 0).getColor());
 		Geometries geometries = new Geometries();
-		scene.setGeomtries(geometries);
 		geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0));
 		
 		geometries.add(new Triangle(new Point3D( 100, 0, 149),
@@ -38,6 +37,7 @@ public class RenderTest {
 				 			 				new Point3D(  0,  -100, 149),
 				 			 				new Point3D(-100, -100, 149)));
 		
+		scene.setGeomtries(geometries);
 		ImageWriter imageWriter = new ImageWriter("test0", 500, 500, 500, 500);
 		Render render = new Render(imageWriter, scene);
 		

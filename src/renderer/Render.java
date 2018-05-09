@@ -27,8 +27,10 @@ public class Render {
 		//printImage(int interval){}
 		
 		public void renderImage(){
+
 			int i = _imageWriter.getWidth()/_imageWriter.getNx();
 			int j = _imageWriter.getHeight()/_imageWriter.getNy();
+			
 			for(int k = 0; k<i;++k) {
 			
 				for(int l = 0; l<j;++l) {
@@ -36,9 +38,12 @@ public class Render {
 						(_imageWriter.getNx(), _imageWriter.getNy() , i, j,
 								_scene.getScreenDistance(),
 								_imageWriter.getWidth(), _imageWriter.getHeight());
+					
 					ArrayList<Point3D> intersectionPoints = _scene.getGeometries().findIntersections(ray);
+					
 					if(intersectionPoints.size()==0)
 						_imageWriter.writePixel(k, l, _scene.getBackground());
+					
 					else {
 						Point3D closestPoint = new Point3D(getClosestPoint(intersectionPoints));
 						_imageWriter.writePixel(k,l, calcColor(closestPoint).getColor());
@@ -58,10 +63,11 @@ public class Render {
 				}
 			}
 			return rePoint;
+			
 		}
 		
 		public void printGrid(int x) {
-			int numOfPixels = 10;
+			
 			for (int i = 0; i<_imageWriter.getNx(); i++) {
 				for (int j=0;j<_imageWriter.getNy();j++) {
 					if(i%x == 0 || j%x == 0)
