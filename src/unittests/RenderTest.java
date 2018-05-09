@@ -2,6 +2,7 @@ package unittests;
 
 import org.junit.Test;
 
+import elements.AmbientLight;
 import elements.Camera;
 import geometries.*;
 import primitives.*;
@@ -14,6 +15,7 @@ public class RenderTest {
 	public void basicRendering(){
 		Scene scene = new Scene("Test scene");
 		scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, -1, 0), new Vector(0, 0, 1)));
+		scene.setAmbientLight(new AmbientLight(new Color(255,255,255), 0.9));
 		scene.setScreenDistance(100);
 		scene.setBackground( new Color(0, 0, 0).getColor());
 		Geometries geometries = new Geometries();
@@ -40,7 +42,7 @@ public class RenderTest {
 		Render render = new Render(imageWriter, scene);
 		
 		render.renderImage();
-		render.printGrid(50);
+		//render.printGrid(50);
 		render.getImageWriter().writeToImage();
 	}
 }
