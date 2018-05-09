@@ -14,7 +14,7 @@ public class Scene {
 
 	private String sceneName;
 	private Color background;
-	private ArrayList<Geometry> objects;
+	private Geometries objects;
 	private Camera camera;
 	private double screenDistance;
 	private AmbientLight ambientLight;
@@ -105,5 +105,10 @@ public class Scene {
 	
 	public void setAmbientLight(Color ambientLight) {
 		this.ambientLight = ambientLight;
+	}
+
+	public ArrayList<Geometry> getGeometries() {
+		
+		return objects;
 	}
 }

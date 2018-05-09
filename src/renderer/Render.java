@@ -21,9 +21,22 @@ public class Render {
 		return _color;
 	}
 
-		printImage(int interval){};
+		printImage(int interval){}
 		
-		renderImage();
+		public void renderImage(){
+			int i = _imageWriter.getWidth()/_imageWriter.getNx();
+			int j = _imageWriter.getHeight()/_imageWriter.getNy();
+			for(int k = 0; k<i;++k) {
+			
+				for(int l = 0; l<j;++l) {
+					Ray ray = _scene.getCamera().constructRayThroughPixel
+						(_imageWriter.getNx(), _imageWriter.getNy() , i, j,
+								_scene.getScreenDistance(),
+								_imageWriter.getWidth(), _imageWriter.getHeight());
+					ArrayList<Point3D> intersectionPoints = _scene.getGeometries().findIntersections(ray);
+				}
+			}
+		}
 		
 		//Shallow copy. Will be changed
 		public Point3D getClosestPoint(ArrayList<Point3D> points){

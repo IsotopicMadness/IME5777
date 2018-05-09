@@ -2,8 +2,6 @@ package primitives;
 
 /**
  * Wrapper class for Color instead of java.awt.Color
- * 
- * @author "Lior & Nitzan"
  *
  */
 public class Color {
