@@ -62,7 +62,12 @@ public class Render {
 		
 		public void printGrid(int x) {
 			int numOfPixels = 10;
-			
+			for (int i = 0; i<_imageWriter.getNx(); i++) {
+				for (int j=0;j<_imageWriter.getNy();j++) {
+					if(i%x == 0 || j%x == 0)
+						_imageWriter.writePixel(i, j, 255,255,255);
+				}
+			}
 			
 		}
 
