@@ -1,7 +1,8 @@
 package renderer;
 
-import primitives.Color;
-import primitives.Point3D;
+import java.util.ArrayList;
+
+import primitives.*;
 import scene.Scene;
 
 public class Render {
@@ -20,6 +21,12 @@ public class Render {
 		
 		renderImage();
 		
-		getClosestPoint(List<Point3D> points): Point3D;
+		public Point3D getClosestPoint(ArrayList<Point3D> points){
+			double distance = Double.MAX_VALUE;
+			for(Point3D p : points) {
+				if(p.distance(_scene.getCamera().getP0())< distance)
+					distance = p.distance(_scene.getCamera().getP0());
+			}
+		}
 
 }

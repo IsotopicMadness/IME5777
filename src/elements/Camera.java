@@ -55,5 +55,9 @@ public class Camera {
 																getPoint3D()));
 		return new Ray(new Vector(pXY),p0);
 	}
+	
+	public Point3D getP0() {
+		return p0;
+	}
 
 }
