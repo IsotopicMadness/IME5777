@@ -17,6 +17,7 @@ public class Scene {
 	private ArrayList<Geometry> objects;
 	private Camera camera;
 	private double screenDistance;
+	private AmbientLight ambientLight;
 	
 	
 	
@@ -38,6 +39,17 @@ public class Scene {
 		}
 		this.setCamera(camera);
 		this.setScreenDistance(screenDistance);
+	}
+	
+	public Scene(Scene other) {
+		this.setSceneName(other.getSceneName());
+		this.setBackground(other.getBackground());
+		this.objects = new ArrayList<>();
+		for(Geometry geo:other.getObjects()) {
+			this.objects.add(geo);
+		}
+		this.setCamera(other.getCamera());
+		this.setScreenDistance(other.getScreenDistance());
 	}
 
 	public void addGeometry(Geometry geo) {
@@ -85,5 +97,13 @@ public class Scene {
 		this.objects = new ArrayList<>();
 		for(Geometry geo:objects)
 			this.objects.add(geo);
+	}
+	
+	public Color getAmbientLight() {
+		return ambientLight;
+	}
+	
+	public void setAmbientLight(Color ambientLight) {
+		this.ambientLight = ambientLight;
 	}
 }

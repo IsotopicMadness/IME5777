@@ -10,10 +10,14 @@ public class Render {
 	private ImageWriter _imageWriter;
 	private Color _color;
 
+	public Render(ImageWriter _imageWriter, Scene _scene) {
+		this._scene = new Scene(_scene);
+		this._imageWriter = new ImageWriter(_imageWriter);
+	}
 	/************** operations *******/
 	// calc the exact color of the point that we need
 	private Color calcColor(Point3D point) {
-		_color.setColor(_scene.get_ambientLight().getIntensity());//עמיחי,זה אשמת ניצן שלא עשה גטאמביאנט
+		_color.setColor(_scene.getAmbientLight().getIntensity());//עמיחי,זה אשמת ניצן שלא עשה גטאמביאנט
 		return _color;
 	}
 
