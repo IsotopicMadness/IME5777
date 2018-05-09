@@ -5,6 +5,9 @@ import primitives.Vector;
 
 public class Cylinder extends RadialGeometry {
 
+	/**
+	 * Cylinder inherits from RadialGeometry. Therefore the only additional 
+	 */
 	private Vector directionLength;
 	
 	public Cylinder(double r, Point3D p, Vector directionAndLength) {
@@ -23,6 +26,10 @@ public class Cylinder extends RadialGeometry {
 	}
 	
 	//Overriders
+	
+	/**
+	 * Returns normal
+	 */
 	@Override
 	public Vector getNormal(Point3D p) {
 		Vector v =new Vector(p.subtract(getPoint()));
@@ -31,6 +38,10 @@ public class Cylinder extends RadialGeometry {
 		Vector normal= new Vector(p.subtract(q));
 		return normal.normalize();
 	}
+	
+	/**
+	 * Checks if equals
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if(obj==null)

@@ -3,12 +3,16 @@ import java.util.ArrayList;
 
 import primitives.*;
 
+/**
+ * @author amich
+ *3d Object: Triangle.
+ *Basically plane but with cutted corners
+ */
 public class Triangle extends Plane {
 	
 	private Point3D p1,p2,p3;
 
 	//***************** Constructors ********************** //
-	//public Triangle() {return;}
 	public Triangle(Point3D p1,Point3D p2,Point3D p3 ) {
 		super(p1,p2,p3);
 		this.p1=new Point3D(p1);
@@ -26,10 +30,7 @@ public class Triangle extends Plane {
 	public Point3D getP1() {return p1;}
 	public Point3D getP2() {return p2;}
 	public Point3D getP3() {return p3;}
-	/*public void setP1(Point3D p) {p1=p;}
-	public void setP2(Point3D p) {p2=p;}
-	public void setP3(Point3D p) {p3=p;}
-	*/
+
 	// ***************** Administration  ******************** //
 
 	@Override
@@ -53,6 +54,10 @@ public class Triangle extends Plane {
 
 	// ***************** Operations ******************** // 
 	@Override
+	/**
+	 * @param ray
+	 * Calculates and returns the points where the given ray cross the triangle
+	 */
 	public ArrayList<Point3D> findIntersection(Ray ray) {
 		
 		ArrayList<Point3D> result = new ArrayList<>();

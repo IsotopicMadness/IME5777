@@ -3,6 +3,10 @@ import java.util.ArrayList;
 
 import primitives.*;
 
+/**
+ * 3D object: Sphere
+ *
+ */
 public class Sphere extends RadialGeometry{
 	//Constructors
 	public Sphere(Point3D center, double radius) {
@@ -14,6 +18,7 @@ public class Sphere extends RadialGeometry{
 	
 	//Overrides
 	@Override
+	//returns normal from a given point
 	public Vector getNormal(Point3D p) {
 		if(p.distance(this.getPoint())!= this.getRadius())
 			return null;
@@ -21,6 +26,10 @@ public class Sphere extends RadialGeometry{
 			return (new Vector(p.subtract(this.getPoint())).normalize());
 	}
 	@Override
+	/**
+	 * @param ray
+	 * Calculates and returns the points where the given ray crosses the Sphere
+	 */
 	public ArrayList<Point3D> findIntersection(Ray ray) {
 		
 		ArrayList<Point3D> result = new ArrayList<Point3D>();

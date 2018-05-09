@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.*;
-
+/**
+ * The Class acts as an interface for radius-based objects
+ *
+ */
 public abstract class RadialGeometry extends Geometry {
 	
 	private double _radius;

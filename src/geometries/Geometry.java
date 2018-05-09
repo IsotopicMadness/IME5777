@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import primitives.*;
 
+/**
+ * Used as an interface for every object in the scene 
+ * 
+ */
 public abstract class Geometry {
 	public Geometry() {}
 	public Geometry(Geometry g) {}	
