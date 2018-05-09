@@ -21,12 +21,17 @@ public class Render {
 		
 		renderImage();
 		
+		//Shallow copy. Will be changed
 		public Point3D getClosestPoint(ArrayList<Point3D> points){
+			Point3D rePoint = new Point3D(0,0,0);
 			double distance = Double.MAX_VALUE;
 			for(Point3D p : points) {
-				if(p.distance(_scene.getCamera().getP0())< distance)
+				if(p.distance(_scene.getCamera().getP0())< distance) {
 					distance = p.distance(_scene.getCamera().getP0());
+					rePoint = p;
+				}
 			}
+			return rePoint;
 		}
 
 }
