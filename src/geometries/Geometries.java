@@ -9,11 +9,15 @@ public class Geometries extends Geometry {
 	private ArrayList<Geometry> geometries;
 	
 	public Geometries() {
-		
+		geometries = new ArrayList<>();
 	}
 
-	public Geometries(Geometry g) {
-		super(g);
+	public Geometries(Geometries g) {
+		geometries = new ArrayList<>();
+		for(Geometry t : g.getGeometries()) {
+			geometries.add(t);
+		}
+		
 		
 	}
 	
@@ -28,6 +32,10 @@ public class Geometries extends Geometry {
 				reInt.add(p);
 		}
 		return reInt;
+	}
+	
+	public ArrayList<Geometry> getGeometries() {
+		return geometries;
 	}
 	
 	@Override

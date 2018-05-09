@@ -33,7 +33,7 @@ public class Scene {
 		
 		this.setSceneName(sceneName);
 		this.setBackground(background);
-		this.objects = new ArrayList<>();
+		this.objects = new Geometries();
 		for(Geometry geo:objects) {
 			this.objects.add(geo);
 		}
@@ -89,7 +89,7 @@ public class Scene {
 		this.screenDistance = screenDistance;
 	}
 	
-	public ArrayList<Geometry> getObjects() {
+	public Geometries getObjects() {
 		return objects;
 	}
 	
@@ -107,7 +107,7 @@ public class Scene {
 		this.ambientLight = ambientLight;
 	}
 
-	public ArrayList<Geometry> getGeometries() {
+	public Geometries getGeometries() {
 		
 		return objects;
 	}
