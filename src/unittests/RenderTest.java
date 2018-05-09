@@ -41,6 +41,6 @@ public class RenderTest {
 		
 		render.renderImage();
 		render.printGrid(50);
-		render.getImageWriter().writeToImage()();
+		render.getImageWriter().writeToImage();
 	}
 }

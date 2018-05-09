@@ -17,14 +17,14 @@ public class Render {
 	/************** operations *******/
 	// calc the exact color of the point that we need
 	private Color calcColor(Point3D point) {
-		_color.setColor(_scene.getAmbientLight().getIntensity().getColor().get);
+		_color.setColor(_scene.getAmbientLight().getIntensity().getColor());
 		return _color;
 	}
 	public ImageWriter getImageWriter() {
 		return _imageWriter;
 	}
 
-		printImage(int interval){}
+		//printImage(int interval){}
 		
 		public void renderImage(){
 			int i = _imageWriter.getWidth()/_imageWriter.getNx();
@@ -42,9 +42,9 @@ public class Render {
 					else {
 						Point3D closestPoint = new Point3D(getClosestPoint(intersectionPoints));
 						_imageWriter.writePixel(k,l, calcColor(closestPoint).getColor());
-					}
-				}
-			}
+					     }
+				                        }
+			                       }
 		}
 		
 		//Shallow copy. Will be changed
@@ -60,7 +60,9 @@ public class Render {
 			return rePoint;
 		}
 		
-		public void printGrid() {
+		public void printGrid(int x) {
+			int numOfPixels = 10;
+			
 			
 		}
 
