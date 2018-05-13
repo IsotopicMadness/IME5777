@@ -12,12 +12,15 @@ public abstract class Geometry {
 	Color _emmission;
 	
 	public Vector getNormal(Point3D p) {
-		Vector v=new Vector (1,0,0);
+		Vector v = new Vector (1,0,0);
 		return v;
 		
 	}
+	
 	public Geometry() {}
+	
 	public Geometry(Geometry g) {}	
+	
 	public ArrayList<Point3D> findIntersection(Ray ray) {
 		return null;
 	}
