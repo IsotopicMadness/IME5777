@@ -9,9 +9,15 @@ import primitives.*;
  * 
  */
 public abstract class Geometry {
+	Color _emmission;
+	
+	public Vector getNormal(Point3D p) {
+		Vector v=new Vector (1,0,0);
+		return v;
+		
+	}
 	public Geometry() {}
 	public Geometry(Geometry g) {}	
-	public abstract Vector getNormal(Point3D p);
 	public ArrayList<Point3D> findIntersection(Ray ray) {
 		return null;
 	}
