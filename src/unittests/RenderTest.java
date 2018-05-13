@@ -22,7 +22,7 @@ public class RenderTest {
 		
 		geometries.add(new Sphere(new Point3D(0, 0, -10), 9.9));
 		
-		/*geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0));
+		geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0));
 		
 		geometries.add(new Triangle(new Point3D( 100, 0, 149),
 				 							new Point3D(  0, 100, 149),
@@ -38,7 +38,7 @@ public class RenderTest {
 		
 		geometries.add(new Triangle(new Point3D(-100, 0, 149),
 				 			 				new Point3D(  0,  -100, 149),
-				 			 				new Point3D(-100, -100, 149)));*/
+				 			 				new Point3D(-100, -100, 149)));
 		
 		scene.setGeomtries(geometries);
 		ImageWriter imageWriter = new ImageWriter("test0", 500, 500, 500, 500);
