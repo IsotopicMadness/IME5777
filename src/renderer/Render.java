@@ -17,7 +17,7 @@ public class Render {
 	/************** operations *******/
 	// calc the exact color of the point that we need
 	private Color calcColor(Point3D point) {
-		_color.setColor(_scene.getAmbientLight().getIntensity().getColor());
+		_color = new Color(_scene.getAmbientLight().getIntensity());
 		return _color;
 	}
 	public ImageWriter getImageWriter() {
@@ -28,14 +28,12 @@ public class Render {
 		
 		public void renderImage(){
 
-			int i = _imageWriter.getWidth()/_imageWriter.getNx();
-			int j = _imageWriter.getHeight()/_imageWriter.getNy();
+
+			for(int k = 0; k<_imageWriter.getNx();++k) {
 			
-			for(int k = 0; k<i;++k) {
-			
-				for(int l = 0; l<j;++l) {
+				for(int l = 0; l<_imageWriter.getNy();++l) {
 					Ray ray = _scene.getCamera().constructRayThroughPixel
-						(_imageWriter.getNx(), _imageWriter.getNy() , i, j,
+						(_imageWriter.getNx(), _imageWriter.getNy() , k, l,
 								_scene.getScreenDistance(),
 								_imageWriter.getWidth(), _imageWriter.getHeight());
 					
@@ -67,7 +65,6 @@ public class Render {
 		}
 		
 		public void printGrid(int x) {
-			
 			for (int i = 0; i<_imageWriter.getNx(); i++) {
 				for (int j=0;j<_imageWriter.getNy();j++) {
 					if(i%x == 0 || j%x == 0)

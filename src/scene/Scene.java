@@ -32,7 +32,7 @@ public class Scene {
 	public Scene(String name) {
 		sceneName = name;
 		background = new Color(0);
-		
+		ambientLight = new AmbientLight(new primitives.Color(255,255,255), 1);
 	}
 	
 	public Scene(String sceneName, Color background,ArrayList<Geometry> objects, Camera camera, double screenDistance) {
