@@ -49,7 +49,7 @@ public class Point3D extends Point2D {
 		if(this==obj)
 			return true;
 		Point3D other= new Point3D((Point3D)obj);
-		return this.z.equals(other.getZ()) && super.equals(new Point2D(getX(),getY()));
+		return this.z.equals(other.getZ()) && super.equals(new Point2D(other.getX(),other.getY()));
 	};
 	@Override
 	public String toString() {
