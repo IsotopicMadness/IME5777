@@ -2,6 +2,8 @@ package geometries;
 
 import java.util.ArrayList;
 
+import java.util.HashMap;
+
 import primitives.*;
 
 public class Geometries extends Geometry {
@@ -26,12 +28,13 @@ public class Geometries extends Geometry {
 	}
 	
 	public ArrayList<Point3D> findIntersections(Ray ray){
-		ArrayList<Point3D> reInt = new ArrayList<>();
+		ArrayList<Point3D> returnInteractions = new ArrayList<>();
 		for(Geometry g : geometries) {
-			for(Point3D p : g.findIntersection(ray))
-				reInt.add(p);
+			g.findIntersection(ray).forEach((key,value) ->{
+				returnInteractions.addAll(value);
+			});
 		}
-		return reInt;
+		return returnInteractions;
 	}
 	
 	public ArrayList<Geometry> getGeometries() {
