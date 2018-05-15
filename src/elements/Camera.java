@@ -19,11 +19,22 @@ public class Camera {
 	 * Constructor.
 	 * Receives the camera's location (p0), Upwards vector (vUp), The vector that points towards the grid/screen (vTo) and calculates vRight, the vector Vertical to both vTo and vUp.
 	 */
-	public Camera(Point3D p0, Vector vUp, Vector vTo/*, Vector vRight*/) {
+	public Camera(Point3D p0, Vector vUp, Vector vTo) {
 		this.p0 = new Point3D(p0);
 		this.vUp = new Vector(vUp).normalize();
 		this.vTo = new Vector(vTo).normalize();
 		//this.vRight = new Vector(vRight);
+		if(!(vUp.dotProduct(vTo)==0))
+			vRight=null;
+		else
+			vRight = vUp.crossProduct(vTo).normalize();
+	}
+	
+	public Camera(Camera other) {
+		this.p0 = new Point3D(other.getP0());
+		this.vUp = new Vector(other.getvUp()).normalize();
+		this.vTo = new Vector(other.getvTo()).normalize();
+		this.vRight = new Vector(other.getvRight());
 		if(!(vUp.dotProduct(vTo)==0))
 			vRight=null;
 		else
@@ -58,6 +69,18 @@ public class Camera {
 	
 	public Point3D getP0() {
 		return p0;
+	}
+	
+	public Vector getvTo() {
+		return vTo;
+	}
+	
+	public Vector getvRight() {
+		return vRight;
+	}
+	
+	public Vector getvUp() {
+		return vUp;
 	}
 
 }
