@@ -92,8 +92,7 @@ public class Plane extends Geometry {
 	//Operators
 	@Override
 	public Vector getNormal(Point3D p) {
-		// TODO Auto-generated method stub
-		return null;
+		return normal.normalize();
 	}
 
 }
