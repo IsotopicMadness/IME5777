@@ -28,11 +28,13 @@ public class TriangleTest {
 		
 		Triangle triangle = new Triangle(new Point3D( 0, 1, -2),
 				new Point3D( 1, -1, -2),
-				new Point3D(-1, -1, -2));
+				new Point3D(-1, -1, -2),
+				new Color());
 		
 		Triangle triangle2 = new Triangle(new Point3D( 0, 10, -2),
 				new Point3D( 1, -1, -2),
-				new Point3D(-1, -1, -2));
+				new Point3D(-1, -1, -2),
+				new Color());
 		
 		ArrayList<Point3D> intersectionPointsTriangle = new ArrayList<Point3D>();
 		ArrayList<Point3D> intersectionPointsTriangle2 = new ArrayList<Point3D>();
@@ -45,9 +47,15 @@ public class TriangleTest {
 				rays[i][j] = camera.constructRayThroughPixel
 						(WIDTH, HEIGHT, j, i, 1, 3 * WIDTH, 3 * HEIGHT);
 				
-				ArrayList<Point3D> rayIntersectionPoints; 
-				rayIntersectionPoints = triangle.findIntersection(rays[i][j]);
-				ArrayList<Point3D> rayIntersectionPoints2 = triangle2.findIntersection(rays[i][j]);
+				ArrayList<Point3D> rayIntersectionPoints = new ArrayList<>();
+				triangle.findIntersection(rays[i][j]).forEach((k,v) -> 
+				rayIntersectionPoints.addAll(v)
+				);
+				
+				ArrayList<Point3D> rayIntersectionPoints2 = new ArrayList<>();
+				triangle2.findIntersection(rays[i][j]).forEach((k,v) -> 
+				rayIntersectionPoints2.addAll(v)
+				);
 				
 				for (Point3D iPoint: rayIntersectionPoints)
 					intersectionPointsTriangle.add(iPoint);
