@@ -1,8 +1,11 @@
 package renderer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import primitives.*;
+import geometries.*;
 import scene.Scene;
 
 public class Render {
@@ -16,8 +19,11 @@ public class Render {
 	}
 	/************** operations *******/
 	// calc the exact color of the point that we need
-	private Color calcColor(Point3D point) {
-		_color = new Color(_scene.getAmbientLight().getIntensity());
+	private Color calcColor(Geometry geo, Point3D point) {
+		if(geo==null || point ==null)
+			throw new IllegalArgumentException("Geometry or Point not found");
+		
+		_color = new Color(_scene.getAmbientLight().getIntensity().add(geo.getEmmission()));
 		return _color;
 	}
 	
@@ -29,7 +35,6 @@ public class Render {
 		
 		public void renderImage(){
 
-
 			for(int i = 0; i<_imageWriter.getNx();++i) {
 			
 				for(int j = 0; j<_imageWriter.getNy();++j) {
@@ -38,27 +43,45 @@ public class Render {
 								_scene.getScreenDistance(),
 								_imageWriter.getWidth(), _imageWriter.getHeight());
 					
-					ArrayList<Point3D> intersectionPoints = _scene.getGeometries().findIntersections(ray);
+					HashMap<Geometry,ArrayList<Point3D>> intersectionPoints = new HashMap<>(); 
+							intersectionPoints.putAll(_scene.getGeometries().findIntersections(ray));
 					
 					if(intersectionPoints.size()==0)
 						_imageWriter.writePixel(i, j, _scene.getBackground().getColorArray());
 					
 					else {
-						Point3D closestPoint = new Point3D(getClosestPoint(intersectionPoints));
-						_imageWriter.writePixel(i,j, calcColor(closestPoint).getColor());
-					     }
-				                        }
-			                       }
+						HashMap<Geometry,Point3D> closestPoint = new HashMap<>();
+								closestPoint.putAll(getClosestPoint(intersectionPoints));
+								
+								//In order to avoid compilation error arguments must be initialised with a value
+								Geometry geo = null;
+								Point3D p = null;
+								for(Entry<Geometry,Point3D> ed : closestPoint.entrySet()) {
+									geo = ed.getKey();
+									p = ed.getValue();
+								}
+								
+								_imageWriter.writePixel(i,j, calcColor(geo, p).getColor());
+					}
+				}
+			}
 		}
 		
 		
-		public Point3D getClosestPoint(ArrayList<Point3D> points){
-			Point3D rePoint = new Point3D(0,0,0);
+		public HashMap<Geometry,Point3D> getClosestPoint(HashMap<Geometry,ArrayList<Point3D>> points){
+			HashMap<Geometry, Point3D> rePoint = new HashMap<>();
+			
 			double distance = Double.MAX_VALUE;
-			for(Point3D p : points) {
-				if(p.distance(_scene.getCamera().getP0())< distance) {
-					distance = p.distance(_scene.getCamera().getP0());
-					rePoint = new Point3D(p);
+			
+			for(Entry<Geometry, ArrayList<Point3D>> ed : points.entrySet()) {
+			Geometry k = ed.getKey();
+			ArrayList<Point3D> v = ed.getValue();
+				for(Point3D p : v) {
+					if(p.distance(_scene.getCamera().getP0())< distance) { 
+						distance = p.distance(_scene.getCamera().getP0());
+						rePoint.clear();
+						rePoint.put(k, p);
+					}
 				}
 			}
 			return rePoint;

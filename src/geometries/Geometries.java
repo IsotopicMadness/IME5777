@@ -27,11 +27,13 @@ public class Geometries extends Geometry {
 		geometries.add(g);
 	}
 	
-	public ArrayList<Point3D> findIntersections(Ray ray){
-		ArrayList<Point3D> returnInteractions = new ArrayList<>();
+	public HashMap<Geometry, ArrayList<Point3D>> findIntersections(Ray ray){
+		
+		HashMap<Geometry, ArrayList<Point3D>> returnInteractions = new HashMap<>();
+		
 		for(Geometry g : geometries) {
 			g.findIntersection(ray).forEach((key,value) ->{
-				returnInteractions.addAll(value);
+				returnInteractions.put(key, value);
 			});
 		}
 		return returnInteractions;

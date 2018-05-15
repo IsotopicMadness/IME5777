@@ -62,7 +62,8 @@ public class Camera {
 		Point3D pXY = pC.
 				add(	vRight.scalarMuliplication(((i-((Nx)/2.0))*(screenWidth/Nx))+((screenWidth/Nx)/2.0)).
 																getPoint3D().
-						subtract(vUp.scalarMuliplication((j-((Ny)/2.0))*(screenHeight/Ny)+(screenHeight/Ny)/2.0).
+						subtract(
+								vUp.scalarMuliplication((j-((Ny)/2.0))*(screenHeight/Ny)+(screenHeight/Ny)/2.0).
 																getPoint3D()));
 		return new Ray(new Vector(pXY),p0);
 	}

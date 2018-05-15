@@ -120,6 +120,6 @@ public class Scene {
 	}
 
 	public void setGeomtries(Geometries geometries) {
-		objects = new Geometries(geometries);
+		objects = geometries;
 	}
 }
