@@ -1,5 +1,6 @@
 package geometries;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import primitives.*;
 
@@ -9,11 +10,11 @@ import primitives.*;
  */
 public class Sphere extends RadialGeometry{
 	//Constructors
-	public Sphere(Point3D center, double radius) {
-		super(radius,new Point3D(center));
+	public Sphere(Point3D center, double radius, Color color) {
+		super(radius, new Point3D(center), color);
 	}
 	public Sphere(Sphere other) {
-		super(other.getRadius(),new Point3D(other.getPoint()));
+		super(other.getRadius(),new Point3D(other.getPoint()), other.getEmmission());
 	}
 	
 	//Overrides
@@ -21,7 +22,7 @@ public class Sphere extends RadialGeometry{
 	//returns normal from a given point
 	public Vector getNormal(Point3D p) {
 		if(p.distance(this.getPoint())!= this.getRadius())
-			return null;
+			throw new IllegalArgumentException("Point is not on sphere");
 		else
 			return (new Vector(p.subtract(this.getPoint())).normalize());
 	}
@@ -30,9 +31,9 @@ public class Sphere extends RadialGeometry{
 	 * @param ray
 	 * Calculates and returns the points where the given ray crosses the Sphere
 	 */
-	public ArrayList<Point3D> findIntersection(Ray ray) {
+	public HashMap<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
 		
-		ArrayList<Point3D> result = new ArrayList<Point3D>();
+		HashMap<Geometry,ArrayList<Point3D>> result = new HashMap<Geometry,ArrayList<Point3D>>();
 		
 		Vector u = new Vector(this.getPoint().subtract(ray.getLocation()));
 		ray=new Ray(ray.normalize(),ray.getLocation());
@@ -49,9 +50,12 @@ public class Sphere extends RadialGeometry{
 		double t1 = tm+th;
 		double t2 = tm-th;
 		
-		if(t1!=0)
-			result.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t1))));
-			result.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t2))));
+		if(t1!=0){
+			ArrayList<Point3D> array = new ArrayList<>();
+			array.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t1))));
+			array.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t2))));
+			result.put(this, array);
+		}
 		return result;
 	}
 	

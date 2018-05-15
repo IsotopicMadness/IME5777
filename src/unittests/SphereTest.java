@@ -3,6 +3,7 @@ package unittests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -29,15 +30,17 @@ public class SphereTest {
 				new Vector (0.0, 1.0, 0.0),
 				new Vector (0.0, 0.0, -1.0));
 		
-		Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -3.0), 1);
-		Sphere sphere2 = new Sphere(new Point3D(0.0, 0.0, -3.0), 10);
+		Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -3.0), 1, new Color());
+		Sphere sphere2 = new Sphere(new Point3D(0.0, 0.0, -3.0), 10, new Color());
 	
 		//Only the center ray intersect the sphere in two locations
-		ArrayList<Point3D> intersectionPointsSphere = new ArrayList<Point3D>();
+		HashMap<Geometry,ArrayList<Point3D>> intersectionPointsSphere = new HashMap<Geometry,ArrayList<Point3D>>();
 		
 		//The sphere encapsulates the view plane - all rays intersect with the sphere once
-		ArrayList<Point3D> intersectionPointsSphere2 = new ArrayList<Point3D>();
+		HashMap<Geometry,ArrayList<Point3D>> intersectionPointsSphere2 = new HashMap<Geometry,ArrayList<Point3D>>();
+		
 		System.out.println("Camera:\n" + camera);
+		
 		for (int i = 0; i < HEIGHT; i++){
 			for (int j = 0; j < WIDTH; j++)
 			{
@@ -46,28 +49,30 @@ public class SphereTest {
 						
 						WIDTH, HEIGHT, j, i, 1, 3 * WIDTH, 3 * HEIGHT);
 				
-				ArrayList<Point3D> rayIntersectionPoints = new ArrayList<Point3D>(sphere. findIntersection(rays[i][j]));
-				ArrayList<Point3D> rayIntersectionPoints2 = new ArrayList<Point3D>(sphere2.findIntersection(rays[i][j]));
+				HashMap<Geometry,ArrayList<Point3D>> rayIntersectionPoints = new HashMap<>();
+				rayIntersectionPoints.putAll(sphere.findIntersection(rays[i][j]));
+				HashMap<Geometry,ArrayList<Point3D>> rayIntersectionPoints2 = new HashMap<>();
+				rayIntersectionPoints2.putAll(sphere2.findIntersection(rays[i][j]));
 				
-				for (Point3D iPoint: rayIntersectionPoints)
-					intersectionPointsSphere.add(iPoint);
+					intersectionPointsSphere.putAll(rayIntersectionPoints);
 				
-				for (Point3D iPoint: rayIntersectionPoints2)
-					intersectionPointsSphere2.add(iPoint);
+					intersectionPointsSphere2.putAll(rayIntersectionPoints2);
 				
 			}
-			assertTrue(intersectionPointsSphere.size() == 2);
-			assertTrue(intersectionPointsSphere2.size() == 9);
+			assertTrue(intersectionPointsSphere.get(sphere).size() == 2);
+			assertTrue(intersectionPointsSphere2.get(sphere2).size() == 9);
 			
 			System.out.println("Intersection Points:");
 			
-			for (Point3D iPoint: intersectionPointsSphere)
-			{
+			//for (Point3D iPoint: intersectionPointsSphere)
+			intersectionPointsSphere.forEach((k,v) -> {
 				
-				assertTrue(iPoint.equals(new Point3D(0.0, 0.0, -2.0)) ||
+				for (Point3D iPoint: v) {
+					assertTrue(iPoint.equals(new Point3D(0.0, 0.0, -2.0)) ||
 						iPoint.equals(new Point3D(0.0, 0.0, -4.0)));
-				System.out.println(iPoint);
-			}
+					System.out.println(iPoint);
+				}
+			});
 		}
 	}
 	
