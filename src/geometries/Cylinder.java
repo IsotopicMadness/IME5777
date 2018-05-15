@@ -10,13 +10,13 @@ public class Cylinder extends RadialGeometry {
 	 */
 	private Vector directionLength;
 	
-	public Cylinder(double r, Point3D p, Vector directionAndLength) {
-		super(r, p);
+	public Cylinder(double r, Point3D p, Vector directionAndLength, Color color) {
+		super(r, p, color);
 		this.directionLength=new Vector(directionAndLength);
 	}
 
 	public Cylinder(Cylinder other) {
-		super(other.getRadius(),other.getPoint());
+		super(other.getRadius(),other.getPoint(), other.getEmmission());
 		this.directionLength = new Vector(other.getDirectionLength());
 	}
 
@@ -55,7 +55,7 @@ public class Cylinder extends RadialGeometry {
 	}
 	@Override
 	public String toString() {
-		return "Direction and length: "+directionLength.toString()+", "+directionLength.getLength()+"\nRadius: "+this.getRadius()+"\nPoint: "+getPoint().toString();
+		return "Direction and length: "+directionLength.toString()+", "+directionLength.getLength()+"\nRadius: "+this.getRadius()+"\nPoint: "+getPoint().toString()+"\nColor: "+getEmmission().toString();
 	}
 
 }
