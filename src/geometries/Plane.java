@@ -13,8 +13,8 @@ public class Plane extends Geometry {
 	private Vector normal;
 	
 	/**
-	 * Description	Resource	Path	Location	Type
-	 *Implicit super constructor Plane() is undefined. Must explicitly invoke another constructor	Triangle.java	/IME5778-E1-1913-5687/src/geometries	line 16	Java Problem
+	 *"Description	Resource	Path	Location	Type
+	 *Implicit super constructor Plane() is undefined. Must explicitly invoke another constructor	Triangle.java	/IME5778-E1-1913-5687/src/geometries	line 16	Java Problem"
 	 *
 	 *In order to avoid the above error a default constructor had had to be built
 	 */
