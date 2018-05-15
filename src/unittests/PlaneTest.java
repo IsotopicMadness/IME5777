@@ -9,6 +9,7 @@ import elements.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -30,10 +31,10 @@ public class PlaneTest {
 				new Vector (0.0, 0.0, -1.0));
 		
 		 //plane orthogonal to the view plane
-		Plane plane = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.0, -1.0));
+		Plane plane = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.0, -1.0), new Color());
 		
 		//45 degrees to the view plane
-		Plane plane2 = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.25, -1.0));
+		Plane plane2 = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color());
 		
 		ArrayList<Point3D> intersectionPointsPlane = new ArrayList<Point3D>();
 		ArrayList<Point3D> intersectionPointsPlane2 = new ArrayList<Point3D>();
@@ -44,14 +45,18 @@ public class PlaneTest {
 			for (int j = 0; j < WIDTH; j++){
 				rays[i][j] = camera.constructRayThroughPixel(WIDTH, HEIGHT, j, i, 1, 3 * WIDTH, 3 * HEIGHT);
 				
-				ArrayList<Point3D> rayIntersectionPoints = plane.findIntersection(rays[i][j]);
-				ArrayList<Point3D> rayIntersectionPoints2 = plane2.findIntersection(rays[i][j]);
+				HashMap<Geometry,ArrayList<Point3D>> rayIntersectionPoints = new HashMap<>();
+				rayIntersectionPoints.putAll(plane.findIntersection(rays[i][j]));
+				HashMap<Geometry,ArrayList<Point3D>> rayIntersectionPoints2 = new HashMap<>();
+				rayIntersectionPoints2.putAll(plane2.findIntersection(rays[i][j]));
 				
-				for (Point3D iPoint: rayIntersectionPoints)
-					intersectionPointsPlane.add(iPoint);
+				rayIntersectionPoints.forEach((k,v) ->{
+					intersectionPointsPlane.addAll(v);
+					});
 				
-				for (Point3D iPoint: rayIntersectionPoints2)
-					intersectionPointsPlane2.add(iPoint);
+				rayIntersectionPoints2.forEach((k,v) ->{
+					intersectionPointsPlane2.addAll(v);
+					});
 				
 			}
 		}
@@ -71,9 +76,9 @@ public class PlaneTest {
 	@Test
 	public void testEqualsObject() {
 		
-		Plane p1 = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.25, -1.0));
-		Plane p2 = new Plane(new Point3D(0.0,0.0,0.0000001),new Vector(0.0,0.25,-0.999999999999));
-		Plane p3 = new Plane(new Point3D(1.0, 3.0, -3.0), new Vector(0.0, 0.25, -1.0));
+		Plane p1 = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color());
+		Plane p2 = new Plane(new Point3D(0.0,0.0,0.0000001),new Vector(0.0,0.25,-0.999999999999), new Color());
+		Plane p3 = new Plane(new Point3D(1.0, 3.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color());
 		
 		assertTrue(!p1.equals(p2));
 		assertTrue(!p1.equals(p3));
