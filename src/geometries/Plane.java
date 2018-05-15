@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 3D Object: Plane.
@@ -21,11 +22,13 @@ public class Plane extends Geometry {
 		
 	}
 	
-	public Plane(Point3D p,Vector v){
+	public Plane(Point3D p,Vector v, Color color){
+		super(color);
 		point = new Point3D(p);
 		normal = new Vector(v);
 	}
 	public Plane(Plane obj) {
+		super(obj.getEmmission());
 		point = new Point3D(obj.getPoint());
 		normal = new Vector(obj.getNormal());
 	}
@@ -36,7 +39,8 @@ public class Plane extends Geometry {
 	 * @param p3
 	 * The constructor takes three points and calculates the plane
 	 */
-	public Plane(Point3D p1, Point3D p2, Point3D p3) {
+	public Plane(Point3D p1, Point3D p2, Point3D p3, Color color) {
+		super(color);
 		Vector p1_2 = new Vector(p1.subtract(p2));
 		Vector p1_3 = new Vector(p2.subtract(p3));
 		Vector n = p1_2.crossProduct(p1_3);
@@ -58,7 +62,7 @@ public class Plane extends Geometry {
 		if(this==obj)
 			return true;
 		Plane other = new Plane((Plane)obj);
-		return this.point.equals(other.point) && this.normal.equals(other.normal);
+		return this.point.equals(other.point) && this.normal.equals(other.normal) && this.getEmmission().equals(other.getEmmission());
 	}
 	
 	@Override
@@ -66,15 +70,17 @@ public class Plane extends Geometry {
 	 * @param ray
 	 * Calculates and returns the points where the given ray cross the plane
 	 */
-	public ArrayList<Point3D> findIntersection(Ray ray) {
+	public HashMap<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
 		
-		ArrayList<Point3D> result = new ArrayList<>();
+		HashMap<Geometry,ArrayList<Point3D>> result = new HashMap<Geometry,ArrayList<Point3D>>();
 		ray = new Ray(ray.normalize(),ray.getLocation());
 		double t = (normal.dotProduct(point.vectorSubstraction(ray.getLocation())))
 					/(normal.dotProduct(ray.getDirection()));
-		if(t>0)
-			result.add(ray.getLocation().add(ray.getDirection().scalarMuliplication(t).getPoint3D()));
-		
+		if(t>0) {
+			ArrayList<Point3D> arr = new ArrayList<Point3D>();
+			arr.add(ray.getLocation().add(ray.getDirection().scalarMuliplication(t).getPoint3D()));
+			result.put(this, arr);
+		}
 		return result;
 	}
 	
