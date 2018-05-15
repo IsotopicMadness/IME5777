@@ -22,27 +22,27 @@ public class RenderTest {
 		scene.setGeomtries(geometries);
 		
 		
-		geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0, new Color(255,0,0)));
+		geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0, new Color(34,70,166)));
 		
 		geometries.add(new Triangle(new Point3D( 100, 0, 149),
 				 							new Point3D(  0, 100, 149),
 				 							new Point3D( 100, 100, 149),
-				 							new Color(255,0,0)));
+				 							new Color(0,255,0)));
 		
 		geometries.add(new Triangle(new Point3D( 100, 0, 149),
 				 			 				new Point3D(  0, -100, 149),
 				 			 				new Point3D( 100,-100, 149),
-				 			 				new Color(255, 255, 0)));
+				 			 				new Color(0, 0,255)));
 		
 		geometries.add(new Triangle(new Point3D(-100, 0, 149),
 				 							new Point3D(  0, 100, 149),
 				 							new Point3D(-100, 100, 149),
-				 							new Color(0, 255, 255)));
+				 							new Color(255, 0, 0)));
 		
 		geometries.add(new Triangle(new Point3D(-100, 0, 149),
 				 			 				new Point3D(  0,  -100, 149),
 				 			 				new Point3D(-100, -100, 149),
-				 			 				new Color(255, 255, 255)));
+				 			 				new Color(0, 255, 0)));
 		
 		ImageWriter imageWriter = new ImageWriter("test0", 500, 500, 500, 500);
 		Render render = new Render(imageWriter, scene);

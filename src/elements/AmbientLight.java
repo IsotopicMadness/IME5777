@@ -16,9 +16,9 @@ public class AmbientLight {
 	}
 	
 	public AmbientLight(AmbientLight other) {
-		this.set_color(other.get_color());
+		_color = new Color(other.get_color());
 		_Ka=other.getKa();
-		_intensity = new Color(_color.scale(_Ka));
+		_intensity = new Color(other._intensity);
 	}
 
 	/************** Getters/Setters *******/

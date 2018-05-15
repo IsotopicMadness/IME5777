@@ -100,10 +100,8 @@ public class Color {
 	public Color scale(double exp) {
 		if (exp < 0 || exp > 1)
 			throw new ArithmeticException("Scaling color with a value out of 0 to 1 range");
-		_red *= exp;
-		_green *= exp;
-		_blue *= exp;
-		return this;
+		Color re = new Color(_red * exp, _green * exp, _blue * exp);
+		return re;
 	}
 
 	// reduce color with exponent

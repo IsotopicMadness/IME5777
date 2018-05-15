@@ -31,13 +31,14 @@ public class Render {
 		return _imageWriter;
 	}
 
-		//printImage(int interval){}
-		
+		/**
+		 * Renders every the image
+		 */
 		public void renderImage(){
 
-			for(int i = 0; i<_imageWriter.getNx();++i) {
+			for(int i = 250; i<_imageWriter.getNx();++i) {
 			
-				for(int j = 0; j<_imageWriter.getNy();++j) {
+				for(int j = 250; j<_imageWriter.getNy();++j) {
 					Ray ray = _scene.getCamera().constructRayThroughPixel
 						(_imageWriter.getNx(), _imageWriter.getNy() , i, j,
 								_scene.getScreenDistance(),
@@ -56,6 +57,7 @@ public class Render {
 								//In order to avoid compilation error arguments must be initialised with a value
 								Geometry geo = null;
 								Point3D p = null;
+								
 								for(Entry<Geometry,Point3D> ed : closestPoint.entrySet()) {
 									geo = ed.getKey();
 									p = ed.getValue();

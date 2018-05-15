@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import primitives.*;
 
-public class Geometries extends Geometry {
+public class Geometries {
 
 	private ArrayList<Geometry> geometries;
 	
@@ -32,21 +32,13 @@ public class Geometries extends Geometry {
 		HashMap<Geometry, ArrayList<Point3D>> returnInteractions = new HashMap<>();
 		
 		for(Geometry g : geometries) {
-			g.findIntersection(ray).forEach((key,value) ->{
-				returnInteractions.put(key, value);
-			});
+			returnInteractions.putAll(g.findIntersection(ray));
 		}
 		return returnInteractions;
 	}
 	
 	public ArrayList<Geometry> getGeometries() {
 		return geometries;
-	}
-	
-	@Override
-	public Vector getNormal(Point3D p) {
-		// TODO Auto-generated method stub
-		throw new ArgumentException("Cannot find normal of Geometries");
 	}
 
 }

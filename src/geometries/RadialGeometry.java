@@ -12,7 +12,7 @@ public abstract class RadialGeometry extends Geometry {
 //***************** Constructors ********************** // 
 
 	public RadialGeometry(double r,Point3D p, Color color) {
-		super(new Color());
+		super(color);
 		if (r<=0)
 			throw new IllegalArgumentException("radius cannot be negative\n");
 		else
