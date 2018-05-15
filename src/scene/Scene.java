@@ -2,8 +2,6 @@ package scene;
 
 import geometries.*;
 
-import java.awt.Color;
-
 import java.util.ArrayList;
 
 import elements.*;
@@ -23,19 +21,20 @@ public class Scene {
 	
 	public Scene() {
 		setSceneName("Edward Elric for president");
-		setBackground(Color.RED);
+		setBackground(new Color(255, 0, 0));
 		objects = new Geometries();
 		setCamera(new Camera(new Point3D(0,0,0),new Vector(0,0,1), new Vector(1,0,0)));
 		setScreenDistance(1);
+		ambientLight = new AmbientLight(new Color(255,255,255), 1);
 	}
 	
 	public Scene(String name) {
 		sceneName = name;
-		background = new Color(0);
-		ambientLight = new AmbientLight(new primitives.Color(255,255,255), 1);
+		background = new Color(0, 0, 0);
+		ambientLight = new AmbientLight(new Color(255,255,255), 1);
 	}
 	
-	public Scene(String sceneName, Color background,ArrayList<Geometry> objects, Camera camera, double screenDistance) {
+	public Scene(String sceneName, Color background,ArrayList<Geometry> objects, Camera camera, double screenDistance, AmbientLight aLight) {
 		
 		this.setSceneName(sceneName);
 		this.setBackground(background);
@@ -45,6 +44,7 @@ public class Scene {
 		}
 		this.setCamera(camera);
 		this.setScreenDistance(screenDistance);
+		this.ambientLight = new AmbientLight(aLight);
 	}
 	
 	public Scene(Scene other) {
@@ -56,6 +56,7 @@ public class Scene {
 		}
 		this.setCamera(other.getCamera());
 		this.setScreenDistance(other.getScreenDistance());
+		this.ambientLight = new AmbientLight(other.getAmbientLight());
 	}
 
 	public void addGeometry(Geometry geo) {
@@ -68,7 +69,7 @@ public class Scene {
 	}
 
 	public void setSceneName(String sceneName) {
-		this.sceneName = sceneName;
+		this.sceneName = new String(sceneName);
 	}
 
 	public Color getBackground() {
@@ -76,7 +77,7 @@ public class Scene {
 	}
 
 	public void setBackground(Color background) {
-		this.background = background;
+		this.background = new Color(background);
 	}
 
 	public Camera getCamera() {
@@ -84,7 +85,7 @@ public class Scene {
 	}
 
 	public void setCamera(Camera camera) {
-		this.camera = camera;
+		this.camera = new Camera(camera);
 	}
 
 	public double getScreenDistance() {

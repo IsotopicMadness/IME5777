@@ -12,7 +12,13 @@ public class AmbientLight {
 	public AmbientLight(Color color, double ka) {
 		_color = color;
 		_Ka = ka;
-		_intensity = new Color(_color).scale(_Ka);
+		_intensity = new Color(_color.scale(_Ka));
+	}
+	
+	public AmbientLight(AmbientLight other) {
+		this.set_color(other.get_color());
+		_Ka=other.getKa();
+		_intensity = new Color(_color.scale(_Ka));
 	}
 
 	/************** Getters/Setters *******/
@@ -29,7 +35,7 @@ public class AmbientLight {
 	 * @param _color
 	 */
 	public void set_color(Color _color) {
-		this._color = _color;
+		this._color = new Color(_color);
 	}
 
 	/**

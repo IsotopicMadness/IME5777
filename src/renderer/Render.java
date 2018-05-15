@@ -20,6 +20,7 @@ public class Render {
 		_color = new Color(_scene.getAmbientLight().getIntensity());
 		return _color;
 	}
+	
 	public ImageWriter getImageWriter() {
 		return _imageWriter;
 	}
@@ -29,22 +30,22 @@ public class Render {
 		public void renderImage(){
 
 
-			for(int k = 0; k<_imageWriter.getNx();++k) {
+			for(int i = 0; i<_imageWriter.getNx();++i) {
 			
-				for(int l = 0; l<_imageWriter.getNy();++l) {
+				for(int j = 0; j<_imageWriter.getNy();++j) {
 					Ray ray = _scene.getCamera().constructRayThroughPixel
-						(_imageWriter.getNx(), _imageWriter.getNy() , k, l,
+						(_imageWriter.getNx(), _imageWriter.getNy() , i, j,
 								_scene.getScreenDistance(),
 								_imageWriter.getWidth(), _imageWriter.getHeight());
 					
 					ArrayList<Point3D> intersectionPoints = _scene.getGeometries().findIntersections(ray);
 					
 					if(intersectionPoints.size()==0)
-						_imageWriter.writePixel(k, l, _scene.getBackground());
+						_imageWriter.writePixel(i, j, _scene.getBackground().getColorArray());
 					
 					else {
 						Point3D closestPoint = new Point3D(getClosestPoint(intersectionPoints));
-						_imageWriter.writePixel(k,l, calcColor(closestPoint).getColor());
+						_imageWriter.writePixel(i,j, calcColor(closestPoint).getColor());
 					     }
 				                        }
 			                       }
