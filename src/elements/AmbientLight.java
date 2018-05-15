@@ -1,6 +1,6 @@
 package elements;
 
-import primitives.Color;
+import primitives.*;
 
 
 public class AmbientLight {
@@ -16,22 +16,42 @@ public class AmbientLight {
 	}
 
 	/************** Getters/Setters *******/
+	/**
+	 * Returns Color
+	 * @return
+	 */
 	public Color get_color() {
 		return _color;
 	}
 
+	/**
+	 * sets color
+	 * @param _color
+	 */
 	public void set_color(Color _color) {
 		this._color = _color;
 	}
 
+	/**
+	 * Gets Ka (intensity modifier)
+	 * @return
+	 */
 	public double getKa() {
 		return _Ka;
 	}
 
+	/**
+	 * sets the ka (intensity modifier)
+	 * @param ka
+	 */
 	public void setKa(double ka) {
 		_Ka = ka;
 	}
-	// return final Ambient light after multiply in Ka 
+	
+	/**
+	 *  return final Ambient light after multiply in Ka 
+	 * @return
+	 */
 	public Color getIntensity()
 	{
 		return _intensity;
