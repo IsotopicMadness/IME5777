@@ -25,6 +25,7 @@ public class Render {
 			throw new IllegalArgumentException("Geometry or Point not found");
 		
 		_color = new Color(_scene.getAmbientLight().getIntensity(point).add(geo.getEmmission()));
+		Color color = new Color(_color);
 		
 		Vector v = new Vector(point.subtract(_scene.getCamera().getP0()));
 		Vector n = geo.getNormal();
@@ -38,10 +39,17 @@ public class Render {
 						calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 			}
 		}
-		return color;
+		return _color;
 
 	}
 	
+	private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
+		Vector r = new Vector(n.add(n.add(l)));
+		return 	lightIntensity.scale(ks*Math.pow((Math.abs(v.dotProduct(r))),nShininess));
+	}
+	private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
+		return lightIntensity.scale((Math.abs(l.dotProduct(n))*kd));
+	}
 	public ImageWriter getImageWriter() {
 		return _imageWriter;
 	}
@@ -78,7 +86,7 @@ public class Render {
 									p = ed.getValue();
 								}
 								
-								_imageWriter.writePixel(i,j, calcColor(geo, p).getColor());
+								_imageWriter.writePixel(i,j, calcColor(geo, p, _scene.getLights()).getColor());
 					}
 				}
 			}
