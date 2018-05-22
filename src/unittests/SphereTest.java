@@ -30,8 +30,8 @@ public class SphereTest {
 				new Vector (0.0, 1.0, 0.0),
 				new Vector (0.0, 0.0, -1.0));
 		
-		Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -3.0), 1, new Color());
-		Sphere sphere2 = new Sphere(new Point3D(0.0, 0.0, -3.0), 10, new Color());
+		Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -3.0), 1, new Color(), new Material(1,1,1));
+		Sphere sphere2 = new Sphere(new Point3D(0.0, 0.0, -3.0), 10, new Color(), new Material(1,1,1));
 	
 		//Only the center ray intersect the sphere in two locations
 		HashMap<Geometry,ArrayList<Point3D>> intersectionPointsSphere = new HashMap<Geometry,ArrayList<Point3D>>();
