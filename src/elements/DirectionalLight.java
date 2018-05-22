@@ -14,11 +14,15 @@ public class DirectionalLight extends Light {
 		_location = null;
 	}
 	public DirectionalLight(DirectionalLight other) {
-	_color = new Color(other._color);
-	_Ka = other.getKa();
-	_intensity = new Color(other.getIntensity());
+		_direction = new Vector(other.getDirection());
+		_color = new Color(other._color);
+		_Ka = other.getKa();
+		_intensity = new Color(other.getIntensity(new Point3D(0,0,0)));
+		_location = null;
 	}
-	
+	public Color getIntensity() {
+		return _intensity;
+	}
 	
 
 }

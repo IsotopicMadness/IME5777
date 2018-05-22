@@ -56,7 +56,7 @@ public abstract class Light {
 		return _location;
 	}
 	
-	public Vector get_direction() {
+	public Vector getDirection() {
 		return _direction;
 	}
 	

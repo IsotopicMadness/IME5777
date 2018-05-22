@@ -21,6 +21,10 @@ public class AmbientLight extends Light {
 		_location = null;
 		_direction = null;
 	}
+	
+	public Color getIntensity() {
+		return _intensity;
+	}
 
 	
 	

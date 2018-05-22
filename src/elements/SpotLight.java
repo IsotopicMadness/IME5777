@@ -19,5 +19,14 @@ public class SpotLight extends PointLight {
 	public Vector getDirection() {
 		return _direction;
 	}
+	
+	public Color getIntensity(Point3D point) {
+		double distance = point.distance(_location);
+		Vector l = new Vector(point.subtract(_location));
+		return new Color(_color.scale(
+				(l.dotProduct(_direction))
+				/(_Kc + (_Kl*distance) + (_Kq*Math.pow(distance, 2)))
+				));
+	}
 
 }
