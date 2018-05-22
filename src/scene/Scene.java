@@ -16,6 +16,7 @@ public class Scene {
 	private Camera _camera;
 	private double _screenDistance;
 	private AmbientLight _ambientLight;
+	private ArrayList<Light> _lights;
 	
 	
 	
@@ -26,6 +27,7 @@ public class Scene {
 		setCamera(new Camera(new Point3D(0,0,0),new Vector(0,0,1), new Vector(1,0,0)));
 		setScreenDistance(1);
 		_ambientLight = new AmbientLight(new Color(255,255,255), 1);
+		_lights = new ArrayList<>();
 	}
 	
 	public Scene(String name) {
@@ -34,7 +36,7 @@ public class Scene {
 		_ambientLight = new AmbientLight(new Color(255,255,255), 1);
 	}
 	
-	public Scene(String sceneName, Color background,ArrayList<Geometry> objects, Camera camera, double screenDistance, AmbientLight aLight) {
+	public Scene(String sceneName, Color background,ArrayList<Geometry> objects, Camera camera, double screenDistance, AmbientLight aLight, ArrayList<Light> lights) {
 		
 		_sceneName = new String(sceneName);
 		_background = new Color(background);
@@ -45,6 +47,10 @@ public class Scene {
 		setCamera(camera);
 		setScreenDistance(screenDistance);
 		_ambientLight = new AmbientLight(aLight);
+		_lights = new ArrayList<>();
+		for(Light l : lights) {
+			_lights.add(l);
+		}
 	}
 	
 	public Scene(Scene other) {
@@ -57,6 +63,10 @@ public class Scene {
 		setCamera(other.getCamera());
 		setScreenDistance(other.getScreenDistance());
 		_ambientLight = new AmbientLight(other.getAmbientLight());
+		_lights = new ArrayList<>();
+		for(Light l : other.getLights()) {
+			_lights.add(l);
+		}
 	}
 
 	public void addGeometry(Geometry geo) {
@@ -121,5 +131,16 @@ public class Scene {
 
 	public void setGeomtries(Geometries geometries) {
 		_objects = geometries;
+	}
+	
+	public ArrayList<Light> getLights(){
+		return _lights;
+	}
+	/**
+	 * sets lights with a shallow set.
+	 * @param lights
+	 */
+	public void setLights(ArrayList<Light> lights) {
+		_lights = lights;
 	}
 }

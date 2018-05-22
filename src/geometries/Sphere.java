@@ -10,11 +10,11 @@ import primitives.*;
  */
 public class Sphere extends RadialGeometry{
 	//Constructors
-	public Sphere(Point3D center, double radius, Color color) {
-		super(radius, new Point3D(center), color);
+	public Sphere(Point3D center, double radius, Color color, Material material) {
+		super(radius, new Point3D(center), color, material);
 	}
 	public Sphere(Sphere other) {
-		super(other.getRadius(),new Point3D(other.getPoint()), other.getEmmission());
+		super(other.getRadius(),new Point3D(other.getPoint()), other.getEmmission(), other.getMaterial());
 	}
 	
 	//Overrides

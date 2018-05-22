@@ -1,7 +1,7 @@
 /**
  * 
  */
-package geometries;
+package primitives;
 
 /**
  * @author amich

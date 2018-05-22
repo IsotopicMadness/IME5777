@@ -1,6 +1,7 @@
 package renderer;
 
 import java.util.ArrayList;
+import elements.*;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -19,12 +20,26 @@ public class Render {
 	}
 	/************** operations *******/
 	// calc the exact color of the point that we need
-	private Color calcColor(Geometry geo, Point3D point) {
+	private Color calcColor(Geometry geo, Point3D point, ArrayList<Light> lights) {
 		if(geo==null || point ==null)
 			throw new IllegalArgumentException("Geometry or Point not found");
 		
-		_color = new Color(_scene.getAmbientLight().getIntensity().add(geo.getEmmission()));
-		return _color;
+		_color = new Color(_scene.getAmbientLight().getIntensity(point).add(geo.getEmmission()));
+		
+		Vector v = new Vector(point.subtract(_scene.getCamera().getP0()));
+		Vector n = geo.getNormal();
+		int nShininess = geo.getShininess();
+		double kd = geo.getKd(); double ks = geo.getKs();
+		for (Light lightSource : _scene.getLights()) {
+			Vector l = lightSource.getL(point);
+			if (n.dotProduct(l)*n.dotProduct(v) > 0) {
+				Color lightIntensity = lightSource.getIntensity(point);
+				color.add(calcDiffusive(kd, l, n, lightIntensity),
+						calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+			}
+		}
+		return color;
+
 	}
 	
 	public ImageWriter getImageWriter() {

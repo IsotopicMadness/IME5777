@@ -78,14 +78,14 @@ public class Vector extends Point3D {
 	public Vector crossProduct(Vector other) {
 		return new Vector(
 				new Coordinate(
-						this.getY().mult(other.getZ().getNum())
-						-this.getZ().mult(other.getY().getNum())), 
+						getY().mult(other.getZ().getNum())
+						-getZ().mult(other.getY().getNum())), 
 				new Coordinate(
-						this.getX().mult(other.getZ().getNum())
-						-this.getZ().mult(other.getX().getNum())), 
+						getX().mult(other.getZ().getNum())
+						-getZ().mult(other.getX().getNum())), 
 				new Coordinate(
-						this.getX().mult(other.getY().getNum())
-						-this.getY().mult(other.getX().getNum())));
+						getX().mult(other.getY().getNum())
+						-getY().mult(other.getX().getNum())));
 	}
 	public Vector normalize() {
 		return this.scalarMuliplication(1/length);

@@ -1,7 +1,6 @@
 package geometries;
 
 import primitives.*;
-import primitives.Vector;
 
 public class Cylinder extends RadialGeometry {
 
@@ -10,13 +9,13 @@ public class Cylinder extends RadialGeometry {
 	 */
 	private Vector directionLength;
 	
-	public Cylinder(double r, Point3D p, Vector directionAndLength, Color color) {
-		super(r, p, color);
+	public Cylinder(double r, Point3D p, Vector directionAndLength, Color color, Material material) {
+		super(r, p, color, material);
 		this.directionLength=new Vector(directionAndLength);
 	}
 
 	public Cylinder(Cylinder other) {
-		super(other.getRadius(),other.getPoint(), other.getEmmission());
+		super(other.getRadius(),other.getPoint(), other.getEmmission(), other.getMaterial());
 		this.directionLength = new Vector(other.getDirectionLength());
 	}
 

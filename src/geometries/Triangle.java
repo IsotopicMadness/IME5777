@@ -14,15 +14,15 @@ public class Triangle extends Plane {
 	private Point3D p1,p2,p3;
 
 	//***************** Constructors ********************** //
-	public Triangle(Point3D p1,Point3D p2,Point3D p3, Color color) {
-		super(p1,p2,p3, color);
+	public Triangle(Point3D p1,Point3D p2,Point3D p3, Color color, Material material) {
+		super(p1,p2,p3, color, material);
 		this.p1=new Point3D(p1);
 		this.p2=new Point3D(p2);
 		this.p3=new Point3D(p3);
 		
 	}
 	public Triangle(Triangle other) {
-		super(other.getP1(),other.getP2(),other.getP3(), other.getEmmission());
+		super(other.getP1(),other.getP2(),other.getP3(), other.getEmmission(), other.getMaterial());
 		this.p1=new Point3D (other.getP1());
 		this.p2=new Point3D (other.getP2());
 		this.p3=new Point3D (other.getP3());

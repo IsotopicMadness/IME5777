@@ -10,7 +10,7 @@ import primitives.*;
  * Used as an interface for every object in the scene 
  * 
  */
-public abstract class Geometry {
+public abstract class Geometry extends Material {
 	private Color _emmission;
 	
 	/**
@@ -24,13 +24,13 @@ public abstract class Geometry {
 		
 	}
 	
-	public Geometry() {}
-	
-	public Geometry(Color emmi) {
+	public Geometry(Color emmi, Material material) {
+		super(material);
 		_emmission = new Color(emmi);
 	}
 	
 	public Geometry(Geometry g) {
+		super(g.getMaterial());
 		_emmission = new Color(getEmmission());
 	}	
 	
@@ -42,8 +42,12 @@ public abstract class Geometry {
 		this._emmission = _emmission;
 	}
 	
+	
 	public HashMap<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
 		return new HashMap<Geometry,ArrayList<Point3D>>();
+	}
+	public Vector getNormal() {
+		throw new ArgumentException("Can't execute getNormal() on parent");
 	}
 	@Override
 	public boolean equals(Object obj) {
