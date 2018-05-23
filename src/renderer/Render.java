@@ -27,10 +27,11 @@ public class Render {
 		_color = new Color(_scene.getAmbientLight().getIntensity(point).add(geo.getEmmission()));
 		Color color = new Color(_color);
 		
-		Vector v = new Vector(point.subtract(_scene.getCamera().getP0()));
-		Vector n = geo.getNormal();
+		Vector v = new Vector(point.subtract(_scene.getCamera().getP0())).normalize();
+		Vector n = geo.getNormal(point);
 		int nShininess = geo.getShininess();
-		double kd = geo.getKd(); double ks = geo.getKs();
+		double kd = geo.getKd();
+		double ks = geo.getKs();
 		for (Light lightSource : _scene.getLights()) {
 			Vector l = lightSource.getL(point);
 			if (n.dotProduct(l)*n.dotProduct(v) > 0) {
@@ -44,7 +45,7 @@ public class Render {
 	}
 	
 	private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-		Vector r = new Vector(n.add(n.add(l)));
+		Vector r = new Vector(n.add(n.add(l))).normalize();
 		return 	lightIntensity.scale(ks*Math.pow((Math.abs(v.dotProduct(r))),nShininess));
 	}
 	private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {

@@ -8,13 +8,12 @@ public class PointLight extends Light {
 	protected double _Kl;
 	protected double _Kq;
 	
-	public PointLight(Color color, double ka, double kc, double kl, double kq, Point3D location) {
+	public PointLight(Color color, double kc, double kl, double kq, Point3D location) {
 		_color = new Color(color);
-		if(ka>1 || ka<0
-				||kc>1||kc<0
-				||kl>1||kl<0)
-			throw new ArgumentException("Attenuation factors must be between 1 and 0");
-		_Ka = ka;
+		if(kc<1
+				||kl<0
+				||kq<0)
+			throw new ArgumentException("Attenuation factors have wrong values");
 		_Kc = kc;
 		_Kl = kl;
 		_Kq = kq;
@@ -23,8 +22,10 @@ public class PointLight extends Light {
 	}
 	public PointLight(PointLight other) {
 		_color = new Color(other.getColor());
-		_Ka = other.getKa();
 		_location = new Point3D(getLocation());
+		_Kc = other.getKc();
+		_Kl = other.getKl();
+		_Kq = other.getKq();
 	}
 
 	/*****getters/setters*****/

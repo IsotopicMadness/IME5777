@@ -18,12 +18,15 @@ public class Sphere extends RadialGeometry{
 	}
 	
 	//Overrides
+	
 	@Override
-	//returns normal from a given point
+	/**returns normal from a given point
+	 * @param Point3D
+	 */
 	public Vector getNormal(Point3D p) {
-		if(p.distance(this.getPoint())!= this.getRadius())
-			throw new IllegalArgumentException("Point is not on sphere");
-		else
+		//if(p.distance(this.getPoint())!= this.getRadius())
+			//throw new IllegalArgumentException("Point is not on sphere");
+		//else
 			return (new Vector(p.subtract(this.getPoint())).normalize());
 	}
 	@Override
