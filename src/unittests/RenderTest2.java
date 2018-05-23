@@ -24,7 +24,7 @@ public class RenderTest2 {
 		ArrayList<Light> lights = new ArrayList<>();
 		scene.setLights(lights);
 		lights.add(new SpotLight(new Color(255, 255, 255), 1.0, 0.22, 0.5, new Point3D(0, 0, 2), new Vector(0, 0, -1)));
-
+		lights.add(new PointLight(new Color (255,255,204), 1.0, 0.22, 0.5, new Point3D (0,0,0)));
 		geometries.add(new Sphere(new Point3D(0, 0, 150), 75.0, new Color(34, 70, 166), new Material(1, 1, 1)));
 
 		ImageWriter imageWriter = new ImageWriter("test2", 500, 500, 500, 500);
