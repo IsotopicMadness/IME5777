@@ -114,7 +114,7 @@ public class Render {
 			
 		}
 		
-		public void printGrid(int x) {
+	public void printGrid(int x) {
 			for (int i = 0; i<_imageWriter.getNx(); i++) {
 				for (int j=0;j<_imageWriter.getNy();j++) {
 					if(i%x == 0 || j%x == 0)
