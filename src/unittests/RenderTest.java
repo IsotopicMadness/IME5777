@@ -25,7 +25,7 @@ public class RenderTest {
 		scene.setLights(lights);
 		lights.add(new SpotLight(new Color(255, 255, 255), 1.0, 1.0, 1.0, new Point3D(0, 0, 2), new Vector(0, 0, -1)));
 
-		geometries.add(new Sphere(new Point3D(0, 0, 150), 75.0, new Color(34, 70, 166), new Material(1, 1, 1)));
+		geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0, new Color(34, 70, 166), new Material(1, 1, 1)));
 
 		geometries.add(new Triangle(new Point3D(100, 0, 149), new Point3D(0, 100, 149), new Point3D(100, 100, 149),
 				new Color(0, 255, 0), new Material(1, 1, 1)));
