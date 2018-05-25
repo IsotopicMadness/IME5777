@@ -24,7 +24,7 @@ public class SpotLight extends PointLight {
 		double distance = point.distance(_location);
 		Vector l = new Vector(point.subtract(_location));
 		return new Color(_color.scale(
-				(l.dotProduct(_direction))
+				Math.abs(l.dotProduct(_direction))
 				/(_Kc + (_Kl*distance) + (_Kq*Math.pow(distance, 2)))
 				));
 	}

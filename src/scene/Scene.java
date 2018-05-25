@@ -32,6 +32,8 @@ public class Scene {
 		_sceneName = name;
 		_background = new Color(0, 0, 0);
 		_ambientLight = new AmbientLight(new Color(255, 255, 255), 1);
+		_objects = new Geometries();
+		_lights = new ArrayList<>();
 	}
 
 	public Scene(String sceneName, Color background, ArrayList<Geometry> objects, Camera camera, double screenDistance,
@@ -70,6 +72,10 @@ public class Scene {
 
 	public void addGeometry(Geometry geo) {
 		_objects.add(geo);
+	}
+	
+	public void addLights(Light light) {
+		_lights.add(light);
 	}
 
 	////////// getter/setter////////////
