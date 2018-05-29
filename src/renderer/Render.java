@@ -47,7 +47,7 @@ public class Render {
 		return _color;
 
 	}
-
+	
 	private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
 		Vector r = new Vector(l.add(n.scalarMuliplication(-2 * l.dotProduct(n))).normalize());
 		double vr = v.dotProduct(r);
@@ -142,5 +142,4 @@ public class Render {
 		}
 
 	}
-
 }
