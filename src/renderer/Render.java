@@ -3,6 +3,7 @@ package renderer;
 import java.util.ArrayList;
 import elements.*;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import primitives.*;
@@ -36,9 +37,11 @@ public class Render {
 		for (Light lightSource : _scene.getLights()) {
 			Vector l = lightSource.getL(point);
 			if (n.dotProduct(l) * n.dotProduct(v) > 0) {
-				Color lightIntensity = lightSource.getIntensity(point);
-				color.add(calcDiffusive(kd, l, n, lightIntensity),
-						calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+				Color lightIntensity = new Color();
+				if(!occluded(l, geo, point))
+					lightIntensity = lightSource.getIntensity(point);
+					color.add(calcDiffusive(kd, l, n, lightIntensity),
+							calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 			}
 		}
 		return _color;
@@ -60,6 +63,18 @@ public class Render {
 	public ImageWriter getImageWriter() {
 		return _imageWriter;
 	}
+	
+	private boolean occluded(Vector l, Geometry geo, Point3D point) {
+		Vector lightDirection = l.scalarMuliplication(-1); // from point to light source
+		Vector normal = geo.getNormal(point).scalarMuliplication(2);
+		Vector epsVector = normal.scalarMuliplication((normal.dotProduct(lightDirection) > 0) ? 2 : -2);
+		Point3D geometryPoint = point.add(epsVector);
+		Ray lightRay = new Ray(lightDirection, geometryPoint);
+		Map<Geometry, ArrayList<Point3D>> intersectionPoints =
+		_scene.getGeometries().findIntersections(lightRay);
+		return !intersectionPoints.isEmpty();
+		}
+
 
 	/**
 	 * Renders every the image
