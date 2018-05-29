@@ -127,14 +127,4 @@ public class Render {
 		}
 
 	}
-	private boolean occluded(Vector l, GeoPoint geopoint) {
-		Vector lightDirection = l.scale(-1); // from point to light source
-		Vector epsVector = geopoint.geometry.getNormal(geopoint.point).scale(2);
-		Vector epsVector = normal.scale(normal.dotProduct(lightDirection) > 0) ? 2 : -2);
-		Point3D geometryPoint = geopoint.point.add(epsVector);
-		Ray lightRay = new Ray(geometryPoint, toLightDirection);
-		Map<Geometry, List<Point3D>> intersectionPoints =
-		_scene.getGeomtries().findIntersections(lightRay);
-		return !intersectionPoints.isEmpty();
-		}
 }
