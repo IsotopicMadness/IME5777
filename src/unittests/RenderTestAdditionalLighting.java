@@ -11,7 +11,7 @@ import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
 
-public class RenderTest2 {
+public class RenderTestAdditionalLighting {
 	@Test
 	public void basicRendering() {
 		Scene scene = new Scene("Test scene 2");
