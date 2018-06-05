@@ -22,7 +22,10 @@ public class Render {
 
 	/************** operations *******/
 	// calc the exact color of the point that we need
-	private Color calcColor(Geometry geo, Point3D point, ArrayList<Light> lights) {
+	private Color calcColor(Geometry geo, Point3D point, ArrayList<Light> lights, int levels, double k) {
+		
+		if (levels == 0 || Coordinate.isZero(k)) return _scene.getBackground();
+		
 		if (geo == null || point == null)
 			throw new IllegalArgumentException("Geometry or Point not found");
 
