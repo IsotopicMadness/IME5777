@@ -3,6 +3,7 @@ package scene;
 import geometries.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import elements.*;
 
@@ -149,5 +150,11 @@ public class Scene {
 	 */
 	public void setLights(ArrayList<Light> lights) {
 		_lights = lights;
+	}
+	
+	
+public HashMap<Geometry, ArrayList<Point3D>> findRayIntersections(Ray ray) {
+		
+		return _objects.findIntersections(ray);
 	}
 }
