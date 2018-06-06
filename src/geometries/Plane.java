@@ -18,17 +18,14 @@ public class Plane extends Geometry {
 	 *
 	 *In order to avoid the above error a default constructor had had to be built
 	 */
-	public Plane() {
-		
-	}
 	
-	public Plane(Point3D p,Vector v, Color color){
-		super(color);
+	public Plane(Point3D p,Vector v, Color color, Material material){
+		super(color, material);
 		point = new Point3D(p);
 		normal = new Vector(v);
 	}
 	public Plane(Plane obj) {
-		super(obj.getEmmission());
+		super(obj.getEmmission(), obj.getMaterial());
 		point = new Point3D(obj.getPoint());
 		normal = new Vector(obj.getNormal());
 	}
@@ -39,8 +36,8 @@ public class Plane extends Geometry {
 	 * @param p3
 	 * The constructor takes three points and calculates the plane
 	 */
-	public Plane(Point3D p1, Point3D p2, Point3D p3, Color color) {
-		super(color);
+	public Plane(Point3D p1, Point3D p2, Point3D p3, Color color, Material material) {
+		super(color, material);
 		Vector p1_2 = new Vector(p1.subtract(p2));
 		Vector p1_3 = new Vector(p2.subtract(p3));
 		Vector n = p1_2.crossProduct(p1_3);

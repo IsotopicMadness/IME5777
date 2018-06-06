@@ -31,10 +31,10 @@ public class PlaneTest {
 				new Vector (0.0, 0.0, -1.0));
 		
 		 //plane orthogonal to the view plane
-		Plane plane = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.0, -1.0), new Color());
+		Plane plane = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.0, -1.0), new Color(), new Material(1,1,1,1,1));
 		
 		//45 degrees to the view plane
-		Plane plane2 = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color());
+		Plane plane2 = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color(), new Material(1,1,1,1,1));
 		
 		ArrayList<Point3D> intersectionPointsPlane = new ArrayList<Point3D>();
 		ArrayList<Point3D> intersectionPointsPlane2 = new ArrayList<Point3D>();
@@ -76,9 +76,9 @@ public class PlaneTest {
 	@Test
 	public void testEqualsObject() {
 		
-		Plane p1 = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color());
-		Plane p2 = new Plane(new Point3D(0.0,0.0,0.0000001),new Vector(0.0,0.25,-0.999999999999), new Color());
-		Plane p3 = new Plane(new Point3D(1.0, 3.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color());
+		Plane p1 = new Plane(new Point3D(0.0, 0.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color(), new Material(1,1,1,1,1));
+		Plane p2 = new Plane(new Point3D(0.0,0.0,0.0000001),new Vector(0.0,0.25,-0.999999999999), new Color(), new Material(1,1,1,1,1));
+		Plane p3 = new Plane(new Point3D(1.0, 3.0, -3.0), new Vector(0.0, 0.25, -1.0), new Color(), new Material(1,1,1,1,1));
 		
 		assertTrue(!p1.equals(p2));
 		assertTrue(!p1.equals(p3));

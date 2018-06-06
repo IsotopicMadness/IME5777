@@ -11,8 +11,8 @@ public abstract class RadialGeometry extends Geometry {
 	private Point3D point;
 //***************** Constructors ********************** // 
 
-	public RadialGeometry(double r,Point3D p, Color color) {
-		super(color);
+	public RadialGeometry(double r,Point3D p, Color color, Material material) {
+		super(color, material);
 		if (r<=0)
 			throw new IllegalArgumentException("radius cannot be negative\n");
 		else
@@ -23,8 +23,8 @@ public abstract class RadialGeometry extends Geometry {
 			}
 	
 	}
-	public RadialGeometry(RadialGeometry ra) {
-		super(ra.getEmmission());
+	public RadialGeometry(RadialGeometry ra, Material material) {
+		super(ra.getEmmission(), material);
 		this.point = new Point3D(ra.point);
 		this._radius = ra._radius;
 }
