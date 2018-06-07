@@ -3,10 +3,6 @@
  */
 package primitives;
 
-/**
- * @author amich
- *
- */
 public class Coordinate {
 
 	private double _x;
@@ -64,12 +60,22 @@ public class Coordinate {
 	}
 
 	@Override
+	/**
+	 * returns the coordinate in string form
+	 * 
+	 * @return
+	 */
 	public String toString() {
 
 		return Double.toString(_x);
 	}
 
 	// operations
+	/**
+	 * Adds a given value to the Coordinate. However if the value is smaller than the pre-determined accuracy it won't be added and will be treated as a zero
+	 * @param other
+	 * @return
+	 */
 	private double _add(double other) {
 		int otherExp = getExponent(_x);
 		int thisExp = getExponent(_x);
@@ -86,6 +92,11 @@ public class Coordinate {
 		return resultExp - thisExp < ACCURACY ? 0.0 : result;
 	}
 
+	/**
+	 * Subtracts a given value from the Coordinate. However if the value is smaller than the pre-determined accuracy it won't be subtracted and will be treated as a zero.
+	 * @param other
+	 * @return
+	 */
 	private double _subtract(double other) {
 		int otherExp = getExponent(other);
 		int thisExp = getExponent(_x);
