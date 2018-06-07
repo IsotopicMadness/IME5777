@@ -22,6 +22,11 @@ public class Coordinate {
 	}
 
 	// get/set
+	/**
+	 * Returns the Coordinate's value
+	 * 
+	 * @return
+	 */
 	public double getNum() {
 		return _x;
 	}
@@ -29,8 +34,12 @@ public class Coordinate {
 	// admin
 
 	/**
+	 * Returns the exponent of the Coordinate's value
+	 * 
 	 * double store format: seee eeee eeee (1.)mmmm … mmmm 1 bit sign, 11 bits
 	 * exponent, 53 bits (52 stored) normalized mantissa
+	 * 
+	 * @return
 	 */
 	private static int getExponent(double num) {
 		return (int) ((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
@@ -38,6 +47,11 @@ public class Coordinate {
 
 	// Override
 	@Override
+	/**
+	 * Checks if the Coordinate shares the same value with the second one
+	 * 
+	 * @return
+	 */
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
@@ -46,7 +60,7 @@ public class Coordinate {
 		if (this == obj)
 			return true;
 		Coordinate other = new Coordinate((Coordinate) obj);
-		return this.subtract(other.getNum()) == 0.0;
+		return subtract(other) == 0.0;
 	}
 
 	@Override
@@ -88,26 +102,86 @@ public class Coordinate {
 		return resultExp - thisExp < ACCURACY ? 0.0 : result;
 	}
 
+	/**
+	 * multiplies the Coordinate's value by the given number
+	 * 
+	 * @param num
+	 * @return
+	 */
 	private double _mult(double num) {
 		int deltaExp = getExponent(num - 1);
 		return deltaExp < ACCURACY ? _x : _x * num;
 	}
 
 	// API
+	/**
+	 * Adds given value to Coordinate
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public double add(double other) {
 		return _add(other);
 	}
 
+	/**
+	 * Adds given value to Coordinate
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public double add(Coordinate other) {
+		return _add(other._x);
+	}
+
+	/**
+	 * Subtracts given value from Coordinate
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public double subtract(double other) {
 		return _subtract(other);
 	}
 
+	/**
+	 * Subtracts given value from Coordinate
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public double subtract(Coordinate other) {
+		return _subtract(other._x);
+	}
+
+	/**
+	 * multiplies the Coordinate's value by the given number
+	 * 
+	 * @param num
+	 * @return
+	 */
 	public double mult(double num) {
 		return _mult(num);
 	}
 
+	/**
+	 * multiplies the Coordinate's value by the given number
+	 * 
+	 * @param num
+	 * @return
+	 */
+	public double mult(Coordinate other) {
+		return _mult(other._x);
+	}
+
+	/**
+	 * Checks if given number is Zero or very close to it.
+	 * 
+	 * @param number
+	 * @return
+	 */
 	public static boolean isZero(double number) {
-		return getExponent(number)<ACCURACY;
+		return getExponent(number) < ACCURACY;
 	}
 
 }
