@@ -68,14 +68,13 @@ public class Plane extends Geometry {
 	 * Calculates and returns the points where the given ray cross the plane
 	 */
 	public HashMap<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
-		
 		HashMap<Geometry,ArrayList<Point3D>> result = new HashMap<Geometry,ArrayList<Point3D>>();
 		ray = new Ray(ray.normalize(),ray.getLocation());
-		double t = (normal.dotProduct(point.vectorSubstraction(ray.getLocation())))
+		double t = (normal.dotProduct(point.subtract(ray.getLocation())))
 					/(normal.dotProduct(ray.getDirection()));
 		if(t>0) {
 			ArrayList<Point3D> arr = new ArrayList<Point3D>();
-			arr.add(ray.getLocation().add(ray.getDirection().scalarMuliplication(t).getPoint3D()));
+			arr.add(ray.getLocation().add(ray.getDirection().scale(t)));
 			result.put(this, arr);
 		}
 		return result;

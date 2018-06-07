@@ -8,21 +8,27 @@ public class Vector extends Point3D {
 	// Constructors
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
 		super(x, y, z);
+		if (Point3D.ZERO.equals(this))
+			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
 	}
 
 	public Vector(double x, double y, double z) {
 		super(x, y, z);
+		if (Point3D.ZERO.equals(this))
+			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
 	}
 
 	public Vector(Point3D point) {
 		super(point);
+		if (Point3D.ZERO.equals(this))
+			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
 	}
 
 	public Vector(Vector other) {
-		super(other.getX(), other.getY(), other.getZ());
+		super(other);
 		length = other.getLength();
 	}
 
@@ -33,7 +39,7 @@ public class Vector extends Point3D {
 
 	// admin
 	private double _length() {
-		return super.distance(new Point3D(new Coordinate(0.0), new Coordinate(0.0), new Coordinate(0.0)));
+		return super.distance(Point3D.ZERO);
 	}
 
 	// overrides
@@ -41,23 +47,16 @@ public class Vector extends Point3D {
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Vector))
-			return false;
 		if (this == obj)
 			return true;
-		Vector other = new Vector((Vector) obj);
-		return super.equals(other.getPoint3D());
-	}
-
-	@Override
-	public String toString() {
-		return super.toString();
+		if (!(obj instanceof Vector))
+			return false;
+		return super.equals((Vector) obj);
 	}
 
 	// operations
 	public Vector add(Vector other) {
-		return new Vector(new Coordinate(getX().add(other.getX().getNum())),
-				new Coordinate(getY().add(other.getY().getNum())), new Coordinate(getZ().add(other.getZ().getNum())));
+		return new Vector(x.add(other.x), y.add(other.y), z.add(other.z));
 	}
 
 	public Vector subtract(Vector other) {
@@ -65,14 +64,12 @@ public class Vector extends Point3D {
 				new Coordinate(getY().add(-other.getY().getNum())), new Coordinate(getZ().add(-other.getZ().getNum())));
 	}
 
-	public Vector scalarMuliplication(double lambda) {
-		return new Vector(new Coordinate(this.getX().mult(lambda)), new Coordinate(this.getY().mult(lambda)),
-				new Coordinate(this.getZ().mult(lambda)));
+	public Vector scale(double lambda) {
+		return new Vector(x.mult(lambda), y.mult(lambda), z.mult(lambda));
 	}
 
 	public double dotProduct(Vector other) {
-		return (getX().mult(other.getX().getNum()) + getY().mult(other.getY().getNum())
-				+ getZ().mult(other.getZ().getNum()));
+		return x.mult(other.x) + y.mult(other.y) + z.mult(other.z);
 	}
 
 	// Double check result
@@ -83,6 +80,6 @@ public class Vector extends Point3D {
 	}
 
 	public Vector normalize() {
-		return this.scalarMuliplication(1 / length);
+		return this.scale(1 / length);
 	}
 }

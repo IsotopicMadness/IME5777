@@ -3,17 +3,18 @@ package primitives;
 public class Ray extends Vector {
 
 	private Point3D location;
-	
+
 	//Constructors
 	public Ray(Vector direction, Point3D point) {
-		super(direction);
+		super(direction.normalize());
 		location=new Point3D(point);
 	}
+
 	public Ray(Ray other) {
-		super(other.getDirection());
+		super(other);
 		location=new Point3D(other.getLocation());
 	}
-	
+
 	//get/set
 	public Point3D getLocation() {
 		return location;
@@ -21,8 +22,7 @@ public class Ray extends Vector {
 	public Vector getDirection() {
 		return new Vector(getX(),getY(),getZ());
 	}
-	
-	
+
 	//Overrides
 	@Override
 	public boolean equals(Object obj) {
