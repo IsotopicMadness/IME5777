@@ -33,7 +33,7 @@ public class Cylinder extends RadialGeometry {
 	public Vector getNormal(Point3D p) {
 		Vector v =new Vector(p.subtract(getPoint()));
 		double t=directionLength.dotProduct(v);
-		Point3D q= p.add(directionLength.scalarMuliplication(t));
+		Point3D q= p.add(directionLength.scale(t));
 		Vector normal= new Vector(p.subtract(q));
 		return normal.normalize();
 	}

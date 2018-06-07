@@ -40,6 +40,7 @@ public class Render {
 		double ks = geo.getKs();
 		for (Light lightSource : _scene.getLights()) {
 			Vector l = lightSource.getL(point);
+			//not working
 			if (n.dotProduct(l) * n.dotProduct(v) > 0) {
 				Color lightIntensity = new Color();
 				
@@ -89,7 +90,7 @@ public class Render {
 	}
 
 	private Ray constructReflectedRay(Vector n, Point3D point, Ray ray) {
-		Ray reflected = new Ray(ray.getDirection().add(n.scalarMuliplication(-2 * ray.getDirection().dotProduct(n))),
+		Ray reflected = new Ray(ray.getDirection().add(n.scale(-2 * ray.getDirection().dotProduct(n))),
 				point);
 		return reflected;
 	}
@@ -100,7 +101,7 @@ public class Render {
 	}
 
 	private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-		Vector r = new Vector(l.add(n.scalarMuliplication(-2 * l.dotProduct(n))).normalize());
+		Vector r = new Vector(l.add(n.scale(-2 * l.dotProduct(n))).normalize());
 		double vr = v.dotProduct(r);
 		if (vr > 0)
 			return new Color(0, 0, 0);
@@ -117,9 +118,9 @@ public class Render {
 
 	private double occluded(Vector l, Geometry geo, Point3D point) {
 
-		Vector lightDirection = l.scalarMuliplication(-1); // from point to light source
-		Vector normal = geo.getNormal(point).scalarMuliplication(2);
-		Vector epsVector = normal.scalarMuliplication((normal.dotProduct(lightDirection) > 0) ? 1 / 10000 : -1 / 10000);
+		Vector lightDirection = l.scale(-1); // from point to light source
+		Vector normal = geo.getNormal(point).scale(2);
+		Vector epsVector = normal.scale((normal.dotProduct(lightDirection) > 0) ? 1 / 10000 : -1 / 10000);
 
 		Point3D geometryPoint = point.add(epsVector);
 

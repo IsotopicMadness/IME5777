@@ -40,7 +40,7 @@ public class MainTest {
 		
 		Vector v = new Vector(new Coordinate(x.add(x.getNum())),new Coordinate(y.add(y.getNum())), new Coordinate(z.subtract(y.getNum())));
 		Vector vc = v.crossProduct(new Vector(new Coordinate(2),new Coordinate(5),new Coordinate(1)));
-		Vector vd = v.scalarMuliplication(4).crossProduct(vc);
+		Vector vd = v.scale(4).crossProduct(vc);
 		Vector vn = vd.normalize();
 		System.out.println(v.toString()+"\n"+vc.toString()+"\n"+vd.toString()+"\n"+vn.toString());
 		

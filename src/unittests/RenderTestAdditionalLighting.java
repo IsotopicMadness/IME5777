@@ -33,10 +33,12 @@ public class RenderTestAdditionalLighting {
 		scene.setBackground(new Color(0, 0, 0));
 		scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, -1)));
 		scene.setAmbientLight(new AmbientLight(new Color(30, 30, 30), 1));
-		scene.addLights(new SpotLight(new Color(100, 100, 255), 1.0, 0.0, 1.7, new Point3D(-3, -2, -2),
+		scene.addLights(new SpotLight(new Color(100, 100, 255), 1.0, 1.0, 1.7, new Point3D(-3, -2, -2),
 				new Vector(new Point3D(0, 0, -10).subtract(new Point3D(-3, -2, -2)))));
+		scene.addLights(new PointLight(new Color(255, 255, 255), 1, 1, 1, new Point3D(-3,-2,-2)));
+
 		scene.addGeometry(new Sphere(new Point3D(0, 0, -10), 6, new Color(0, 0, 100), new Material(1, 1, 1, 0, 0)));
-		scene.addGeometry(new Sphere(new Point3D(0, 2, -3), 1, new Color(105, 255, 0), new Material(1, 1, 1, 0, 0)));
+		scene.addGeometry(new Triangle(new Point3D(-2,-2,-4), new Point3D(2,0,-4), new Point3D(0,0,-4),new Color(255,0,0), new Material(1,1,1,1,1)));
 		scene.addGeometry(new Plane(new Point3D(0, 0, -20), new Vector(0, 0, -1), new Color(200, 200, 50).scale(0.25),
 				new Material(1, 1, 1, 0.56, 0.25)));
 		Render r = new Render(imageWriter, scene);

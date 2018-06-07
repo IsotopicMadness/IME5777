@@ -55,8 +55,8 @@ public class Sphere extends RadialGeometry{
 		
 		if(t1!=0){
 			ArrayList<Point3D> array = new ArrayList<>();
-			array.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t1))));
-			array.add(new Point3D(ray.getLocation().add(ray.getDirection().scalarMuliplication(t2))));
+			array.add(new Point3D(ray.getLocation().add(ray.getDirection().scale(t1))));
+			array.add(new Point3D(ray.getLocation().add(ray.getDirection().scale(t2))));
 			result.put(this, array);
 		}
 		return result;

@@ -75,13 +75,13 @@ public class VectorTest {
 		a = new Vector(1.0,1.0,1.0);
 		
 		double d = 5;
-		assertEquals(new Vector(5.0,5.0,5.0),a.scalarMuliplication(d));
+		assertEquals(new Vector(5.0,5.0,5.0),a.scale(d));
 		
 		d = 0;
-		assertEquals(new Vector(0,0,0), a.scalarMuliplication(d));
+		assertEquals(new Vector(0,0,0), a.scale(d));
 		
 		d = -5;
-		assertEquals(new Vector(-5.0,-5.0,-5.0),a.scalarMuliplication(d));
+		assertEquals(new Vector(-5.0,-5.0,-5.0),a.scale(d));
 	}
 	@Test
 	public void testDotProduct() {

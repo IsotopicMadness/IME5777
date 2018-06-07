@@ -64,9 +64,9 @@ public class Triangle extends Plane {
 		
 		HashMap<Geometry,ArrayList<Point3D>> result = new HashMap<Geometry,ArrayList<Point3D>>();
 		
-		Vector v1 = new Vector(p1.vectorSubstraction(ray.getLocation()));
-		Vector v2 = new Vector(p2.vectorSubstraction(ray.getLocation()));
-		Vector v3 = new Vector(p3.vectorSubstraction(ray.getLocation()));
+		Vector v1 = new Vector(p1.subtract(ray.getLocation()));
+		Vector v2 = new Vector(p2.subtract(ray.getLocation()));
+		Vector v3 = new Vector(p3.subtract(ray.getLocation()));
 		
 		Vector n1 = v1.crossProduct(v2).normalize();
 		Vector n2 = v2.crossProduct(v3).normalize();
@@ -81,9 +81,9 @@ public class Triangle extends Plane {
 		
 		Point3D p = new Point3D(result.get(this).get(0));
 		
-		boolean t1 = n1.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
-		boolean t2 = n2.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
-		boolean t3 = n3.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
+		boolean t1 = n1.dotProduct(p.subtract(ray.getLocation())) > 0;
+		boolean t2 = n2.dotProduct(p.subtract(ray.getLocation())) > 0;
+		boolean t3 = n3.dotProduct(p.subtract(ray.getLocation())) > 0;
 		
 		if(t1&&t2&&t3||!t1&&!t2&&!t3)
 			return result;

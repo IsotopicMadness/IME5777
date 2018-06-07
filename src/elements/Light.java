@@ -67,9 +67,9 @@ public abstract class Light {
 	 */
 	public Vector getL(Point3D point) {
 		if(_location == null)
-			return _direction;
+			return _direction.normalize();
 		else
-			return new Vector(_location.subtract(point));
+			return new Vector(_location.subtract(point)).normalize();
 	}
 
 }

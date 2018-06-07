@@ -3,6 +3,8 @@ package geometries;
 import java.util.ArrayList;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import primitives.*;
 
@@ -10,7 +12,7 @@ import primitives.*;
  * Used as an interface for every object in the scene
  * 
  */
-public abstract class Geometry extends Material {
+public abstract class Geometry extends Material implements Intersectable {
 	private Color _emmission;
 
 	/**
@@ -19,41 +21,19 @@ public abstract class Geometry extends Material {
 	 * @param p
 	 * @return
 	 */
-	public Vector getNormal(Point3D p) {
-		Vector v = new Vector(1, 0, 0);
-		return v;
-
-	}
+	public abstract Vector getNormal(Point3D p);
 
 	public Geometry(Color emmi, Material material) {
 		super(material);
 		_emmission = new Color(emmi);
 	}
 
-	public Geometry(Geometry g) {
-		super(g.getMaterial());
-		_emmission = new Color(getEmmission());
-	}
-
 	public Color getEmmission() {
 		return _emmission;
 	}
 
-	public void setEmmission(Color _emmission) {
-		this._emmission = _emmission;
-	}
-
-	public HashMap<Geometry, ArrayList<Point3D>> findIntersection(Ray ray) {
-		return new HashMap<Geometry, ArrayList<Point3D>>();
-	}
-
 	public Vector getNormal() {
-		throw new ArgumentException("Can't execute getNormal() on parent");
+		throw new IllegalArgumentException("Can't execute getNormal() on parent");
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
-	}
 }
