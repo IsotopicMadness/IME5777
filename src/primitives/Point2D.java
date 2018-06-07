@@ -60,6 +60,7 @@ public class Point2D {
 	@Override
 	/**
 	 * returns the point's string
+	 * @return
 	 */
 	public String toString() {
 		return "(" + x.toString() + ", " + y.toString() + ")";
