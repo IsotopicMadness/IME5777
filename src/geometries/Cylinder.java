@@ -28,7 +28,13 @@ public class Cylinder extends RadialGeometry {
 
 	public Cylinder(Cylinder other) {
 		super(other._radius, other.getEmmission(), other);
-		
+		_hight = other._hight;
+		_direction = other._direction;
+		_centerPoint1 = other._centerPoint1;
+		_centerPoint2 = other._centerPoint2;
+		_plane1 = other._plane1;
+		_plane2 = other._plane2;
+
 	}
 
 	// Getters/setters
