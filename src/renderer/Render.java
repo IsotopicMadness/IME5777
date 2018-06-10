@@ -1,6 +1,5 @@
 package renderer;
 
-import java.util.ArrayList;
 import elements.*;
 import java.util.HashMap;
 import java.util.List;
@@ -41,48 +40,52 @@ public class Render {
 		double ks = geo.getKs();
 		for (Light lightSource : _scene.getLights()) {
 			Vector l = lightSource.getL(point);
-			//not working
+			// not working
 			if (n.dotProduct(l) * n.dotProduct(v) > 0) {
 				Color lightIntensity = new Color();
-				
+
 				double occ = occluded(l, geo, point);
-				if (!Coordinate.isZero(occ*k)) {
+				if (!Coordinate.isZero(occ * k)) {
 					lightIntensity = lightSource.getIntensity(point);
 					color.add(calcDiffusive(kd, l, n, lightIntensity),
-					calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+							calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 				}
 			}
 		}
 
 		// reflection
 		Ray reflectedRay = constructReflectedRay(n, point, inRay);
-		HashMap<Geometry, ArrayList<Point3D>> reflectedIntersectionPoints = new HashMap<Geometry, ArrayList<Point3D>>(
-				_scene.findRayIntersections(reflectedRay));
+		Map<Intersectable, List<Point3D>> reflectedIntersectionPoints = new HashMap<Intersectable, List<Point3D>>();
+		reflectedIntersectionPoints.putAll(_scene.findRayIntersections(reflectedRay));
 
 		Color reflected = new Color();
 		if (reflectedIntersectionPoints.isEmpty()) {
 			reflected = _scene.getBackground();
 		} else {
-			HashMap<Geometry, Point3D> reflectedPoint = getClosestPoint(reflectedIntersectionPoints);
+			Map<Intersectable, Point3D> reflectedPoint = getClosestPoint(reflectedIntersectionPoints);
 			double kr = geo.get_Kr();
-			for (Entry<Geometry, Point3D> p : reflectedPoint.entrySet()) {
-				reflected = calcColor(p.getKey(), p.getValue(), reflectedRay, levels - 1, k * kr).scale(kr);
+			for (Entry<Intersectable, Point3D> p : reflectedPoint.entrySet()) {
+				if (!(p.getKey() instanceof Geometry))
+					throw new IllegalArgumentException("Must be Geometry");
+				reflected = calcColor((Geometry) p.getKey(), p.getValue(), reflectedRay, levels - 1, k * kr).scale(kr);
 			}
 		}
 
 		// refraction
 		Ray refractedRay = constructRefractedRay(point, inRay);
-		HashMap<Geometry, ArrayList<Point3D>> refractedIntersectionPoints = new HashMap<Geometry, ArrayList<Point3D>>(
+		Map<Intersectable, List<Point3D>> refractedIntersectionPoints = new HashMap<Intersectable, List<Point3D>>(
 				_scene.findRayIntersections(refractedRay));
 
 		Color refracted = new Color();
 		if (refractedIntersectionPoints.isEmpty()) {
 			refracted = _scene.getBackground();
 		} else {
-			HashMap<Geometry, Point3D> refractedPoint = getClosestPoint(refractedIntersectionPoints);
-			double kt = geo.getMaterial().get_Kt();
-			for (Entry<Geometry, Point3D> p : refractedPoint.entrySet()) {
-				refracted = calcColor(p.getKey(), p.getValue(), refractedRay, levels - 1, k * kt).scale(kt);
+			Map<Intersectable, Point3D> refractedPoint = getClosestPoint(refractedIntersectionPoints);
+			double kt = geo.get_Kt();
+			for (Entry<Intersectable, Point3D> p : refractedPoint.entrySet()) {
+				if (!(p.getKey() instanceof Geometry))
+					throw new IllegalArgumentException("Must be Geometry");
+				refracted = calcColor((Geometry) p.getKey(), p.getValue(), refractedRay, levels - 1, k * kt).scale(kt);
 			}
 		}
 		color.add(reflected);
@@ -91,8 +94,7 @@ public class Render {
 	}
 
 	private Ray constructReflectedRay(Vector n, Point3D point, Ray ray) {
-		Ray reflected = new Ray(ray.getDirection().add(n.scale(-2 * ray.getDirection().dotProduct(n))),
-				point);
+		Ray reflected = new Ray(ray.getDirection().add(n.scale(-2 * ray.getDirection().dotProduct(n))), point);
 		return reflected;
 	}
 
@@ -130,7 +132,7 @@ public class Render {
 		double occlusionK = 0;
 		Map<Intersectable, List<Point3D>> intersectionPoints = _scene.getGeometries().findIntersection(lightRay);
 		for (Map.Entry<Intersectable, List<Point3D>> entry : intersectionPoints.entrySet()) {
-			occlusionK *= ((Geometry)entry.getKey()).get_Kt();
+			occlusionK *= ((Geometry) entry.getKey()).get_Kt();
 		}
 
 		return occlusionK;
@@ -162,8 +164,10 @@ public class Render {
 					Geometry geo = null;
 					Point3D p = null;
 
-					for (Entry<Geometry, Point3D> ed : closestPoint.entrySet()) {
-						geo = ed.getKey();
+					for (Entry<Intersectable, Point3D> ed : closestPoint.entrySet()) {
+						if (!(ed.getKey() instanceof Geometry))
+							throw new IllegalArgumentException("Must be Geometry");
+						geo = (Geometry) ed.getKey();
 						p = ed.getValue();
 					}
 
@@ -181,9 +185,9 @@ public class Render {
 		double distance = Double.MAX_VALUE;
 
 		for (Entry<Intersectable, List<Point3D>> ed : intersectionPoints.entrySet()) {
-			if(!(ed.getKey() instanceof Geometry))
+			if (!(ed.getKey() instanceof Geometry))
 				throw new IllegalArgumentException("Must be a Geometry. Can't use Interface");
-			Geometry k = (Geometry)ed.getKey();
+			Geometry k = (Geometry) ed.getKey();
 			List<Point3D> v = ed.getValue();
 			for (Point3D p : v) {
 				if (p.distance(_scene.getCamera().getP0()) < distance) {
