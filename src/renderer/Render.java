@@ -3,6 +3,7 @@ package renderer;
 import java.util.ArrayList;
 import elements.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -127,9 +128,9 @@ public class Render {
 		Ray lightRay = new Ray(lightDirection, geometryPoint);
 
 		double occlusionK = 0;
-		Map<Geometry, ArrayList<Point3D>> intersectionPoints = _scene.getGeometries().findIntersections(lightRay);
-		for (Map.Entry<Geometry, ArrayList<Point3D>> entry : intersectionPoints.entrySet()) {
-			occlusionK *= entry.getKey().getMaterial().get_Kt();
+		Map<Intersectable, List<Point3D>> intersectionPoints = _scene.getGeometries().findIntersection(lightRay);
+		for (Map.Entry<Intersectable, List<Point3D>> entry : intersectionPoints.entrySet()) {
+			occlusionK *= ((Geometry)entry.getKey()).get_Kt();
 		}
 
 		return occlusionK;
@@ -146,14 +147,14 @@ public class Render {
 				Ray ray = _scene.getCamera().constructRayThroughPixel(_imageWriter.getNx(), _imageWriter.getNy(), i, j,
 						_scene.getScreenDistance(), _imageWriter.getWidth(), _imageWriter.getHeight());
 
-				HashMap<Geometry, ArrayList<Point3D>> intersectionPoints = new HashMap<>();
-				intersectionPoints.putAll(_scene.getGeometries().findIntersections(ray));
+				Map<Intersectable, List<Point3D>> intersectionPoints = new HashMap<>();
+				intersectionPoints.putAll(_scene.getGeometries().findIntersection(ray));
 
 				if (intersectionPoints.size() == 0)
 					_imageWriter.writePixel(i, j, _scene.getBackground().getColorArray());
 
 				else {
-					HashMap<Geometry, Point3D> closestPoint = new HashMap<>();
+					Map<Intersectable, Point3D> closestPoint = new HashMap<>();
 					closestPoint.putAll(getClosestPoint(intersectionPoints));
 
 					// In order to avoid compilation error arguments must be initialised with a
@@ -174,14 +175,16 @@ public class Render {
 		}
 	}
 
-	public HashMap<Geometry, Point3D> getClosestPoint(HashMap<Geometry, ArrayList<Point3D>> points) {
-		HashMap<Geometry, Point3D> rePoint = new HashMap<>();
+	public Map<Intersectable, Point3D> getClosestPoint(Map<Intersectable, List<Point3D>> intersectionPoints) {
+		Map<Intersectable, Point3D> rePoint = new HashMap<>();
 
 		double distance = Double.MAX_VALUE;
 
-		for (Entry<Geometry, ArrayList<Point3D>> ed : points.entrySet()) {
-			Geometry k = ed.getKey();
-			ArrayList<Point3D> v = ed.getValue();
+		for (Entry<Intersectable, List<Point3D>> ed : intersectionPoints.entrySet()) {
+			if(!(ed.getKey() instanceof Geometry))
+				throw new IllegalArgumentException("Must be a Geometry. Can't use Interface");
+			Geometry k = (Geometry)ed.getKey();
+			List<Point3D> v = ed.getValue();
 			for (Point3D p : v) {
 				if (p.distance(_scene.getCamera().getP0()) < distance) {
 					distance = p.distance(_scene.getCamera().getP0());

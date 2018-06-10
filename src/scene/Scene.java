@@ -4,6 +4,8 @@ import geometries.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import elements.*;
 
@@ -153,8 +155,8 @@ public class Scene {
 	}
 	
 	
-public HashMap<Geometry, ArrayList<Point3D>> findRayIntersections(Ray ray) {
+public Map<Intersectable, List<Point3D>> findRayIntersections(Ray ray) {
 		
-		return _objects.findIntersections(ray);
+		return _objects.findIntersection(ray);
 	}
 }

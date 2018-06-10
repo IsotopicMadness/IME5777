@@ -13,7 +13,7 @@ public class PointLight extends Light {
 		if(kc<1
 				||kl<0
 				||kq<0)
-			throw new ArgumentException("Attenuation factors have wrong values");
+			throw new IllegalArgumentException("Attenuation factors have wrong values");
 		_Kc = kc;
 		_Kl = kl;
 		_Kq = kq;
