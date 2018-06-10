@@ -60,10 +60,7 @@ public class Scene {
 	public Scene(Scene other) {
 		setSceneName(other.getSceneName());
 		setBackground(other.getBackground());
-		_objects = new Geometries();
-		for (Geometry geo : other.getObjects().getGeometries()) {
-			this._objects.add(geo);
-		}
+		_objects = other._objects;
 		setCamera(other.getCamera());
 		setScreenDistance(other.getScreenDistance());
 		_ambientLight = new AmbientLight(other.getAmbientLight());
@@ -76,7 +73,7 @@ public class Scene {
 	public void addGeometry(Geometry geo) {
 		_objects.add(geo);
 	}
-	
+
 	public void addLights(Light light) {
 		_lights.add(light);
 	}
@@ -153,10 +150,9 @@ public class Scene {
 	public void setLights(ArrayList<Light> lights) {
 		_lights = lights;
 	}
-	
-	
-public Map<Intersectable, List<Point3D>> findRayIntersections(Ray ray) {
-		
+
+	public Map<Intersectable, List<Point3D>> findRayIntersections(Ray ray) {
+
 		return _objects.findIntersection(ray);
 	}
 }
