@@ -101,6 +101,6 @@ public class Triangle extends Plane {
 		if (t1 && t2 && t3 || !t1 && !t2 && !t3)
 			return result;
 		else
-			return new HashMap<Geometry, ArrayList<Point3D>>();
+			return new HashMap<Intersectable, List<Point3D>>();
 	}
 }
