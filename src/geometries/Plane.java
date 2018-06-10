@@ -67,7 +67,7 @@ public class Plane extends Geometry {
 	 * @param ray
 	 * Calculates and returns the points where the given ray cross the plane
 	 */
-	public HashMap<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
+	public Map<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
 		HashMap<Geometry,ArrayList<Point3D>> result = new HashMap<Geometry,ArrayList<Point3D>>();
 		ray = new Ray(ray.normalize(),ray.getLocation());
 		double t = (normal.dotProduct(point.subtract(ray.getLocation())))
@@ -86,6 +86,9 @@ public class Plane extends Geometry {
 		}
 	
 	//Operators
+	/*
+	 * returns a normal of the plane
+	 * */
 	@Override
 	public Vector getNormal(Point3D p) {
 		return normal.normalize();

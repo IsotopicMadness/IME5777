@@ -52,6 +52,7 @@ public class Cylinder extends RadialGeometry {
 		Cylinder other = new Cylinder((Cylinder)obj);
 		return this.directionLength.equals(other.getDirectionLength()) && this.getPoint() == other.getPoint() && this.getRadius() == other.getRadius();
 	}
+	
 	@Override
 	public String toString() {
 		return "Direction and length: "+directionLength.toString()+", "+directionLength.getLength()+"\nRadius: "+this.getRadius()+"\nPoint: "+getPoint().toString()+"\nColor: "+getEmmission().toString();
