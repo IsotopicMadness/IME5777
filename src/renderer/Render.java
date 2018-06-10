@@ -63,7 +63,7 @@ public class Render {
 			reflected = _scene.getBackground();
 		} else {
 			HashMap<Geometry, Point3D> reflectedPoint = getClosestPoint(reflectedIntersectionPoints);
-			double kr = geo.getMaterial().get_Kr();
+			double kr = geo.get_Kr();
 			for (Entry<Geometry, Point3D> p : reflectedPoint.entrySet()) {
 				reflected = calcColor(p.getKey(), p.getValue(), reflectedRay, levels - 1, k * kr).scale(kr);
 			}
