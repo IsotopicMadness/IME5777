@@ -2,6 +2,8 @@ package geometries;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sun.javafx.collections.MappingChange.Map;
+
 import primitives.*;
 
 /**
@@ -33,20 +35,21 @@ public class Triangle extends Plane {
 	public Point3D getP3() {return p3;}
 
 	// ***************** Administration  ******************** //
-
+/*
+ * checks if equals
+ * */
 	@Override
 	public boolean equals(Object obj) {
 		if(obj==null)
 			return false;
-		if(!(obj instanceof Triangle))
-			return false;
 		if(this==obj)
 			return true;
+		if(!(obj instanceof Triangle))
+			return false;
 		Triangle other = new Triangle((Triangle)obj);
 		return this.p1.equals(other.p1) && this.p2.equals(other.p2) && this.p3.equals(other.p3) && this.getEmmission().equals(other.getEmmission());
 
 	}	
-
 	@Override
 	public String toString() {
 		return p1.toString()+", "+p2.toString()+", "+p3.toString();
@@ -60,7 +63,7 @@ public class Triangle extends Plane {
 	 * Calculates and returns the points where the given ray cross the triangle
 	 * @return
 	 */
-	public HashMap<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
+	public Map<Geometry,List<Point3D>> findIntersection(Ray ray) {
 		
 		HashMap<Geometry,ArrayList<Point3D>> result = new HashMap<Geometry,ArrayList<Point3D>>();
 		

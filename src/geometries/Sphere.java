@@ -2,6 +2,8 @@ package geometries;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sun.javafx.collections.MappingChange.Map;
+
 import primitives.*;
 
 /**
@@ -34,7 +36,7 @@ public class Sphere extends RadialGeometry{
 	 * @param ray
 	 * Calculates and returns the points where the given ray crosses the Sphere
 	 */
-	public HashMap<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
+	public Map<Geometry,ArrayList<Point3D>> findIntersection(Ray ray) {
 		
 		HashMap<Geometry,ArrayList<Point3D>> result = new HashMap<Geometry,ArrayList<Point3D>>();
 		
