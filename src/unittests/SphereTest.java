@@ -33,11 +33,11 @@ public class SphereTest {
 		Sphere sphere2 = new Sphere(new Point3D(0.0, 0.0, -3.0), 10, new Color(), new Material(1, 1, 1, 1, 1));
 
 		// Only the center ray intersect the sphere in two locations
-		HashMap<Intersectable, List<Point3D>> intersectionPointsSphere = new HashMap<Geometry, ArrayList<Point3D>>();
+		HashMap<Intersectable, List<Point3D>> intersectionPointsSphere = new HashMap<Intersectable, List<Point3D>>();
 
 		// The sphere encapsulates the view plane - all rays intersect with the sphere
 		// once
-		HashMap<Intersectable, List<Point3D>> intersectionPointsSphere2 = new HashMap<Geometry, ArrayList<Point3D>>();
+		HashMap<Intersectable, List<Point3D>> intersectionPointsSphere2 = new HashMap<Intersectable, List<Point3D>>();
 
 		System.out.println("Camera:\n" + camera);
 
