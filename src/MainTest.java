@@ -79,9 +79,9 @@ public class MainTest {
 		Triangle tri = new Triangle(t1,t2,t3, new Color(),new Material(1,1,1,1,1));
 		Plane pl = new Plane(t1, v, new Color(), new Material(1,1,1,1,1));
 		Sphere sp = new Sphere(t3,5.0,new Color(), new Material(1,1,1,1,1));
-		Cylinder cyl = new Cylinder(5.0,t2,r,new Color(), new Material(1,1,1,1,1));
+		//Cylinder cyl = new Cylinder(5.0,t2,r,new Color(), new Material(1,1,1,1,1));
 		
-		System.out.println(tri.toString()+"\n"+pl.toString()+"\n"+sp.toString()+"\n"+cyl.toString());
+		System.out.println(tri.toString()+"\n"+pl.toString()+"\n"+sp.toString()+"\n"/*+cyl.toString()*/);
 		/**
 		 * 
 		 *(1.0, 4.0, -9.0)
