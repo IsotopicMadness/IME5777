@@ -19,7 +19,9 @@ public class Scene {
 	private double _screenDistance;
 	private AmbientLight _ambientLight;
 	private ArrayList<Light> _lights;
-
+	
+	/********** Constructors ***********/
+	
 	public Scene() {
 		setSceneName("Edward Elric for president");
 		setBackground(new Color(255, 0, 0));
