@@ -50,14 +50,30 @@ public class Plane extends Geometry {
 	}
 
 	// ***************** Getters/Setters ********************** //
+	/**
+	 * Returns the point of the plane
+	 * 
+	 * @return
+	 */
 	public Point3D getPoint() {
 		return point;
 	}
 
+	/**
+	 * Returns the Plane's normal
+	 * 
+	 * @return
+	 */
 	public Vector getNormal() {
 		return normal;
 	}
 
+	/**
+	 * checks whether or not the given object is
+	 * 
+	 * @param obj
+	 * @return
+	 */
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
@@ -72,9 +88,11 @@ public class Plane extends Geometry {
 
 	@Override
 	/**
+	 * 
+	 * Calculates and returns the points where the given ray cross the plane
+	 * 
 	 * @param ray
-	 *            Calculates and returns the points where the given ray cross the
-	 *            plane
+	 * @return
 	 */
 	public Map<Intersectable, List<Point3D>> findIntersection(Ray ray) {
 		HashMap<Intersectable, List<Point3D>> result = new HashMap<Intersectable, List<Point3D>>();
@@ -89,15 +107,22 @@ public class Plane extends Geometry {
 	}
 
 	@Override
+	/**a
+	 * Returns the string of this object
+	 * 
+	 * @return
+	 */
 	public String toString() {
 		return "Point: " + point.toString() + ", Vector: " + normal.toString();
 	}
 
 	// Operators
-	/*
+	/**
 	 * returns a normal of the plane
+	 * 
+	 * @return
 	 */
-	@Override
+	//@Override
 	public Vector getNormal(Point3D p) {
 		return normal.normalize();
 	}
