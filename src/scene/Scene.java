@@ -19,9 +19,9 @@ public class Scene {
 	private double _screenDistance;
 	private AmbientLight _ambientLight;
 	private ArrayList<Light> _lights;
-	
+
 	/********** Constructors ***********/
-	
+
 	public Scene() {
 		setSceneName("Edward Elric for president");
 		setBackground(new Color(255, 0, 0));
@@ -71,47 +71,97 @@ public class Scene {
 		}
 	}
 
+	/**
+	 * adds an object to the scene
+	 * 
+	 * @param geo
+	 */
 	public void addGeometry(Geometry geo) {
 		_objects.add(geo);
 	}
 
+	/**
+	 * adds a light source to the scene
+	 * 
+	 * @param light
+	 */
 	public void addLights(Light light) {
 		_lights.add(light);
 	}
 
 	////////// getter/setter////////////
+	/**
+	 * returns scene name
+	 * 
+	 * @return
+	 */
 	public String getSceneName() {
 		return _sceneName;
 	}
 
+	/**
+	 * changes scene name
+	 * 
+	 * @param sceneName
+	 */
 	public void setSceneName(String sceneName) {
 		this._sceneName = new String(sceneName);
 	}
 
+	/**
+	 * returns scene's background color
+	 * 
+	 * @return
+	 */
 	public Color getBackground() {
 		return _background;
 	}
 
+	/**
+	 * changes the scene's background
+	 * 
+	 * @param background
+	 */
 	public void setBackground(Color background) {
 		this._background = new Color(background);
 	}
 
+	/**
+	 * returns scene's camera
+	 * @return
+	 */
 	public Camera getCamera() {
 		return _camera;
 	}
 
+	/**
+	 * changes camera
+	 * @param camera
+	 */
 	public void setCamera(Camera camera) {
 		this._camera = new Camera(camera);
 	}
 
+	/**
+	 * returns screen distance from camera
+	 * @return
+	 */
 	public double getScreenDistance() {
 		return _screenDistance;
 	}
 
+	/**
+	 * changes screen's distance
+	 * @param screenDistance
+	 */
 	public void setScreenDistance(double screenDistance) {
 		this._screenDistance = screenDistance;
 	}
 
+	/**
+	 * returns the list of objects in scene
+	 * @return
+	 */
 	public Geometries getObjects() {
 		return _objects;
 	}

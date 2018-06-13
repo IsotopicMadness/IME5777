@@ -27,20 +27,18 @@ public abstract class RadialGeometry extends Geometry {
 	}
 
 	// ********* Get/Set*******************//
+	/**
+	 * returns the shape's radius
+	 * 
+	 * @return
+	 */
 	public double getRadius() {
 		return _radius;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Radius: " + _radius + ", " + "Color: " + getEmmission().toString();
 	}
-
-	// public void setPoint(Point3D point) {
-	// this.point = point;
-	// }
-
-	// ***************** Operations ******************** //
 
 }
