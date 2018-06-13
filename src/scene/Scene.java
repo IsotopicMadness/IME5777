@@ -18,7 +18,7 @@ public class Scene {
 	private Camera _camera;
 	private double _screenDistance;
 	private AmbientLight _ambientLight;
-	private ArrayList<Light> _lights;
+	private List<Light> _lights;
 
 	/********** Constructors ***********/
 
@@ -189,7 +189,7 @@ public class Scene {
 		_objects = geometries;
 	}
 
-	public ArrayList<Light> getLights() {
+	public List<Light> getLights() {
 		return _lights;
 	}
 

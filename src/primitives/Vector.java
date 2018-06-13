@@ -4,6 +4,7 @@ package primitives;
 public class Vector extends Point3D {
 
 	private double length;
+	private double length2;
 
 	// Constructors
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
@@ -11,6 +12,7 @@ public class Vector extends Point3D {
 		if (Point3D.ZERO.equals(this))
 			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
+		length2 = _length2();
 	}
 
 	public Vector(double x, double y, double z) {
@@ -18,6 +20,7 @@ public class Vector extends Point3D {
 		if (Point3D.ZERO.equals(this))
 			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
+		length2 = _length2();
 	}
 
 	public Vector(Point3D point) {
@@ -25,11 +28,13 @@ public class Vector extends Point3D {
 		if (Point3D.ZERO.equals(this))
 			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
+		length2 = _length2();
 	}
 
 	public Vector(Vector other) {
 		super(other);
-		length = other.getLength();
+		length = other.length;
+		length2 = other.length2;
 	}
 
 	// getters/setters
@@ -41,6 +46,17 @@ public class Vector extends Point3D {
 	public double getLength() {
 		return length;
 	}
+	
+	// getters/setters
+	/**
+	 * returns square of the length of the vector
+	 * 
+	 * @return
+	 */
+	public double getLength2() {
+		return length2;
+	}
+
 
 	// admin
 	/**
@@ -50,6 +66,15 @@ public class Vector extends Point3D {
 	 */
 	private double _length() {
 		return super.distance(Point3D.ZERO);
+	}
+	
+	/**
+	 * Calculates the length of the vector
+	 * 
+	 * @return
+	 */
+	private double _length2() {
+		return super.distance2(Point3D.ZERO);
 	}
 
 	// overrides
@@ -122,9 +147,9 @@ public class Vector extends Point3D {
 	}
 
 	/**
-	 * Normalises the vector
+	 * Normalises the vector. That is, creates a new vector of length=1 in the same direction
 	 * 
-	 * @return
+	 * @return new normalised vector
 	 */
 	public Vector normalize() {
 		return this.scale(1 / length);

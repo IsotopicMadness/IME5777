@@ -26,8 +26,4 @@ public abstract class Geometry extends Material implements Intersectable {
 		return _emmission;
 	}
 
-	public Vector getNormal() {
-		throw new IllegalArgumentException("Can't execute getNormal() on parent");
-	}
-
 }

@@ -25,27 +25,29 @@ public class Plane extends Geometry {
 	public Plane(Point3D p, Vector v, Color color, Material material) {
 		super(color, material);
 		point = new Point3D(p);
-		normal = new Vector(v);
-	}
-
-	public Plane(Plane obj) {
-		super(obj.getEmmission(), obj);
-		point = new Point3D(obj.getPoint());
-		normal = new Vector(obj.getNormal());
+		normal = v.normalize();
 	}
 
 	/**
+	 *  The constructor takes three points and calculates the plane
 	 * @param p1
 	 * @param p2
 	 * @param p3
-	 *            The constructor takes three points and calculates the plane
+	 *           
 	 */
 	public Plane(Point3D p1, Point3D p2, Point3D p3, Color color, Material material) {
 		super(color, material);
-		Vector p1_2 = new Vector(p1.subtract(p2));
-		Vector p1_3 = new Vector(p2.subtract(p3));
-		Vector n = p1_2.crossProduct(p1_3);
-		normal = n.normalize();
+		
+		// if p1=p2 or p1=p3, subtract function will generate an exception
+		// and it is acceptable since we can't build a plane basing on less than 3 separate points
+		Vector p1_2 = p1.subtract(p2);
+		Vector p1_3 = p2.subtract(p3);
+		
+		// if p1=p3 or the points are located on the same line, crossProduct function will generate an exception
+		// and it is acceptable since we can't build a plane basing on less than 3 separate points or if they are
+		// not on the same line
+		normal = p1_2.crossProduct(p1_3).normalize();
+
 		point = new Point3D(p1);
 	}
 
@@ -68,24 +70,6 @@ public class Plane extends Geometry {
 		return normal;
 	}
 
-	/**
-	 * checks whether or not the given object is
-	 * 
-	 * @param obj
-	 * @return
-	 */
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Plane))
-			return false;
-		if (this == obj)
-			return true;
-		Plane other = new Plane((Plane) obj);
-		return this.point.equals(other.point) && this.normal.equals(other.normal)
-				&& this.getEmmission().equals(other.getEmmission());
-	}
-
 	@Override
 	/**
 	 * 
@@ -95,12 +79,20 @@ public class Plane extends Geometry {
 	 * @return
 	 */
 	public Map<Intersectable, List<Point3D>> findIntersection(Ray ray) {
-		HashMap<Intersectable, List<Point3D>> result = new HashMap<Intersectable, List<Point3D>>();
-		ray = new Ray(ray.normalize(), ray.getLocation());
-		double t = (normal.dotProduct(point.subtract(ray.getLocation()))) / (normal.dotProduct(ray.getDirection()));
+		Map<Intersectable, List<Point3D>> result = new HashMap<Intersectable, List<Point3D>>();
+		Vector v = ray;
+		Point3D p0 = ray.getLocation();
+
+		double denom = normal.dotProduct(v);
+		// if the denominator (denom) is zero then the ray is parallel to our plane
+		// and therefore there are no intersection points
+		if (Coordinate.isZero(denom))
+			return result;
+		
+		double t = (normal.dotProduct(point.subtract(p0))) / denom;
 		if (t > 0) {
 			List<Point3D> arr = new ArrayList<Point3D>();
-			arr.add(ray.getLocation().add(ray.getDirection().scale(t)));
+			arr.add(p0.add(v.scale(t)));
 			result.put(this, arr);
 		}
 		return result;
@@ -124,7 +116,7 @@ public class Plane extends Geometry {
 	 */
 	//@Override
 	public Vector getNormal(Point3D p) {
-		return normal.normalize();
+		return normal;
 	}
 
 }
