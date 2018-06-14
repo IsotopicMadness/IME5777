@@ -7,15 +7,10 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
-/**
- * @author Daniel
- *
- */
 public class SpotLight extends PointLight {
-	
-		private Vector _direction;
-	
-	
+
+	private Vector _direction;
+
 	/********** Constructors ***********/
 	/**
 	 * @param position
@@ -26,7 +21,7 @@ public class SpotLight extends PointLight {
 	 */
 	public SpotLight(Point3D position, double Kc, double Kl, double Kq, Color color, Vector direction) {
 		super(position, Kc, Kl, Kq, color);
-		_direction  = direction;
+		_direction = direction;
 	}
 
 	/************** Getters/Setters *******/
@@ -37,10 +32,10 @@ public class SpotLight extends PointLight {
 	public void set_direction(Vector _direction) {
 		this._direction = _direction;
 	}
-	
+
 	/************** Operations ***************/
 	@Override
-	public Color getIntensity(Point3D p){
+	public Color getIntensity(Point3D p) {
 		double l = _position.distance(p);
 		double a = _direction.dotProduct(getL(p));
 		double d = (_Kc < 1 ? _Kc = 1 : _Kc) + _Kl * l + _Kq * l * l;

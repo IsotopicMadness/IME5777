@@ -7,15 +7,11 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
-/**
- * @author Daniel & Yonathan
- *
- */
-public class DirectionalLight extends Light implements LightSource{
+public class DirectionalLight extends Light implements LightSource {
 	private Vector _direction;
-	
+
 	/********** Constructors ***********/
-	public DirectionalLight(Vector direction,Color color) {
+	public DirectionalLight(Vector direction, Color color) {
 		super(color);
 		_direction = direction;
 	}
@@ -28,10 +24,10 @@ public class DirectionalLight extends Light implements LightSource{
 	public void set_direction(Vector direction) {
 		_direction = direction;
 	}
-	
+
 	/************** Operations ***************/
 	@Override
-	public Color getIntensity(Point3D p){
+	public Color getIntensity(Point3D p) {
 		return getIntensity();
 	}
 
@@ -44,6 +40,5 @@ public class DirectionalLight extends Light implements LightSource{
 	public Vector getD(Point3D p) {
 		return _direction;
 	}
-	
-	
+
 }

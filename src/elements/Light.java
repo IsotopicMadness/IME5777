@@ -3,13 +3,8 @@
  */
 package elements;
 
-
 import primitives.Color;
 
-/**
- * @author Daniel
- *
- */
 public abstract class Light {
 
 	private Color _color;
@@ -29,8 +24,10 @@ public abstract class Light {
 	}
 
 	/************** Operations ***************/
-	
-	/**return the intensity of the light
+
+	/**
+	 * return the intensity of the light
+	 * 
 	 * @return Color
 	 */
 	public Color getIntensity() {
