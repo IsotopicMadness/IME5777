@@ -93,26 +93,75 @@ public class Render {
 
 	}
 
+	/**
+	 * constructs the reflected ray
+	 * 
+	 * @param Vector
+	 *            n
+	 * @param Point3D
+	 *            p
+	 * @param Ray
+	 *            inRay
+	 * @return Ray
+	 */
 	private Ray constructReflectedRay(Vector n, Point3D point, Ray ray) {
-		Ray reflected = new Ray(ray.getDirection().add(n.scale(-2 * ray.getDirection().dotProduct(n))), point);
-		return reflected;
+		Vector v = ray;
+		Vector r = v.subtract(n.scale(2 * (v.dotProduct(n)))).normalize();
+		return new Ray(r, point);
 	}
 
+	/**
+	 * constructs refracted ray
+	 * 
+	 * @param point
+	 * @param ray
+	 * @return
+	 */
 	private Ray constructRefractedRay(Point3D point, Ray ray) {
 		Ray refracted = new Ray(ray.getDirection(), point);
 		return refracted;
 	}
 
+	/**
+	 * Calculates the specular light
+	 * 
+	 * @param double
+	 *            ks
+	 * @param Vector
+	 *            l
+	 * @param Vector
+	 *            n
+	 * @param Vector
+	 *            v
+	 * @param int
+	 *            nShininess
+	 * @param Color
+	 *            lightIntensity
+	 * @return Color
+	 */
 	private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-		Vector r = new Vector(l.add(n.scale(-2 * l.dotProduct(n))).normalize());
+		Vector r = l.add(n.scale(-2 * l.dotProduct(n))).normalize();
 		double vr = v.dotProduct(r);
 		if (vr > 0)
 			return new Color(0, 0, 0);
-		return lightIntensity.scale(ks * Math.pow((Math.abs(v.dotProduct(r))), nShininess));
+		return new Color(lightIntensity).scale(ks * Math.pow(Math.abs(r.dotProduct(v)), nShininess));
 	}
 
+	/**
+	 * Calculates the diffusive light
+	 * 
+	 * @param double
+	 *            kd
+	 * @param Vector
+	 *            l
+	 * @param Vector
+	 *            n
+	 * @param Color
+	 *            lightIntensity
+	 * @return Color
+	 */
 	private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
-		return lightIntensity.scale((Math.abs(l.dotProduct(n)) * kd));
+		return new Color(lightIntensity).scale(kd * Math.abs(l.dotProduct(n)));
 	}
 
 	public ImageWriter getImageWriter() {
@@ -171,14 +220,20 @@ public class Render {
 						p = ed.getValue();
 					}
 
-					_imageWriter.writePixel(i, j,
-							calcColor(geo, p, new Ray(new Vector(p.subtract(_scene.getCamera().getP0())).normalize(),
-									_scene.getCamera().getP0()), 5, 1.0).getColor());
+					_imageWriter.writePixel(i, j, calcColor(geo, p,
+							new Ray(p.subtract(_scene.getCamera().getP0()).normalize(), _scene.getCamera().getP0()), 5,
+							1.0).getColor());
 				}
 			}
 		}
 	}
 
+	/**
+	 * Finds the closest point on a geometry from list of points of ray intersection
+	 * 
+	 * @param Map<Intersectable,List<Point3D>>
+	 * @return Map<Intersectable, Point3D>
+	 */
 	public Map<Intersectable, Point3D> getClosestPoint(Map<Intersectable, List<Point3D>> intersectionPoints) {
 		Map<Intersectable, Point3D> rePoint = new HashMap<>();
 
