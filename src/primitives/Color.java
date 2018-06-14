@@ -76,11 +76,11 @@ public class Color {
 		int r = (int) _red;
 		int g = (int) _green;
 		int b = (int) _blue;
-		return new java.awt.Color(r > 255 || r<0 ? 255 : r, g > 255 || g<0 ? 255 : g , b > 255 || b<0 ? 255 : b);
+		return new java.awt.Color(r > 255 || r < 0 ? 255 : r, g > 255 || g < 0 ? 255 : g, b > 255 || b < 0 ? 255 : b);
 	}
-	
-	public int[] getColorArray(){
-		int[] arr = {(int) _red, (int) _green, (int) _blue}; 
+
+	public int[] getColorArray() {
+		int[] arr = { (int) _red, (int) _green, (int) _blue };
 		return arr;
 	}
 
@@ -113,5 +113,5 @@ public class Color {
 		_blue /= exp;
 		return this;
 	}
-	
+
 }

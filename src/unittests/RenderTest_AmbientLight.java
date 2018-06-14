@@ -10,7 +10,7 @@ import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
 
-public class RenderTest {
+public class RenderTest_AmbientLight {
 	@Test
 	public void basicRendering(){
 		Scene scene = new Scene("Test scene");
@@ -44,7 +44,7 @@ public class RenderTest {
 				 			 				new Point3D(-100, -100, 149),
 				 			 				new Color(0, 255, 0)));
 		
-		ImageWriter imageWriter = new ImageWriter("test0", 500, 500, 500, 500);
+		ImageWriter imageWriter = new ImageWriter("RenerTestAmbient", 500, 500, 500, 500);
 		Render render = new Render(imageWriter, scene);
 		
 		render.renderImage();
