@@ -1,8 +1,8 @@
 package geometries;
 
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
-
+import java.util.List;
 import primitives.*;
 
 /**
@@ -13,8 +13,8 @@ public class Triangle extends Plane {
 	private Point3D p1, p2, p3;
 
 	// ***************** Constructors ********************** //
-	public Triangle(Point3D p1, Point3D p2, Point3D p3, Color color) {
-		super(p1, p2, p3, color);
+	public Triangle(Point3D p1, Point3D p2, Point3D p3, Color color, Material material) {
+		super(p1, p2, p3, color, material);
 		this.p1 = new Point3D(p1);
 		this.p2 = new Point3D(p2);
 		this.p3 = new Point3D(p3);
@@ -43,40 +43,31 @@ public class Triangle extends Plane {
 
 	// ***************** Operations ******************** //
 	@Override
-	/**
-	 * @param ray
-	 *            Calculates and returns the points where the given ray cross the
-	 *            triangle
-	 * @return
-	 */
-	public HashMap<Geometry, ArrayList<Point3D>> findIntersection(Ray ray) {
+	public Map<Intersectable, List<Point3D>> findIntersection(Ray ray) {
 
-		HashMap<Geometry, ArrayList<Point3D>> result = new HashMap<Geometry, ArrayList<Point3D>>();
-
-		Vector v1 = new Vector(p1.vectorSubstraction(ray.getLocation()));
-		Vector v2 = new Vector(p2.vectorSubstraction(ray.getLocation()));
-		Vector v3 = new Vector(p3.vectorSubstraction(ray.getLocation()));
-
-		Vector n1 = v1.crossProduct(v2).normalize();
-		Vector n2 = v2.crossProduct(v3).normalize();
-		Vector n3 = v3.crossProduct(v1).normalize();
-
-		result = super.findIntersection(ray);
-
-		if (result.size() == 0)
+		Map<Intersectable, List<Point3D>> result = super.findIntersection(ray);
+		if (result.isEmpty())
 			return result;
 
-		result.forEach((k, v) -> k = this); // In order to make the keys Triangles and not Planes
+		Point3D p0 = ray.getLocation();
 
-		Point3D p = new Point3D(result.get(this).get(0));
+		Vector v1 = new Vector(p1.subtract(p0));
+		Vector v2 = new Vector(p2.subtract(p0));
+		Vector v3 = new Vector(p3.subtract(p0));
 
-		boolean t1 = n1.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
-		boolean t2 = n2.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
-		boolean t3 = n3.dotProduct(p.vectorSubstraction(ray.getLocation())) > 0;
+		Vector n1 = v1.crossProduct(v2);
+		Vector n2 = v2.crossProduct(v3);
+		Vector n3 = v3.crossProduct(v1);
 
-		if (t1 && t2 && t3 || !t1 && !t2 && !t3)
+		Vector u = result.get(this).get(0).subtract(p0);
+
+		double t1 = n1.dotProduct(u);
+		double t2 = n2.dotProduct(u);
+		double t3 = n3.dotProduct(u);
+
+		if (t1 > 0 && t2 > 0 && t3 > 0 || t1 < 0 && t2 < 0 && t3 < 0)
 			return result;
-		else
-			return new HashMap<Geometry, ArrayList<Point3D>>();
+
+		return new HashMap<Intersectable, List<Point3D>>();
 	}
 }
