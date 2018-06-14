@@ -1,68 +1,47 @@
 package elements;
 
-import primitives.*;
+import primitives.Color;
+import primitives.Point3D;
 
-
-public class AmbientLight {
-	private Color _color;
+/**
+ * @author Daniel & Yonathan
+ *
+ */
+public class AmbientLight extends Light{
 	private double _Ka;
 	private Color _intensity;
-	
-	/********** Constructors ***********/	
+
+	/********** Constructors ***********/
+	public AmbientLight() {
+		super(new Color(0,0,0));
+		_Ka = 1;
+		_intensity = new Color(0,0,0).scale(_Ka);
+		}
+
 	public AmbientLight(Color color, double ka) {
-		_color = color;
+		super(color);
 		_Ka = ka;
-		_intensity = new Color(_color.scale(_Ka));
-	}
-	
-	public AmbientLight(AmbientLight other) {
-		_color = new Color(other.get_color());
-		_Ka=other.getKa();
-		_intensity = new Color(other.getIntensity());
+		_intensity = new Color(color.scale(_Ka));
 	}
 
 	/************** Getters/Setters *******/
-	/**
-	 * Returns Color
-	 * @return
-	 */
-	public Color get_color() {
-		return _color;
-	}
 
-	/**
-	 * sets color
-	 * @param _color
-	 */
-	public void set_color(Color _color) {
-		this._color = new Color(_color);
-	}
 
-	/**
-	 * Gets Ka (intensity modifier)
-	 * @return
-	 */
 	public double getKa() {
 		return _Ka;
 	}
 
-	/**
-	 * sets the ka (intensity modifier)
-	 * @param ka
-	 */
 	public void setKa(double ka) {
 		_Ka = ka;
 	}
-	
+
+	/************** Operations ***************/
 	/**
-	 *  return final Ambient light after multiply in Ka 
-	 * @return
+	 * final ambient light after multiply by _Ka
+	 * @return Color
 	 */
-	public Color getIntensity()
-	{
+	@Override
+	public Color getIntensity() {
 		return new Color(_intensity);
 	}
-
-	
-
 }

@@ -36,7 +36,6 @@ public abstract class RadialGeometry extends Geometry {
 		return _radius;
 	}
 
-	@Override
 	public String toString() {
 		return "Radius: " + _radius + ", " + "Color: " + getEmmission().toString();
 	}
