@@ -29,12 +29,12 @@ public class TriangleTest {
 		Triangle triangle = new Triangle(new Point3D( 0, 1, -2),
 				new Point3D( 1, -1, -2),
 				new Point3D(-1, -1, -2),
-				new Color());
+				new Color(), new Material(1, 1, 20,0, 0.5));
 		
 		Triangle triangle2 = new Triangle(new Point3D( 0, 10, -2),
 				new Point3D( 1, -1, -2),
 				new Point3D(-1, -1, -2),
-				new Color());
+				new Color(), new Material(1, 1, 20,0, 0.5));
 		
 		ArrayList<Point3D> intersectionPointsTriangle = new ArrayList<Point3D>();
 		ArrayList<Point3D> intersectionPointsTriangle2 = new ArrayList<Point3D>();
@@ -78,39 +78,21 @@ public class TriangleTest {
 			System.out.println(iPoint);
 	}
 
-	/*@Test
-	public void testEqualsObject() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testTrianglePoint3DPoint3DPoint3D() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testTriangleTriangle() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetP1() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetP2() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetP3() {
-		fail("Not yet implemented");
-	}*/
+	/*
+	 * @Test public void testEqualsObject() { fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testToString() { fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testTrianglePoint3DPoint3DPoint3D() {
+	 * fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testTriangleTriangle() { fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testGetP1() { fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testGetP2() { fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testGetP3() { fail("Not yet implemented"); }
+	 */
 
 }

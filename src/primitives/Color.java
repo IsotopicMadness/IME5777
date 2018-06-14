@@ -76,17 +76,21 @@ public class Color {
 		int r = (int) _red;
 		int g = (int) _green;
 		int b = (int) _blue;
-		return new java.awt.Color(r > 255 || r<0 ? 255 : r, g > 255 || g<0 ? 255 : g , b > 255 || b<0 ? 255 : b);
+		return new java.awt.Color(r > 255 || r < 0 ? 255 : r, g > 255 || g < 0 ? 255 : g, b > 255 || b < 0 ? 255 : b);
 	}
-	
-	public int[] getColorArray(){
-		int[] arr = {(int) _red, (int) _green, (int) _blue}; 
+
+	public int[] getColorArray() {
+		int[] arr = { (int) _red, (int) _green, (int) _blue };
 		return arr;
 	}
 
 	/********** Operations ************/
-
-	// add two colors, makes sure rules
+	/**
+	 * adds colors to the corrent one
+	 * 
+	 * @param colors
+	 * @return
+	 */
 	public Color add(Color... colors) {
 		for (Color color : colors) {
 			_red += color._red;
@@ -96,26 +100,33 @@ public class Color {
 		return this;
 	}
 
-	// scale color in exponent
+	/**
+	 * scales the color by an exponent
+	 * 
+	 * @param exp
+	 * @return
+	 */
 	public Color scale(double exp) {
-		if (exp < 0 /*|| exp > 1*/)
+		if (exp < 0 /* || exp > 1 */)
 			throw new ArithmeticException("Scaling color with a value larger than 0");
 		Color re = new Color(_red * exp, _green * exp, _blue * exp);
 		return re;
 	}
-/**
- * Dont know why this's here
- * @param exp
- * @return
- *
- *	// reduce color with exponent
- *	public Color reduce(double exp) {
- *	if (exp < 0 || exp > 1)
- *			throw new ArithmeticException("Reducing color with a value smaller than 1");
- *		_red /= exp;
- *		_green /= exp;
- *		_blue /= exp;
- *		return this;
- *	}
- */	
+
+	/**
+	 * Divides the color by an exponent
+	 * 
+	 * @param exp
+	 * @return
+	 */
+	// reduce color with exponent
+	public Color reduce(double exp) {
+		if (exp < 0 || exp > 1)
+			throw new ArithmeticException("Reducing color with a value smaller than 1");
+		_red /= exp;
+		_green /= exp;
+		_blue /= exp;
+		return this;
+	}
+
 }

@@ -7,7 +7,7 @@ import primitives.Color;
 
 public abstract class Light {
 
-	private Color _color;
+	protected Color _color;
 
 	/********** Constructors ***********/
 	public Light(Color color) {

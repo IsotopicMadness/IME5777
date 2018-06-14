@@ -1,13 +1,11 @@
 package scene;
 
 import geometries.*;
+import elements.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import elements.*;
-
 import primitives.*;
 
 public class Scene {
@@ -18,7 +16,7 @@ public class Scene {
 	private Camera _camera;
 	private double _screenDistance;
 	private AmbientLight _ambientLight;
-	private List<Light> _lights;
+	private List<LightSource> _lights;
 
 	/********** Constructors ***********/
 
@@ -41,7 +39,7 @@ public class Scene {
 	}
 
 	public Scene(String sceneName, Color background, ArrayList<Geometry> objects, Camera camera, double screenDistance,
-			AmbientLight aLight, ArrayList<Light> lights) {
+			AmbientLight aLight, List<LightSource> lights) {
 
 		_sceneName = new String(sceneName);
 		_background = new Color(background);
@@ -53,7 +51,7 @@ public class Scene {
 		setScreenDistance(screenDistance);
 		_ambientLight = new AmbientLight(aLight);
 		_lights = new ArrayList<>();
-		for (Light l : lights) {
+		for (LightSource l : lights) {
 			_lights.add(l);
 		}
 	}
@@ -66,7 +64,7 @@ public class Scene {
 		setScreenDistance(other.getScreenDistance());
 		_ambientLight = new AmbientLight(other.getAmbientLight());
 		_lights = new ArrayList<>();
-		for (Light l : other.getLights()) {
+		for (LightSource l : other._lights) {
 			_lights.add(l);
 		}
 	}
@@ -85,7 +83,7 @@ public class Scene {
 	 * 
 	 * @param light
 	 */
-	public void addLights(Light light) {
+	public void addLightSource(LightSource light) {
 		_lights.add(light);
 	}
 
@@ -128,6 +126,7 @@ public class Scene {
 
 	/**
 	 * returns scene's camera
+	 * 
 	 * @return
 	 */
 	public Camera getCamera() {
@@ -136,6 +135,7 @@ public class Scene {
 
 	/**
 	 * changes camera
+	 * 
 	 * @param camera
 	 */
 	public void setCamera(Camera camera) {
@@ -144,6 +144,7 @@ public class Scene {
 
 	/**
 	 * returns screen distance from camera
+	 * 
 	 * @return
 	 */
 	public double getScreenDistance() {
@@ -152,6 +153,7 @@ public class Scene {
 
 	/**
 	 * changes screen's distance
+	 * 
 	 * @param screenDistance
 	 */
 	public void setScreenDistance(double screenDistance) {
@@ -160,6 +162,7 @@ public class Scene {
 
 	/**
 	 * returns the list of objects in scene
+	 * 
 	 * @return
 	 */
 	public Geometries getObjects() {
@@ -189,7 +192,7 @@ public class Scene {
 		_objects = geometries;
 	}
 
-	public List<Light> getLights() {
+	public List<LightSource> getLights() {
 		return _lights;
 	}
 
@@ -198,7 +201,7 @@ public class Scene {
 	 * 
 	 * @param lights
 	 */
-	public void setLights(ArrayList<Light> lights) {
+	public void setLights(List<LightSource> lights) {
 		_lights = lights;
 	}
 

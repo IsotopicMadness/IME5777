@@ -1,7 +1,6 @@
 package elements;
 
-import primitives.Color;
-import primitives.Point3D;
+import primitives.*;
 
 public class AmbientLight extends Light {
 	private double _Ka;
@@ -18,6 +17,12 @@ public class AmbientLight extends Light {
 		super(color);
 		_Ka = ka;
 		_intensity = new Color(color.scale(_Ka));
+	}
+	
+	public AmbientLight(AmbientLight other) {
+		super(other._color);
+		_Ka = other._Ka;
+		_intensity = new Color(other._intensity);
 	}
 
 	/************** Getters/Setters *******/

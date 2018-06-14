@@ -38,15 +38,15 @@ public class Render {
 		int nShininess = geo.getShininess();
 		double kd = geo.getKd();
 		double ks = geo.getKs();
-		for (Light lightSource : _scene.getLights()) {
-			Vector l = lightSource.getL(point);
+		for (LightSource ls : _scene.getLights()) {
+			Vector l = ls.getL(point);
 			// not working
 			if (n.dotProduct(l) * n.dotProduct(v) > 0) {
 				Color lightIntensity = new Color();
 
 				double occ = occluded(l, geo, point);
 				if (!Coordinate.isZero(occ * k)) {
-					lightIntensity = lightSource.getIntensity(point);
+					lightIntensity = ls.getIntensity(point);
 					color.add(calcDiffusive(kd, l, n, lightIntensity),
 							calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 				}

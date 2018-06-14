@@ -24,20 +24,22 @@ public class Camera {
 		this.p0 = new Point3D(p0);
 		this.vUp = new Vector(vUp).normalize();
 		this.vTo = new Vector(vTo).normalize();
-		// this.vRight = new Vector(vRight);
+		
+		// if the two vectors are not vertical to each other throw an exception
 		if (!(vUp.dotProduct(vTo) == 0))
-			vRight = null;
+			throw new IllegalArgumentException();
 		else
 			vRight = vUp.crossProduct(vTo).normalize();
 	}
 
 	public Camera(Camera other) {
 		this.p0 = new Point3D(other.getP0());
-		this.vUp = new Vector(other.getvUp()).normalize();
-		this.vTo = new Vector(other.getvTo()).normalize();
-		this.vRight = new Vector(other.getvRight());
+		this.vUp = other.getvUp().normalize();
+		this.vTo = other.getvTo().normalize();
+		this.vRight = other.getvRight();
+		// if the two vectors are not vertical to each other throw an exception
 		if (!(vUp.dotProduct(vTo) == 0))
-			vRight = null;
+			throw new IllegalArgumentException();
 		else
 			vRight = vUp.crossProduct(vTo).normalize();
 	}
@@ -58,13 +60,11 @@ public class Camera {
 	public Ray constructRayThroughPixel(int Nx, int Ny, int i, int j, double screenDistance, double screenWidth,
 			double screenHeight) {
 
-		Point3D pC = new Point3D(p0.add(vTo.scalarMuliplication(screenDistance).getPoint3D()));
+		Point3D pC = new Point3D(p0.add(vTo.scale(screenDistance)));
 
-		Point3D pXY = pC.add(vRight
-				.scalarMuliplication(((i - ((Nx) / 2.0)) * (screenWidth / Nx)) + ((screenWidth / Nx) / 2.0))
-				.getPoint3D()
-				.subtract(vUp.scalarMuliplication((j - ((Ny) / 2.0)) * (screenHeight / Ny) + (screenHeight / Ny) / 2.0)
-						.getPoint3D()));
+		Point3D pXY = pC.add(vRight.scale(((i - ((Nx) / 2.0)) * (screenWidth / Nx)) + ((screenWidth / Nx) / 2.0))
+
+				.subtract(vUp.scale((j - ((Ny) / 2.0)) * (screenHeight / Ny) + (screenHeight / Ny) / 2.0)));
 		return new Ray(new Vector(pXY), p0);
 	}
 

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -30,14 +32,14 @@ public class SphereTest {
 				new Vector (0.0, 1.0, 0.0),
 				new Vector (0.0, 0.0, -1.0));
 		
-		Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -3.0), 1, new Color());
-		Sphere sphere2 = new Sphere(new Point3D(0.0, 0.0, -3.0), 10, new Color());
+		Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -3.0), 1, new Color(), new Material(1, 1, 20,0, 0.5));
+		Sphere sphere2 = new Sphere(new Point3D(0.0, 0.0, -3.0), 10, new Color(), new Material(1, 1, 20,0, 0.5));
 	
 		//Only the center ray intersect the sphere in two locations
-		HashMap<Geometry,ArrayList<Point3D>> intersectionPointsSphere = new HashMap<Geometry,ArrayList<Point3D>>();
+		Map<Intersectable,List<Point3D>> intersectionPointsSphere = new HashMap<Intersectable,List<Point3D>>();
 		
 		//The sphere encapsulates the view plane - all rays intersect with the sphere once
-		HashMap<Geometry,ArrayList<Point3D>> intersectionPointsSphere2 = new HashMap<Geometry,ArrayList<Point3D>>();
+		Map<Intersectable,List<Point3D>> intersectionPointsSphere2 = new HashMap<Intersectable,List<Point3D>>();
 		
 		System.out.println("Camera:\n" + camera);
 		
@@ -49,9 +51,9 @@ public class SphereTest {
 						
 						WIDTH, HEIGHT, j, i, 1, 3 * WIDTH, 3 * HEIGHT);
 				
-				HashMap<Geometry,ArrayList<Point3D>> rayIntersectionPoints = new HashMap<>();
+				Map<Intersectable,List<Point3D>> rayIntersectionPoints = new HashMap<>();
 				rayIntersectionPoints.putAll(sphere.findIntersection(rays[i][j]));
-				HashMap<Geometry,ArrayList<Point3D>> rayIntersectionPoints2 = new HashMap<>();
+				Map<Intersectable,List<Point3D>> rayIntersectionPoints2 = new HashMap<>();
 				rayIntersectionPoints2.putAll(sphere2.findIntersection(rays[i][j]));
 				
 					intersectionPointsSphere.putAll(rayIntersectionPoints);

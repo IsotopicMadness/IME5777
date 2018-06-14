@@ -21,19 +21,19 @@ public class RenderTest_black_and_white {
 		Geometries geometries = new Geometries();
 		scene.setGeomtries(geometries);
 
-		geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0, new Color(255, 255, 255)));
+		geometries.add(new Sphere(new Point3D(0, 0, 150), 50.0, new Color(255, 255, 255), new Material(1, 1, 20,0, 0.5)));
 
 		geometries.add(new Triangle(new Point3D(100, 0, 149), new Point3D(0, 100, 149), new Point3D(100, 100, 149),
-				new Color(255, 255, 255)));
+				new Color(255, 255, 255), new Material(1, 1, 20,0, 0.5)));
 
 		geometries.add(new Triangle(new Point3D(100, 0, 149), new Point3D(0, -100, 149), new Point3D(100, -100, 149),
-				new Color(255, 255, 255)));
+				new Color(255, 255, 255), new Material(1, 1, 20,0, 0.5)));
 
 		geometries.add(new Triangle(new Point3D(-100, 0, 149), new Point3D(0, 100, 149), new Point3D(-100, 100, 149),
-				new Color(255, 255, 255)));
+				new Color(255, 255, 255), new Material(1, 1, 20,0, 0.5)));
 
 		geometries.add(new Triangle(new Point3D(-100, 0, 149), new Point3D(0, -100, 149), new Point3D(-100, -100, 149),
-				new Color(255, 255, 255)));
+				new Color(255, 255, 255), new Material(1, 1, 20,0, 0.5)));
 
 		ImageWriter imageWriter = new ImageWriter("render_BnW", 500, 500, 500, 500);
 		Render render = new Render(imageWriter, scene);
