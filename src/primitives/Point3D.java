@@ -6,20 +6,20 @@ package primitives;
 import java.lang.Math;
 
 public class Point3D extends Point2D {
-
+	public static final Point3D ZERO = new Point3D(0, 0, 0);
 	/**
 	 * 
 	 */
-	private Coordinate z;
+	protected Coordinate z;
 
 	// Constructors
 	public Point3D(Point3D other) {
-		super(other.getX(), other.getY());
-		z = new Coordinate(other.getZ());
+		super(other);
+		z = new Coordinate(other.z);
 	}
 
 	public Point3D(double x, double y, double z) {
-		super(new Coordinate(x), new Coordinate(y));
+		super(x, y);
 		this.z = new Coordinate(z);
 	}
 
@@ -29,20 +29,23 @@ public class Point3D extends Point2D {
 	}
 
 	// get/set
+	/**
+	 * return the Z value of the point
+	 * 
+	 * @return
+	 */
 	public Coordinate getZ() {
 		return z;
 	}
 
-	/**
-	 * this functions get used when the Vector is required to return a Point3D
-	 */
-	public Point3D getPoint3D() {
-		return this;
-
-	}
-
 	// Overrides
 	@Override
+	/**
+	 * Checks if the given object is a Point3D and if the point contains the same
+	 * values as this
+	 * 
+	 * @return
+	 */
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
@@ -50,36 +53,60 @@ public class Point3D extends Point2D {
 			return false;
 		if (this == obj)
 			return true;
-		Point3D other = new Point3D((Point3D) obj);
-		return this.z.equals(other.getZ()) && super.equals(new Point2D(other.getX(), other.getY()));
+		Point3D other = (Point3D) obj;
+		return z.equals(other.z) && super.equals(other);
 	};
 
 	@Override
+	/**
+	 * returns the Point in string form
+	 * 
+	 * @return
+	 */
 	public String toString() {
-		return "(" + getX().toString() + ", " + getY().toString() + ", " + z.toString() + ")";
+		return "(" + x.toString() + ", " + y.toString() + ", " + z.toString() + ")";
 	}
 
 	// operators
-	public Vector vectorSubstraction(Point3D other) {
-		return new Vector(new Coordinate(getX().subtract(other.getX().getNum())),
-				new Coordinate(getY().subtract(other.getY().getNum())),
-				new Coordinate(z.subtract(other.getZ().getNum())));
+	/**
+	 * Subtracts the given point from this and retuns a Vector
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public Vector subtract(Point3D other) {
+		return new Vector(x.subtract(other.x), y.subtract(other.y), z.subtract(other.z));
 	}
 
-	public Point3D add(Point3D other) {
-		return new Point3D(new Coordinate(this.getX().add(other.getX().getNum())),
-				new Coordinate(this.getY().add(other.getY().getNum())),
-				new Coordinate(this.z.add(other.getZ().getNum())));
+	/**
+	 * Adds a given vector and returns a point
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public Point3D add(Vector other) {
+		return new Point3D(this.x.add(other.x), this.getY().add(other.y), this.z.add(other.z));
 	}
 
-	public Point3D subtract(Point3D other) {
-		return new Point3D(new Coordinate(this.getX().subtract(other.getX().getNum())),
-				new Coordinate(this.getY().subtract(other.getY().getNum())),
-				new Coordinate(this.z.subtract(other.getZ().getNum())));
-	}
-
+	/**
+	 * Calculates the distance from a give point to this one.
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public double distance(Point3D other) {
-		return Math.sqrt(Math.pow(getX().subtract(other.getX().getNum()), 2)
-				+ Math.pow(getY().subtract(other.getY().getNum()), 2) + Math.pow(z.subtract(other.getZ().getNum()), 2));
+		return Math.sqrt(distance2(other));
+	}
+
+	/**
+	 * Calculates the distance from a given point but without the square root
+	 * @param other
+	 * @return
+	 */
+	public double distance2(Point3D other) {
+		double dx = x.subtract(other.x);
+		double dy = y.subtract(other.y);
+		double dz = z.subtract(other.z);
+		return dx * dx + dy * dy + dz * dz;
 	}
 }

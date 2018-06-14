@@ -4,40 +4,84 @@ package primitives;
 public class Vector extends Point3D {
 
 	private double length;
+	private double length2;
 
 	// Constructors
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
 		super(x, y, z);
+		if (Point3D.ZERO.equals(this))
+			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
+		length2 = _length2();
 	}
 
 	public Vector(double x, double y, double z) {
 		super(x, y, z);
+		if (Point3D.ZERO.equals(this))
+			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
+		length2 = _length2();
 	}
 
 	public Vector(Point3D point) {
 		super(point);
+		if (Point3D.ZERO.equals(this))
+			throw new IllegalArgumentException("Zero vector is not valid");
 		length = _length();
+		length2 = _length2();
 	}
 
 	public Vector(Vector other) {
-		super(other.getX(), other.getY(), other.getZ());
-		length = other.getLength();
+		super(other);
+		length = other.length;
+		length2 = other.length2;
 	}
 
 	// getters/setters
+	/**
+	 * returns the length of the vector
+	 * 
+	 * @return
+	 */
 	public double getLength() {
 		return length;
 	}
+	
+	// getters/setters
+	/**
+	 * returns square of the length of the vector
+	 * 
+	 * @return
+	 */
+	public double getLength2() {
+		return length2;
+	}
+
 
 	// admin
+	/**
+	 * Calculates the length of the vector
+	 * 
+	 * @return
+	 */
 	private double _length() {
-		return super.distance(new Point3D(new Coordinate(0.0), new Coordinate(0.0), new Coordinate(0.0)));
+		return super.distance(Point3D.ZERO);
+	}
+	
+	/**
+	 * Calculates the length of the vector
+	 * 
+	 * @return
+	 */
+	private double _length2() {
+		return super.distance2(Point3D.ZERO);
 	}
 
 	// overrides
 	@Override
+	/**
+	 * checks whether the given object has the same values as this
+	 */
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
@@ -45,45 +89,69 @@ public class Vector extends Point3D {
 			return false;
 		if (this == obj)
 			return true;
-		Vector other = new Vector((Vector) obj);
-		return super.equals(other.getPoint3D());
+		return super.equals((Vector) obj);
 	}
 
-	@Override
-	public String toString() {
-		return super.toString();
-	}
-
-	// operations
+	/**
+	 * Adds a given vector to this
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public Vector add(Vector other) {
-		return new Vector(new Coordinate(getX().add(other.getX().getNum())),
-				new Coordinate(getY().add(other.getY().getNum())), new Coordinate(getZ().add(other.getZ().getNum())));
+		return new Vector(x.add(other.x), y.add(other.y), z.add(other.z));
 	}
 
+	/**
+	 * Subtracts a given vector from this
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public Vector subtract(Vector other) {
-		return new Vector(new Coordinate(getX().add(-other.getX().getNum())),
-				new Coordinate(getY().add(-other.getY().getNum())), new Coordinate(getZ().add(-other.getZ().getNum())));
+		return new Vector(new Coordinate(x.add(-other.x.getNum())), new Coordinate(y.add(-other.y.getNum())),
+				new Coordinate(z.add(-other.z.getNum())));
 	}
 
-	public Vector scalarMuliplication(double lambda) {
-		return new Vector(new Coordinate(this.getX().mult(lambda)), new Coordinate(this.getY().mult(lambda)),
-				new Coordinate(this.getZ().mult(lambda)));
+	/**
+	 * Returns a vector
+	 * 
+	 * @param lambda
+	 * @return
+	 */
+	public Vector scale(double lambda) {
+		return new Vector(x.mult(lambda), y.mult(lambda), z.mult(lambda));
 	}
 
+	/**
+	 * returns the dot product of a given vector and this one
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public double dotProduct(Vector other) {
-		return (getX().mult(other.getX().getNum()) + getY().mult(other.getY().getNum())
-				+ getZ().mult(other.getZ().getNum()));
+		return x.mult(other.x) + y.mult(other.y) + z.mult(other.z);
 	}
 
 	// Double check result
+	/**
+	 * Returns the new cross product of the given vector and this one
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public Vector crossProduct(Vector other) {
-		return new Vector(
-				new Coordinate(this.getY().mult(other.getZ().getNum()) - this.getZ().mult(other.getY().getNum())),
-				new Coordinate(this.getX().mult(other.getZ().getNum()) - this.getZ().mult(other.getX().getNum())),
-				new Coordinate(this.getX().mult(other.getY().getNum()) - this.getY().mult(other.getX().getNum())));
+		return new Vector(new Coordinate(y.mult(other.z.getNum()) - z.mult(other.y.getNum())),
+				new Coordinate(x.mult(other.z.getNum()) - z.mult(other.x.getNum())),
+				new Coordinate(x.mult(other.y.getNum()) - y.mult(other.x.getNum())));
 	}
 
+	/**
+	 * Normalises the vector. That is, creates a new vector of length=1 in the same direction
+	 * 
+	 * @return new normalised vector
+	 */
 	public Vector normalize() {
-		return this.scalarMuliplication(1 / length);
+		return this.scale(1 / length);
 	}
 }
