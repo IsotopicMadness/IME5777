@@ -78,7 +78,9 @@ public class Sphere extends RadialGeometry {
 		double t1 = tm + th;
 		double t2 = tm - th;
 		// ...
-		if (t1 > 0 || t2 > 0) {
+		Coordinate x = new Coordinate(t1);
+		Coordinate y = new Coordinate(t2);
+		if (x.getNum() > 0 || y.getNum() > 0) {
 			List<Point3D> array = new ArrayList<>();
 			// ...
 			if (t1 > 0)

@@ -13,7 +13,6 @@ import scene.Scene;
 public class Render {
 	private Scene _scene;
 	private ImageWriter _imageWriter;
-	private Color _color;
 
 	public Render(ImageWriter _imageWriter, Scene _scene) {
 		this._scene = new Scene(_scene);
@@ -21,17 +20,28 @@ public class Render {
 	}
 
 	/************** operations *******/
-	// calc the exact color of the point that we need
+	/**
+	 * calculates the exact color of the point
+	 * 
+	 * @param geo
+	 * @param point
+	 * @param inRay
+	 * @param levels
+	 * @param k
+	 * @return
+	 */
 	private Color calcColor(Geometry geo, Point3D point, Ray inRay, int levels, double k) {
 
-		if (levels == 0 || Coordinate.isZero(k))
+		Coordinate x = new Coordinate(inRay.getX());
+		Coordinate y = new Coordinate(inRay.getY());
+		Coordinate z = new Coordinate(inRay.getZ());
+		if (levels == 0 || Coordinate.isZero(k) || (x.getNum() == 0 && y.getNum() == 0 && z.getNum() == 0))
 			return _scene.getBackground();
 
 		if (geo == null || point == null)
 			throw new IllegalArgumentException("Geometry or Point not found");
 
-		_color = new Color(_scene.getAmbientLight().getIntensity().add(geo.getEmmission()));
-		Color color = new Color(_color);
+		Color color = new Color(_scene.getAmbientLight().getIntensity().add(geo.getEmmission()));
 
 		Vector v = inRay.getDirection();
 		Vector n = geo.getNormal(point);
@@ -42,33 +52,33 @@ public class Render {
 			Vector l = ls.getL(point);
 			// not working
 			if (n.dotProduct(l) * n.dotProduct(v) > 0) {
-				Color lightIntensity = new Color();
-
-				double occ = occluded(l, geo, point);
-				if (!Coordinate.isZero(occ * k)) {
-					lightIntensity = ls.getIntensity(point);
+				double o = occluded(l, geo, point);
+				if (!Coordinate.isZero(o * k)) {
+					Color lightIntensity = new Color(ls.getIntensity(point)).scale(o);
 					color.add(calcDiffusive(kd, l, n, lightIntensity),
 							calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 				}
 			}
 		}
 
-		// reflection
+		// recrusive call for the reflections
 		Ray reflectedRay = constructReflectedRay(n, point, inRay);
 		Map<Intersectable, List<Point3D>> reflectedIntersectionPoints = new HashMap<Intersectable, List<Point3D>>();
 		reflectedIntersectionPoints.putAll(_scene.findRayIntersections(reflectedRay));
-
-		Color reflected = new Color();
+		Color reflected;
 		if (reflectedIntersectionPoints.isEmpty()) {
 			reflected = _scene.getBackground();
 		} else {
-			Map<Intersectable, Point3D> reflectedPoint = getClosestPoint(reflectedIntersectionPoints);
-			double kr = geo.get_Kr();
-			for (Entry<Intersectable, Point3D> p : reflectedPoint.entrySet()) {
-				if (!(p.getKey() instanceof Geometry))
-					throw new IllegalArgumentException("Must be Geometry");
-				reflected = calcColor((Geometry) p.getKey(), p.getValue(), reflectedRay, levels - 1, k * kr).scale(kr);
+			Point3D reflectedPoint = null;
+			Geometry reflectedGeo = null;
+			Map<Intersectable, Point3D> refMap = getClosestPoint(reflectedIntersectionPoints);
+			for (Entry<Intersectable, Point3D> p : refMap.entrySet()) {
+				reflectedGeo = (Geometry) p.getKey();
+				reflectedPoint = p.getValue();
 			}
+			double kr = geo.get_Kr();
+			reflected = calcColor(reflectedGeo, reflectedPoint, inRay, levels - 1, k * kr).scale(kr);
+
 		}
 
 		// refraction
