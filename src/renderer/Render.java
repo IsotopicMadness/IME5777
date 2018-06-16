@@ -32,10 +32,7 @@ public class Render {
 	 */
 	private Color calcColor(Geometry geo, Point3D point, Ray inRay, int levels, double k) {
 
-		Coordinate x = new Coordinate(inRay.getX());
-		Coordinate y = new Coordinate(inRay.getY());
-		Coordinate z = new Coordinate(inRay.getZ());
-		if (levels == 0 || Coordinate.isZero(k) || (x.getNum() == 0 && y.getNum() == 0 && z.getNum() == 0))
+		if (levels == 0 || Coordinate.isZero(k))
 			return _scene.getBackground();
 
 		if (geo == null || point == null)
@@ -45,6 +42,8 @@ public class Render {
 
 		Vector v = inRay.getDirection();
 		Vector n = geo.getNormal(point);
+		if (Coordinate.isZero(v.dotProduct(n)))
+			return _scene.getBackground();
 		int nShininess = geo.getShininess();
 		double kd = geo.getKd();
 		double ks = geo.getKs();
@@ -77,7 +76,7 @@ public class Render {
 				reflectedPoint = p.getValue();
 			}
 			double kr = geo.get_Kr();
-			reflected = calcColor(reflectedGeo, reflectedPoint, inRay, levels - 1, k * kr).scale(kr);
+			reflected = calcColor(reflectedGeo, reflectedPoint, reflectedRay, levels - 1, k * kr).scale(kr);
 
 		}
 
@@ -98,8 +97,8 @@ public class Render {
 				refracted = calcColor((Geometry) p.getKey(), p.getValue(), refractedRay, levels - 1, k * kt).scale(kt);
 			}
 		}
-		color.add(reflected);
-		return color.add(refracted);
+		color.add(reflected, refracted);
+		return color;
 
 	}
 
@@ -181,14 +180,12 @@ public class Render {
 	private double occluded(Vector l, Geometry geo, Point3D point) {
 
 		Vector lightDirection = l.scale(-1); // from point to light source
-		Vector normal = geo.getNormal(point).scale(2);
-		Vector epsVector = normal.scale((normal.dotProduct(lightDirection) > 0) ? 1 / 10000 : -1 / 10000);
-
+		Vector normal = geo.getNormal(point);
+		Vector epsVector = normal.scale(normal.dotProduct(lightDirection) > 0 ? 2 : -2);
 		Point3D geometryPoint = point.add(epsVector);
-
 		Ray lightRay = new Ray(lightDirection, geometryPoint);
 
-		double occlusionK = 0;
+		double occlusionK = 1;
 		Map<Intersectable, List<Point3D>> intersectionPoints = _scene.getGeometries().findIntersection(lightRay);
 		for (Map.Entry<Intersectable, List<Point3D>> entry : intersectionPoints.entrySet()) {
 			occlusionK *= ((Geometry) entry.getKey()).get_Kt();
@@ -211,7 +208,7 @@ public class Render {
 				Map<Intersectable, List<Point3D>> intersectionPoints = new HashMap<>();
 				intersectionPoints.putAll(_scene.getGeometries().findIntersection(ray));
 
-				if (intersectionPoints.size() == 0)
+				if (intersectionPoints.values().isEmpty())
 					_imageWriter.writePixel(i, j, _scene.getBackground().getColorArray());
 
 				else {

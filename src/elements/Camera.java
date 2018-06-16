@@ -24,7 +24,7 @@ public class Camera {
 		this.p0 = new Point3D(p0);
 		this.vUp = new Vector(vUp).normalize();
 		this.vTo = new Vector(vTo).normalize();
-		
+
 		// if the two vectors are not vertical to each other throw an exception
 		if (!(vUp.dotProduct(vTo) == 0))
 			throw new IllegalArgumentException();
@@ -59,13 +59,24 @@ public class Camera {
 
 	public Ray constructRayThroughPixel(int Nx, int Ny, int i, int j, double screenDistance, double screenWidth,
 			double screenHeight) {
+		Point3D p = advanceRayToViewPlane(Nx, Ny, i, j, screenDistance, screenWidth, screenHeight);
+		return new Ray(p.subtract(p0), p0);
+	}
 
-		Point3D pC = new Point3D(p0.add(vTo.scale(screenDistance)));
+	public Point3D advanceRayToViewPlane(int Nx, int Ny, int i, int j, double screenDistance, double screenWidth,
+			double screenHeight) {
+		Point3D pC = p0.add(getvTo().scale(screenDistance));
+		double Rx = screenWidth / Nx;
+		double Ry = screenHeight / Ny;
+		double y = (j - Ny / 2.0 + 0.5) * Ry;
+		double x = (i - Nx / 2.0 + 0.5) * Rx;
 
-		Point3D pXY = pC.add(vRight.scale(((i - ((Nx) / 2.0)) * (screenWidth / Nx)) + ((screenWidth / Nx) / 2.0))
-
-				.subtract(vUp.scale((j - ((Ny) / 2.0)) * (screenHeight / Ny) + (screenHeight / Ny) / 2.0)));
-		return new Ray(new Vector(pXY), p0);
+		Point3D p = pC;
+		if (x != 0.0)
+			p = p.add(getvRight().scale(x));
+		if (y != 0.0)
+			p = p.add(getvUp().scale(-y));
+		return new Point3D(p);
 	}
 
 	public Point3D getP0() {

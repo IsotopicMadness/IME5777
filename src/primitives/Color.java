@@ -121,12 +121,12 @@ public class Color {
 	 */
 	// reduce color with exponent
 	public Color reduce(double exp) {
-		if (exp < 0 || exp > 1)
-			throw new ArithmeticException("Reducing color with a value smaller than 1");
-		_red /= exp;
-		_green /= exp;
-		_blue /= exp;
-		return this;
+		if (exp <= 0)
+			throw new ArithmeticException("Reducing color with a value out of 0 to 1 range");
+		else if (exp > 1)
+			return scale(1 / exp);
+		else
+			return scale(exp);
 	}
 
 }

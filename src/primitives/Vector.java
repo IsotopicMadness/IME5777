@@ -46,7 +46,7 @@ public class Vector extends Point3D {
 	public double getLength() {
 		return length;
 	}
-	
+
 	// getters/setters
 	/**
 	 * returns square of the length of the vector
@@ -57,7 +57,6 @@ public class Vector extends Point3D {
 		return length2;
 	}
 
-
 	// admin
 	/**
 	 * Calculates the length of the vector
@@ -67,7 +66,7 @@ public class Vector extends Point3D {
 	private double _length() {
 		return super.distance(Point3D.ZERO);
 	}
-	
+
 	/**
 	 * Calculates the length of the vector
 	 * 
@@ -114,10 +113,10 @@ public class Vector extends Point3D {
 	}
 
 	/**
-	 * Returns a vector
+	 * Returns a vector multiplied by a scalar
 	 * 
 	 * @param lambda
-	 * @return
+	 * @return new vector
 	 */
 	public Vector scale(double lambda) {
 		return new Vector(x.mult(lambda), y.mult(lambda), z.mult(lambda));
@@ -147,7 +146,8 @@ public class Vector extends Point3D {
 	}
 
 	/**
-	 * Normalises the vector. That is, creates a new vector of length=1 in the same direction
+	 * Normalises the vector. That is, creates a new vector of length=1 in the same
+	 * direction
 	 * 
 	 * @return new normalised vector
 	 */

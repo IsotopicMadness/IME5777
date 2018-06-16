@@ -38,15 +38,16 @@ public class Sphere extends RadialGeometry {
 
 	@Override
 	/**
+	 * Calculates and returns the points where the given ray crosses the Sphere
+	 * 
 	 * @param ray
-	 *            Calculates and returns the points where the given ray crosses the
-	 *            Sphere
+	 * @return Intersections map
 	 */
 	public Map<Intersectable, List<Point3D>> findIntersection(Ray ray) {
 		Map<Intersectable, List<Point3D>> result = new HashMap<Intersectable, List<Point3D>>();
 		Point3D p0 = ray.getLocation();
 		Vector v = ray;
-		
+		Vector u = _center.subtract(p0);
 		// ...
 		if (_center.equals(p0)) {
 			List<Point3D> array = new ArrayList<>();
@@ -54,9 +55,7 @@ public class Sphere extends RadialGeometry {
 			result.put(this, array);
 			return result;
 		}
-
-		Vector u = _center.subtract(p0);
-		double tm = (u.dotProduct(v));
+		double tm = (v.dotProduct(u));
 		double d = Math.sqrt(u.getLength2() - tm * tm);
 
 		// If d is greater than radius than the ray misses our sphere (i.e. goes
@@ -74,19 +73,18 @@ public class Sphere extends RadialGeometry {
 			result.put(this, array);
 			return result;
 		}
-
-		double t1 = tm + th;
-		double t2 = tm - th;
+		double t1 = tm - th;
+		double t2 = tm + th;
 		// ...
 		Coordinate x = new Coordinate(t1);
 		Coordinate y = new Coordinate(t2);
 		if (x.getNum() > 0 || y.getNum() > 0) {
 			List<Point3D> array = new ArrayList<>();
 			// ...
-			if (t1 > 0)
-				array.add(ray.getLocation().add(ray.getDirection().scale(t1)));
-			if (t2 > 0)
-				array.add(ray.getLocation().add(ray.getDirection().scale(t2)));
+			if (x.getNum() > 0)
+				array.add(p0.add(v.scale(x.getNum())));
+			if (y.getNum() > 0)
+				array.add(p0.add(v.scale(y.getNum())));
 			result.put(this, array);
 		}
 

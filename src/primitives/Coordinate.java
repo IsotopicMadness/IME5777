@@ -74,7 +74,7 @@ public class Coordinate {
 	/**
 	 * Adds a given value to the Coordinate. However if the value is smaller than the pre-determined accuracy it won't be added and will be treated as a zero
 	 * @param other
-	 * @return
+	 * @return double
 	 */
 	private double _add(double other) {
 		int otherExp = getExponent(_x);
@@ -95,7 +95,7 @@ public class Coordinate {
 	/**
 	 * Subtracts a given value from the Coordinate. However if the value is smaller than the pre-determined accuracy it won't be subtracted and will be treated as a zero.
 	 * @param other
-	 * @return
+	 * @return double
 	 */
 	private double _subtract(double other) {
 		int otherExp = getExponent(other);
@@ -117,7 +117,7 @@ public class Coordinate {
 	 * multiplies the Coordinate's value by the given number
 	 * 
 	 * @param num
-	 * @return
+	 * @return double
 	 */
 	private double _mult(double num) {
 		int deltaExp = getExponent(num - 1);
