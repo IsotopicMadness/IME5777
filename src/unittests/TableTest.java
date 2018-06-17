@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Render;
+package unittests;
 
-import Elements.AmbientLight;
-import Elements.Camera;
-import Elements.SpotLight;
-import Geometries.Cylinder;
-import Geometries.Plane;
-import Geometries.Sphere;
-import Geometries.Triangle;
-import Primitives.Material;
-import Primitives.Point_3D;
-import Primitives.Vector;
-import Scene.Scene;
+import elements.AmbientLight;
+import elements.Camera;
+import elements.SpotLight;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
+import primitives.Material;
+import primitives.Point3D;
+import primitives.Vector;
+import scene.Scene;
 import java.awt.Color;
 import org.junit.Test;
 
@@ -23,24 +22,24 @@ import org.junit.Test;
  *
  * @author david salmon
  */
-public class Table {
+public class TableTest {
 
     @Test
     public void TableMaker() throws Exception {
         Scene scene = new Scene(new AmbientLight(Color.BLACK, 0.1), Color.black, new Camera(), 49);
-        scene.setCamera(new Camera(new Point_3D(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, -1)));
+        scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, -1)));
 
 // the surface
-        Triangle triangle1 = new Triangle(new Point_3D(-100, 50, -60),
-                new Point_3D(100, -50, -60),
-                new Point_3D(200, 50, -60));
+        Triangle triangle1 = new Triangle(new Point3D(-100, 50, -60),
+                new Point3D(100, -50, -60),
+                new Point3D(200, 50, -60));
 
-        Triangle triangle2 = new Triangle(new Point_3D(-100, 50, -60),
-                new Point_3D(100, -50, -60),
-                new Point_3D(-200, -50, -60));
+        Triangle triangle2 = new Triangle(new Point3D(-100, 50, -60),
+                new Point3D(100, -50, -60),
+                new Point3D(-200, -50, -60));
 
-        triangle1.setEmmission(new Color(0, 0, 255));
-        triangle2.setEmmission(new Color(0, 0, 255));
+        triangle1.setmmission(new Color(0, 0, 255));
+        triangle2.setmmission(new Color(0, 0, 255));
 
 //the sides of the table
         //the staright side
