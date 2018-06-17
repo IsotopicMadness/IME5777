@@ -13,6 +13,7 @@ import scene.Scene;
 public class Render {
 	private Scene _scene;
 	private ImageWriter _imageWriter;
+	private final int MAX_LEVEL = 3;
 
 	public Render(ImageWriter _imageWriter, Scene _scene) {
 		this._scene = new Scene(_scene);
@@ -20,6 +21,10 @@ public class Render {
 	}
 
 	/************** operations *******/
+	private Color calcColor(Geometry geo, Point3D point, Ray ray) {
+		return calcColor(geo, point, ray, MAX_LEVEL, 1);
+	}
+
 	/**
 	 * calculates the exact color of the point
 	 * 
@@ -38,12 +43,13 @@ public class Render {
 		if (geo == null || point == null)
 			throw new IllegalArgumentException("Geometry or Point not found");
 
-		Color color = new Color(_scene.getAmbientLight().getIntensity().add(geo.getEmmission()));
+		Color color = _scene.getAmbientLight().getIntensity();
+		color = color.add(geo.getEmmission());
 
 		Vector v = inRay.getDirection();
 		Vector n = geo.getNormal(point);
-		if (Coordinate.isZero(v.dotProduct(n)))
-			return _scene.getBackground();
+		// if (Coordinate.isZero(v.dotProduct(n)))
+		// return _scene.getBackground();
 		int nShininess = geo.getShininess();
 		double kd = geo.getKd();
 		double ks = geo.getKs();
@@ -227,8 +233,8 @@ public class Render {
 					}
 
 					_imageWriter.writePixel(i, j, calcColor(geo, p,
-							new Ray(p.subtract(_scene.getCamera().getP0()).normalize(), _scene.getCamera().getP0()), 5,
-							1.0).getColor());
+							new Ray(p.subtract(_scene.getCamera().getP0()).normalize(), _scene.getCamera().getP0()),
+							MAX_LEVEL, 1.0).getColor());
 				}
 			}
 		}

@@ -1,61 +1,73 @@
 package unittests;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import org.junit.Test;
 
 import elements.AmbientLight;
 import elements.Camera;
-import elements.LightSource;
 import elements.PointLight;
 import elements.SpotLight;
-import geometries.Geometries;
-import geometries.Sphere;
-import geometries.Triangle;
-import primitives.Color;
-import primitives.Material;
-import primitives.Point3D;
-import primitives.Vector;
+import geometries.*;
+import primitives.*;
 import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
 
 public class ShadowTest {
-
 	@Test
-	public void recursiveTest() {
+	public void ShadowTest() {
+		int X = 500;
+		int Y = 500;
+		Date d = new Date();
+		ImageWriter _imageWriter = new ImageWriter("ShadowTest", X, Y, X, Y);
+		Scene _scene = new Scene("s");
+		_scene.setScreenDistance(50);
+		_scene.setBackground(new Color(0, 0, 0));
+		_scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, -1)));
+		_scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), 1));
 
-		Scene scene = new Scene("recursive1");
-		scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, -1)));
-		scene.setScreenDistance(300);
-		scene.setBackground(new Color(0, 0, 0));
-		scene.setAmbientLight(new AmbientLight());
+		_scene.addLightSource(new PointLight(new Point3D(-6, -6, 0), 1, 0, 0, new Color(255, 175, 255)));
+		_scene.addGeometry(new Sphere(new Point3D(0, 0, -6), 3, new Color(30, 0, 100), new Material(1, 1, 10, 0, 0)));
+		_scene.addGeometry(new Plane(new Point3D(0, 0, -10), new Vector(0, 0, -1), new Color(0, 0, 0),
+				new Material(1, 1, 10, 0, 0)));
+		// _scene.addGeometry(new Triangle(new Point3D(0, -4, -4), new Point3D(4, 0,
+		// -4),new Point3D(4, -4, -4), new Color(30,100,30), new Material(1,1,1)));
+		// _scene.addGeometry(new Triangle(new Point3D(0, -4, -4), new Point3D(4, 0,
+		// -4),new Point3D(4, -4, -4), new Color(30,100,30), new Material(1,1,1)));
 
-		Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1000), 500, new Color(0, 0, 100),
-				new Material(0.5, 0.3, 10, 0, 0.5));
+		Render r = new Render(_imageWriter, _scene);
 
-		scene.addGeometry(sphere);
-		Sphere sphere2 = new Sphere(new Point3D(0.0, 0.0, -1000), 250, new Color(100, 20, 20),
-				new Material(0.4, 0.4, 10, 0.5, 0));
-		scene.addGeometry(sphere2);
-
-		List<LightSource> lights = new ArrayList<LightSource>();
-		scene.setLights(lights);
-		lights.add(new SpotLight(new Point3D(-200, -200, -150), 0.1, 0.01, 0.0025, new Color(255, 100, 100),
-				new Vector(2, 2, -3).scale(-1)));
-		//lights.add(new PointLight(new Point3D(-200,-200,-150), 0.10, 0.01, 0.0025, new Color(255, 100, 100)));
-
-		ImageWriter imageWriter = new ImageWriter("Recursive Test", 500, 500, 500, 500);
-
-		Render render = new Render(imageWriter, scene);
-
-		render.renderImage();
-		render.getImageWriter().writeToImage();
-		;
+		r.renderImage();
+		r.getImageWriter().writeToImage();
+		Date d2 = new Date();
+		System.out.println(d2.getTime() - d.getTime());
+		System.out.println("Finish");
 
 	}
 
+	@Test
+	public void shadowTest() {
+		Scene _scene = new Scene("Test shadow");
+		_scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, -1, 0), new Vector(0, 0, 1)));
+		_scene.setScreenDistance(100);
+		_scene.setBackground(new Color(0, 0, 0));
+		_scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), 1));
+		Sphere sphere = new Sphere(new Point3D(0, 0, 80), 60, new Color(241, 6, 151),
+				new Material(0.9, 0.8, 300, 0, 0));
+		Triangle triangle1 = new Triangle(new Point3D(-250, -250, 120), new Point3D(-250, 250, 120),
+				new Point3D(250, -250, 120), new Color(0, 0, 0), new Material(0.9, 0.8, 100, 0, 0));
+		Triangle triangle2 = new Triangle(new Point3D(250, 250, 120), new Point3D(-250, 250, 120),
+				new Point3D(250, -250, 120), new Color(0, 0, 0), new Material(0.9, 0.8, 100, 0, 0));
+		_scene.addGeometry(sphere);
+		_scene.addGeometry(triangle1);
+		_scene.addGeometry(triangle2);
+		_scene.addLightSource(
+				new SpotLight(new Point3D(25, 0, 0), 1, 0, 0, new Color(255, 255, 255), new Vector(-25, 0, 80)));
+		ImageWriter imageWriter = new ImageWriter("shadow test", 500, 500, 500, 500);
+		Render testRender = new Render(imageWriter, _scene);
+		testRender.renderImage();
+		testRender.getImageWriter().writeToImage();
+
+	}
 }

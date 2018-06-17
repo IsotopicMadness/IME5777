@@ -189,7 +189,7 @@ public class Coordinate {
 	 * Checks if given number is Zero or very close to it.
 	 * 
 	 * @param number
-	 * @return
+	 * @return boolean
 	 */
 	public static boolean isZero(double number) {
 		return getExponent(number) < ACCURACY;
