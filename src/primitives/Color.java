@@ -108,7 +108,7 @@ public class Color {
 	 */
 	public Color scale(double exp) {
 		if (exp < 0 /* || exp > 1 */)
-			throw new ArithmeticException("Scaling color with a value larger than 0");
+			throw new ArithmeticException("Scaling color with a value smaller than 0");
 		Color re = new Color(_red * exp, _green * exp, _blue * exp);
 		return re;
 	}

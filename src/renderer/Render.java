@@ -49,7 +49,6 @@ public class Render {
 		double ks = geo.getKs();
 		for (LightSource ls : _scene.getLights()) {
 			Vector l = ls.getL(point);
-			// not working
 			if (n.dotProduct(l) * n.dotProduct(v) > 0) {
 				double o = occluded(l, geo, point);
 				if (!Coordinate.isZero(o * k)) {
