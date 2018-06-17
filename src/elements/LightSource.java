@@ -2,7 +2,7 @@
  * 
  */
 package elements;
-
+import java.util.List;
 import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
@@ -23,4 +23,6 @@ public interface LightSource {
 	 * @return
 	 */
 	public Vector getD(Point3D p);
+	
+	public List<LightSource> returnMultipleLights();
 }
