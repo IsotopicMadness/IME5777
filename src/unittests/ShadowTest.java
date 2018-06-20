@@ -27,7 +27,7 @@ public class ShadowTest {
 		_scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, -1)));
 		_scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), 1));
 
-		_scene.addLightSource(new PointLight(new Point3D(-6, -6, 0), 1, 0, 0, new Color(255, 175, 255)));
+		_scene.addLightSource(new PointLight(new Point3D(-6, -6, 0), 1, 0, 0, new Color(255, 175, 255), 10));
 		_scene.addGeometry(new Sphere(new Point3D(0, 0, -6), 3, new Color(30, 0, 100), new Material(1, 1, 10, 0, 0)));
 		_scene.addGeometry(new Plane(new Point3D(0, 0, -10), new Vector(0, 0, -1), new Color(0, 0, 0),
 				new Material(1, 1, 10, 0, 0)));
@@ -63,7 +63,7 @@ public class ShadowTest {
 		_scene.addGeometry(triangle1);
 		_scene.addGeometry(triangle2);
 		_scene.addLightSource(
-				new SpotLight(new Point3D(25, 0, 0), 1, 0, 0, new Color(255, 255, 255), new Vector(-25, 0, 80)));
+				new SpotLight(new Point3D(25, 0, 0), 1, 0, 0, new Color(255, 255, 255).scale(0.5), new Vector(-25, 0, 80), 30));
 		ImageWriter imageWriter = new ImageWriter("shadow test", 500, 500, 500, 500);
 		Render testRender = new Render(imageWriter, _scene);
 		testRender.renderImage();

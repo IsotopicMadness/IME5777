@@ -1,6 +1,8 @@
 package renderer;
 
 import elements.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ public class Render {
 	private Scene _scene;
 	private ImageWriter _imageWriter;
 	private final int MAX_LEVEL = 3;
+	private final int SAMPLES = 8;
 	private List<LightSource> softShadows;
 
 	public Render(ImageWriter _imageWriter, Scene _scene) {
@@ -56,8 +59,10 @@ public class Render {
 		double ks = geo.getKs();
 		for (LightSource ls : _scene.getLights()) {
 			Vector l = ls.getL(point);
+			// occlusion
 			if (n.dotProduct(l) * n.dotProduct(v) > 0) {
 				double o = occluded(l, geo, point);
+				o = softShadowing(o, l, point);
 				if (!Coordinate.isZero(o * k)) {
 					Color lightIntensity = new Color(ls.getIntensity(point)).scale(o);
 					color.add(calcDiffusive(kd, l, n, lightIntensity),
@@ -106,6 +111,32 @@ public class Render {
 		color.add(reflected, refracted);
 		return color;
 
+	}
+
+	/**
+	 * calculates the value of o after sampling the light sources
+	 * 
+	 * @param o
+	 * @return double
+	 */
+	private double softShadowing(double o, Vector normal, Point3D point) {
+
+		normal = normal.scale(-1);
+		List<Point3D> lightPoints = new ArrayList<Point3D>();
+		for (LightSource l : _scene.getLights()) {
+			lightPoints.addAll(l.lightSamples(normal));
+		}
+		int counter = 0;
+		for (Point3D p : lightPoints) {
+			Map<Intersectable, List<Point3D>> intersectionPoints = _scene.getGeometries()
+					.findIntersection(new Ray(p.subtract(point).normalize(), point));
+			for (Map.Entry<Intersectable, List<Point3D>> entry : intersectionPoints.entrySet())
+				counter++;
+		}
+		double coveragePercentage = 1-(counter / lightPoints.size());
+		if (coveragePercentage > 1)
+			throw new IllegalArgumentException("Counter can't be bigger than points");
+		return o * coveragePercentage;
 	}
 
 	/**
@@ -201,9 +232,11 @@ public class Render {
 	}
 
 	/**
-	 * Renders every the image
+	 * Renders the image
 	 */
 	public void renderImage() {
+
+		// softShadowsLightGenerator(SAMPLES);
 
 		for (int i = 0; i < _imageWriter.getNx(); ++i) {
 
@@ -278,7 +311,9 @@ public class Render {
 		}
 
 	}
-	private void softShadowsLightGenerator() {
-		
-	}
+	/*
+	 * private void softShadowsLightGenerator(int samples) { for(LightSource ls :
+	 * _scene.getLights()) { softShadows = new ArrayList<>();
+	 * softShadows.addAll(ls.returnMultipleLights(samples)); } }
+	 */
 }

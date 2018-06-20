@@ -82,7 +82,7 @@ public class Point3D extends Point2D {
 	 * Adds a given vector and returns a point
 	 * 
 	 * @param other
-	 * @return
+	 * @return new Vector
 	 */
 	public Point3D add(Vector other) {
 		return new Point3D(this.x.add(other.x), this.getY().add(other.y), this.z.add(other.z));

@@ -104,7 +104,7 @@ public class Color {
 	 * scales the color by an exponent
 	 * 
 	 * @param exp
-	 * @return
+	 * @return new Color
 	 */
 	public Color scale(double exp) {
 		if (exp < 0 /* || exp > 1 */)
@@ -117,7 +117,7 @@ public class Color {
 	 * Divides the color by an exponent
 	 * 
 	 * @param exp
-	 * @return
+	 * @return new color
 	 */
 	// reduce color with exponent
 	public Color reduce(double exp) {
