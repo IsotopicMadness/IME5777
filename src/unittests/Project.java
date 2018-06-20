@@ -27,7 +27,7 @@ public class Project {
 		Scene _scene = new Scene("Hills");
 		_scene.setScreenDistance(0.9);
 		_scene.setBackground(new Color(0, 0, 0));
-		_scene.setCamera(new Camera(new Point3D(3.3854, -6.50764, 0.991898), new Vector(0, 0, 1),
+		_scene.setCamera(new Camera(new Point3D(7.48113, -6.50764, 0.991898), new Vector(0, 0, 1),
 				new Vector(-1, 1, 0).normalize()));
 		_scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), 1));
 
