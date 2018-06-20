@@ -20,8 +20,8 @@ public class Project {
 
 	@Test
 	public void main() {
-		int X = 1080;
-		int Y = 1920;
+		int X = 1920;
+		int Y = 1080;
 		Date d = new Date();
 		ImageWriter _imageWriter = new ImageWriter("Project", X, Y, X, Y);
 		Scene _scene = new Scene("Hills");
