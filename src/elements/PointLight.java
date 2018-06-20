@@ -82,20 +82,8 @@ public class PointLight extends Light implements LightSource {
 				: -d / normal.getZ().getNum();
 
 		Vector v1, v2;
-		if (xI == null && yI != null && zI != null) {
-			v1 = new Point3D(0, 0, zI).subtract(new Point3D(0, yI, 0)).normalize();
-			v2 = new Point3D(0, yI, 0).subtract(_position).normalize();
-		}
-		if (xI != null && yI == null && zI != null) {
-			v1 = new Point3D(0, 0, zI).subtract(new Point3D(xI, 0, 0)).normalize();
-			v2 = new Point3D(0, xI, 0).subtract(_position).normalize();
-		}
-		if (xI != null && yI != null && zI == null) {
-			v1 = new Point3D(xI, 0, 0).subtract(new Point3D(0, yI, 0)).normalize();
-			v2 = new Point3D(0, yI, 0).subtract(_position).normalize();
-		}
-		if (xI != null && yI == null && zI == null || xI == null && yI != null && zI == null
-				|| xI == null && yI == null && zI != null || xI == null && yI == null && zI == null) {
+
+		if (xI == null || yI == null || zI == null) {
 			samples.add(_position.add(new Vector(1, 1, 1)));
 			samples.add(_position.add(new Vector(-1, -1, -1)));
 			samples.add(_position.add(new Vector(1, -1, -1)));

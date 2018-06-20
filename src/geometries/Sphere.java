@@ -44,51 +44,34 @@ public class Sphere extends RadialGeometry {
 	 * @return Intersections map
 	 */
 	public Map<Intersectable, List<Point3D>> findIntersection(Ray ray) {
-		Map<Intersectable, List<Point3D>> result = new HashMap<Intersectable, List<Point3D>>();
-		Point3D p0 = ray.getLocation();
-		Vector v = ray;
-		Vector u = _center.subtract(p0);
-		// ...
-		if (_center.equals(p0)) {
-			List<Point3D> array = new ArrayList<>();
-			array.add(p0.add(v.scale(_radius)));
-			result.put(this, array);
-			return result;
-		}
-		double tm = (v.dotProduct(u));
-		double d = Math.sqrt(u.getLength2() - tm * tm);
+		Map<Intersectable, List<Point3D>> intersections = new HashMap<Intersectable, List<Point3D>>();
+		ArrayList<Point3D> arrPoints = new ArrayList<>();
+		Vector u = this._center.subtract(ray);
+		double tm = ray.dotProduct(u);
+		double dSquared = u.dotProduct(u) - (tm * tm);
+		double temp = this._radius * this._radius - dSquared;
+		if (temp < 0)
+			return new HashMap<Intersectable, List<Point3D>>();
+		double th = Math.sqrt(temp);
 
-		// If d is greater than radius than the ray misses our sphere (i.e. goes
-		// outside)
-		if (d > _radius)
-			return result;
-
-		double th = Math.sqrt(_radius * _radius - d * d);
-		// if th=0 than the line of the ray is tangent to our sphere and there will be
-		// single
-		// intersection point
 		if (Coordinate.isZero(th)) {
-			List<Point3D> array = new ArrayList<>();
-			array.add(p0.add(v.scale(tm)));
-			result.put(this, array);
-			return result;
-		}
-		double t1 = tm - th;
-		double t2 = tm + th;
-		// ...
-		Coordinate x = new Coordinate(t1);
-		Coordinate y = new Coordinate(t2);
-		if (x.getNum() > 0 || y.getNum() > 0) {
-			List<Point3D> array = new ArrayList<>();
-			// ...
-			if (x.getNum() > 0)
-				array.add(p0.add(v.scale(x.getNum())));
-			if (y.getNum() > 0)
-				array.add(p0.add(v.scale(y.getNum())));
-			result.put(this, array);
+			if (!Coordinate.isZero(tm))
+				arrPoints.add(ray.getLocation().add(ray.getDirection().scale(tm)));
+			else
+				return intersections;
+		} else {
+			double t1 = tm + th;
+			double t2 = tm - th;
+			if (t1 > 0 && !Coordinate.isZero(t1))
+				arrPoints.add(ray.getLocation().add(ray.getDirection().scale(t1)));
+			if (t2 > 0 && !Coordinate.isZero(t2))
+				arrPoints.add(ray.getLocation().add(ray.getDirection().scale(t2)));
 		}
 
-		return result;
+		if (arrPoints.size() != 0)
+			intersections.put(this, arrPoints);
+
+		return intersections;
 	}
 
 	@Override

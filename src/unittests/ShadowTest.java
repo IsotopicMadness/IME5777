@@ -56,14 +56,14 @@ public class ShadowTest {
 		Sphere sphere = new Sphere(new Point3D(0, 0, 80), 60, new Color(241, 6, 151),
 				new Material(0.9, 0.8, 300, 0, 0));
 		Triangle triangle1 = new Triangle(new Point3D(-250, -250, 120), new Point3D(-250, 250, 120),
-				new Point3D(250, -250, 120), new Color(0, 0, 0), new Material(0.9, 0.8, 100, 0, 0));
+				new Point3D(250, -250, 120), new Color(0, 0, 0), new Material(0.9, 0.9, 100, 0, 0));
 		Triangle triangle2 = new Triangle(new Point3D(250, 250, 120), new Point3D(-250, 250, 120),
-				new Point3D(250, -250, 120), new Color(0, 0, 0), new Material(0.9, 0.8, 100, 0, 0));
+				new Point3D(250, -250, 120), new Color(0, 0, 0), new Material(0.9, 0.9, 100, 0, 0));
 		_scene.addGeometry(sphere);
 		_scene.addGeometry(triangle1);
 		_scene.addGeometry(triangle2);
 		_scene.addLightSource(
-				new SpotLight(new Point3D(25, 0, 0), 1, 0, 0, new Color(255, 255, 255).scale(0.5), new Vector(-25, 0, 80), 30));
+				new SpotLight(new Point3D(25, 0, 0), 1, 0, 0, new Color(255, 255, 255).scale(0.25), new Vector(-25, 0, 80), 30));
 		ImageWriter imageWriter = new ImageWriter("shadow test", 500, 500, 500, 500);
 		Render testRender = new Render(imageWriter, _scene);
 		testRender.renderImage();
