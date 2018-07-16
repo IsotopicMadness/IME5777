@@ -7,7 +7,7 @@ import primitives.*;
  * 
  */
 public abstract class Geometry extends Material implements Intersectable {
-	private Color _emmission;
+	protected Color _emmission;
 
 	/**
 	 * returns a normal Vector. Not supposed to be implemented.

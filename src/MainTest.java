@@ -70,10 +70,10 @@ public class MainTest {
 
 		System.out.println(t1.toString() + "\n" + t2.toString() + "\n" + t3.toString());
 
-		Triangle tri = new Triangle(t1, t2, t3, new Color());
-		Plane pl = new Plane(t1, v, new Color());
-		Sphere sp = new Sphere(t3, 5.0, new Color());
-		Cylinder cyl = new Cylinder(5.0, t2, r, new Color());
+		Triangle tri = new Triangle(t1, t2, t3, new Color(), new Material(1,0,0,0,0));
+		Plane pl = new Plane(t1, v, new Color(), new Material(1,0,0,0,0));
+		Sphere sp = new Sphere(t3, 5.0, new Color(), new Material(1,0,0,0,0));
+		Cylinder cyl = new Cylinder(5.0, r, new Color(), new Material(1,0,0,0,0));
 
 		System.out.println(tri.toString() + "\n" + pl.toString() + "\n" + sp.toString() + "\n" + cyl.toString());
 		/**

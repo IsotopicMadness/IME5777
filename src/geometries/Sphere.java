@@ -46,17 +46,17 @@ public class Sphere extends RadialGeometry {
 	public Map<Intersectable, List<Point3D>> findIntersection(Ray ray) {
 		Map<Intersectable, List<Point3D>> intersections = new HashMap<Intersectable, List<Point3D>>();
 		ArrayList<Point3D> arrPoints = new ArrayList<>();
-		Vector u = this._center.subtract(ray);
-		double tm = ray.dotProduct(u);
+		Vector u = this._center.subtract(ray.getLocation());
+		double tm = ray.getDirection().dotProduct(u);
 		double dSquared = u.dotProduct(u) - (tm * tm);
 		double temp = this._radius * this._radius - dSquared;
 		if (temp < 0)
-			return new HashMap<Intersectable, List<Point3D>>();
+			return new HashMap<Intersectable,List<Point3D>>();
 		double th = Math.sqrt(temp);
 
 		if (Coordinate.isZero(th)) {
-			if (!Coordinate.isZero(tm))
-				arrPoints.add(ray.getLocation().add(ray.getDirection().scale(tm)));
+			if(!Coordinate.isZero(tm))
+			arrPoints.add(ray.getLocation().add(ray.getDirection().scale(tm)));
 			else
 				return intersections;
 		} else {
@@ -67,8 +67,8 @@ public class Sphere extends RadialGeometry {
 			if (t2 > 0 && !Coordinate.isZero(t2))
 				arrPoints.add(ray.getLocation().add(ray.getDirection().scale(t2)));
 		}
-
-		if (arrPoints.size() != 0)
+		
+		if(arrPoints.size() != 0)
 			intersections.put(this, arrPoints);
 
 		return intersections;

@@ -27,7 +27,7 @@ public class ShadowTest {
 		_scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, -1)));
 		_scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), 1));
 
-		_scene.addLightSource(new PointLight(new Point3D(-6, -6, 0), 1, 0, 0, new Color(255, 175, 255), 10));
+		_scene.addLightSource(new PointLight(new Point3D(-4.53484, -5.64719, 4.69364), 1, 0, 0, new Color(255, 175, 255), 10));
 		_scene.addGeometry(new Sphere(new Point3D(0, 0, -6), 3, new Color(30, 0, 100), new Material(1, 1, 10, 0, 0)));
 		_scene.addGeometry(new Plane(new Point3D(0, 0, -10), new Vector(0, 0, -1), new Color(0, 0, 0),
 				new Material(1, 1, 10, 0, 0)));

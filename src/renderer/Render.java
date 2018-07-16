@@ -129,12 +129,12 @@ public class Render {
 		int counter = 0;
 		for (Point3D p : lightPoints) {
 			Map<Intersectable, List<Point3D>> intersectionPoints = _scene.getGeometries()
-					.findIntersection(new Ray(p.subtract(point).normalize(), point));
-			for (Map.Entry<Intersectable, List<Point3D>> entry : intersectionPoints.entrySet())
+					.findIntersection(new Ray(p.subtract(point), point));
+			if (intersectionPoints.isEmpty())
 				counter++;
 		}
-		double coveragePercentage = 1-(counter / lightPoints.size());
-		if (coveragePercentage > 1)
+		double coveragePercentage = counter / lightPoints.size();
+		if (coveragePercentage > 1 || coveragePercentage < 0)
 			throw new IllegalArgumentException("Counter can't be bigger than points");
 		return o * coveragePercentage;
 	}
@@ -237,10 +237,9 @@ public class Render {
 	public void renderImage() {
 
 		// softShadowsLightGenerator(SAMPLES);
+		for (int j = 0; j < _imageWriter.getNy(); ++j) {
+			for (int i = 0; i < _imageWriter.getNx(); ++i) {
 
-		for (int i = 0; i < _imageWriter.getNx(); ++i) {
-
-			for (int j = 0; j < _imageWriter.getNy(); ++j) {
 				Ray ray = _scene.getCamera().constructRayThroughPixel(_imageWriter.getNx(), _imageWriter.getNy(), i, j,
 						_scene.getScreenDistance(), _imageWriter.getWidth(), _imageWriter.getHeight());
 
