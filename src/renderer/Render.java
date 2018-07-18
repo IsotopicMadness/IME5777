@@ -235,6 +235,26 @@ public class Render {
 	 * Renders the image
 	 */
 	public void renderImage() {
+		for (int i = 0; i < _imageWriter.getNx(); i++) {
+			for (int j = 0; j < _imageWriter.getNy(); j++) {
+				Ray ray = _scene.getCamera().constructRayThroughPixel(_imageWriter.getNx(), _imageWriter.getNy(), i, j,
+						_scene.getScreenDistance(), _imageWriter.getWidth(), _imageWriter.getHeight());
+				Map<Intersectable, List<Point3D>> intersectionsPoints = new HashMap<Intersectable, List<Point3D>>(
+						_scene.getGeometries().findIntersection(ray));
+				Map<Intersectable, Point3D> closestPoint = getClosestPoint(intersectionsPoints);
+				if (intersectionsPoints.values().isEmpty() || intersectionsPoints == null || closestPoint == null)
+					_imageWriter.writePixel(i, j, _scene.getBackground().getColor());
+				else {
+					Geometry geom = (Geometry) closestPoint.keySet().toArray()[0];
+					Point3D poi = closestPoint.get(geom);
+					_imageWriter.writePixel(i, j, calcColor(geom, poi, ray).getColor()); // calcColor(closestPpoint)
+				}
+			}
+			System.err.println(i + "/" + _imageWriter.getNx());
+		}
+
+	}
+	/*public void renderImage() {
 
 		// softShadowsLightGenerator(SAMPLES);
 		for (int j = 0; j < _imageWriter.getNy(); ++j) {
@@ -271,7 +291,7 @@ public class Render {
 				}
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * Finds the closest point on a geometry from list of points of ray intersection
