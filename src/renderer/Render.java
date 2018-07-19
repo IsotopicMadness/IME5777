@@ -133,7 +133,7 @@ public class Render {
 			if (intersectionPoints.isEmpty())
 				counter++;
 		}
-		double coveragePercentage = counter / lightPoints.size();
+		double coveragePercentage = (double)counter / (double)lightPoints.size();
 		if (coveragePercentage > 1 || coveragePercentage < 0)
 			throw new IllegalArgumentException("Counter can't be bigger than points");
 		return o * coveragePercentage;

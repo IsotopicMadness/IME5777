@@ -84,14 +84,14 @@ public class PointLight extends Light implements LightSource {
 		Vector v1, v2;
 
 		if (xI == null || yI == null || zI == null) {
-			samples.add(_position.add(new Vector(1, 1, 1)));
-			samples.add(_position.add(new Vector(-1, -1, -1)));
-			samples.add(_position.add(new Vector(1, -1, -1)));
-			samples.add(_position.add(new Vector(-1, 1, -1)));
-			samples.add(_position.add(new Vector(-1, -1, 1)));
-			samples.add(_position.add(new Vector(-1, 1, 1)));
-			samples.add(_position.add(new Vector(1, -1, 1)));
-			samples.add(_position.add(new Vector(1, 1, -1)));
+			samples.add(_position.add(new Vector(0.01, 0.01, 0.01)));
+			samples.add(_position.add(new Vector(-0.01, -0.01, -0.01)));
+			samples.add(_position.add(new Vector(0.01, -0.01, -0.01)));
+			samples.add(_position.add(new Vector(-0.01, 0.01, -0.01)));
+			samples.add(_position.add(new Vector(-0.01, -0.01, 0.01)));
+			samples.add(_position.add(new Vector(-0.01, 0.01, 0.01)));
+			samples.add(_position.add(new Vector(0.01, -0.01, 0.01)));
+			samples.add(_position.add(new Vector(0.01, 0.01, -0.01)));
 			return samples;
 		}
 		Point3D _1 = new Point3D(0, 0, zI);
