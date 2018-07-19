@@ -168,30 +168,57 @@ public class Scene {
 	public Geometries getObjects() {
 		return _objects;
 	}
-
+/**
+ * 
+ * @param objects
+ */
 	public void setObjects(ArrayList<Geometry> objects) {
 		this._objects = new Geometries();
 		for (Geometry geo : objects)
 			this._objects.add(geo);
 	}
-
+/**
+ * 
+ * @return
+ */
 	public AmbientLight getAmbientLight() {
+		/**
+		 * this method gets the ambient light
+		 * and that's all it does.
+		 */
 		return _ambientLight;
 	}
-
+/**
+ * sets the ambient light
+ * 
+ * @param ambientLight
+ */
 	public void setAmbientLight(AmbientLight ambientLight) {
 		this._ambientLight = ambientLight;
 	}
 
+	/**
+	 * gets the geometries
+	 * 
+	 * @return
+	 */
 	public Geometries getGeometries() {
 
 		return _objects;
 	}
-
+/**
+ * sets the geometries
+ * 
+ * @param geometries
+ */
 	public void setGeomtries(Geometries geometries) {
 		_objects = geometries;
 	}
-
+/**
+ * gets the lights
+ * 
+ * @return
+ */
 	public List<LightSource> getLights() {
 		return _lights;
 	}
@@ -205,6 +232,12 @@ public class Scene {
 		_lights = lights;
 	}
 
+	/**
+	 * finds the ray intersections
+	 * 
+	 * @param ray
+	 * @return
+	 */
 	public Map<Intersectable, List<Point3D>> findRayIntersections(Ray ray) {
 
 		return _objects.findIntersection(ray);
