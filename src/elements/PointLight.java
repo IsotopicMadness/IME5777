@@ -68,7 +68,10 @@ public class PointLight extends Light implements LightSource {
 	 * 
 	 * }
 	 */
-
+/**
+ * @param normal
+ * @return 
+ * */
 	public List<Point3D> lightSamples(Vector normal) {
 		normal = normal.normalize();
 		List<Point3D> samples = new ArrayList<>();
@@ -110,21 +113,23 @@ public class PointLight extends Light implements LightSource {
 		samples.add(new Point3D(_position.add(v1.scale(-_radius / 2))));
 		samples.add(new Point3D(_position.add(v2.scale(_radius / 2))));
 		samples.add(new Point3D(_position.add(v2.scale(-_radius / 2))));
-		samples.add(new Point3D(_position.add(v1.scale(_radius * Math.sin(45)).add(v2.scale(_radius * Math.cos(45))))));
+		double _radiusCos =_radius * Math.cos(45);
+		double _radiusSin =_radius * Math.sin(45);
+		samples.add(new Point3D(_position.add(v1.scale(_radiusSin).add(v2.scale(_radiusCos)))));
 		samples.add(
-				new Point3D(_position.add(v1.scale(-_radius * Math.sin(45)).add(v2.scale(_radius * Math.cos(45))))));
+				new Point3D(_position.add(v1.scale(-_radiusSin).add(v2.scale(_radiusCos)))));
 		samples.add(
-				new Point3D(_position.add(v1.scale(_radius * Math.sin(45)).add(v2.scale(-_radius * Math.cos(45))))));
+				new Point3D(_position.add(v1.scale(_radiusSin).add(v2.scale(-_radiusCos)))));
 		samples.add(
-				new Point3D(_position.add(v1.scale(-_radius * Math.sin(45)).add(v2.scale(-_radius * Math.cos(45))))));
+				new Point3D(_position.add(v1.scale(-_radiusSin).add(v2.scale(-_radiusCos)))));
 		samples.add(new Point3D(
-				_position.add(v1.scale(_radius * Math.sin(45) / 2).add(v2.scale(_radius * Math.cos(45) / 2)))));
+				_position.add(v1.scale(_radiusSin / 2).add(v2.scale(_radiusCos / 2)))));
 		samples.add(new Point3D(
-				_position.add(v1.scale(-_radius * Math.sin(45) / 2).add(v2.scale(_radius * Math.cos(45) / 2)))));
+				_position.add(v1.scale(-_radiusSin / 2).add(v2.scale(_radiusCos / 2)))));
 		samples.add(new Point3D(
-				_position.add(v1.scale(_radius * Math.sin(45) / 2).add(v2.scale(-_radius * Math.cos(45) / 2)))));
+				_position.add(v1.scale(_radiusSin/ 2).add(v2.scale(-_radiusCos / 2)))));
 		samples.add(new Point3D(
-				_position.add(v1.scale(-_radius * Math.sin(45) / 2).add(v2.scale(-_radius * Math.cos(45) / 2)))));
+				_position.add(v1.scale(-_radiusSin / 2).add(v2.scale(-_radiusCos / 2)))));
 		return samples;
 	}
 }
